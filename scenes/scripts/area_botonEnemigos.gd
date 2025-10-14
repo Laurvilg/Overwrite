@@ -1,13 +1,13 @@
 extends Area2D
 
+# ============================
+# 📌 VARIABLES DEL JUEGO
+# ============================
 var EnemyScene = preload("res://scenes/enemigo1/enemigo1.tscn")
 var zonas_completadas := {1: false, 2: false, 3: false, 4: false, 5: false, 6: false}
 var juego_finalizado := false
-
-# --- agrega este flag ---
 var puede_activar_nodo_central := false
-# --- shape_idx del nodo central (ajústalo si es otro número) ---
-var shape_idx_nodo_central := 0 # por defecto parece ser el último CollisionShape2D (ajusta el número según el orden en tu escena)
+var shape_idx_nodo_central := 0
 
 var zonas := {
 	1: {"max_enemigos": 3, "spawn": "Enemy1Spawn"},
@@ -23,55 +23,6 @@ var enemigos_vivos := {1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0}
 var enemigos_removidos := {1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0}
 var zona_activada := {1: false, 2: false, 3: false, 4: false, 5: false, 6: false}
 
-func _ready():
-	set_pickable(true)
-	print("Area2D lista. Esperando clic en shape_idx=1,2,3,4,5,6")
-
-func _input_event(viewport, event, shape_idx):
-	print("Input event recibido. shape_idx:", shape_idx, "zona_activada:", zona_activada)
-	if event is InputEventMouseButton and event.pressed:
-		# Si es una zona normal, maneja enemigos
-		if zonas.has(shape_idx) and !zona_activada[shape_idx]:
-			print("Zona activada por clic en shape_idx:", shape_idx)
-			zona_activada[shape_idx] = true
-			generar_un_enemigo(shape_idx)
-		# Si es el nodo central
-		elif shape_idx == shape_idx_nodo_central:
-			if puede_activar_nodo_central:
-				mostrar_pantalla_victoria()
-			else:
-				print("Aún no puedes activar el nodo central")
-
-func generar_un_enemigo(shape_idx):
-	var zona = zonas[shape_idx]
-	print("Intentando generar enemigo. generados:", enemigos_generados[shape_idx], "max:", zona["max_enemigos"])
-	if enemigos_generados[shape_idx] < zona["max_enemigos"]:
-		var root = get_parent().get_parent()
-		var spawn_marker = root.get_node(zona["spawn"])
-		print("Spawn marker encontrado:", spawn_marker)
-		print("Posición del marker:", spawn_marker.global_position if spawn_marker else "NO ENCONTRADO")
-		if spawn_marker:
-			var enemy_instance = EnemyScene.instantiate()
-			enemy_instance.global_position = spawn_marker.global_position
-			enemy_instance.connect("enemy_defeated", Callable(self, "_on_enemy_defeated").bind(shape_idx))
-			enemy_instance.connect("enemy_fully_removed", Callable(self, "_on_enemy_fully_removed").bind(shape_idx))
-			root.add_child(enemy_instance)
-			enemigos_generados[shape_idx] += 1
-			enemigos_vivos[shape_idx] += 1
-			print("Enemigo generado:", enemigos_generados[shape_idx], "Enemigos vivos:", enemigos_vivos[shape_idx])
-		else:
-			print("ERROR: No se encontró el marker", zona["spawn"], "Revisa la jerarquía y el nombre.")
-	else:
-		print("Ya se generaron todos los enemigos de esta zona.")
-
-func _on_enemy_defeated(shape_idx):
-	print("Señal enemy_defeated recibida en zona", shape_idx)
-	enemigos_vivos[shape_idx] -= 1
-	print("Enemigos vivos tras muerte:", enemigos_vivos[shape_idx])
-	if enemigos_generados[shape_idx] < zonas[shape_idx]["max_enemigos"]:
-		print("Generando el siguiente enemigo automáticamente en zona", shape_idx, "...")
-		generar_un_enemigo(shape_idx)
-
 var escenas_por_zona := {
 	1: preload("res://minijuego/juego.tscn"),
 	2: preload("res://pantallasPreguntas/preg1.tscn"),
@@ -81,36 +32,153 @@ var escenas_por_zona := {
 	6: preload("res://pantallasPreguntas/preg4.tscn"),
 }
 
+# ============================
+# 🌳 --- ÁRBOL BINARIO ---
+# ============================
+class Nodo:
+	var dato: Dictionary
+	var izq: Nodo = null
+	var der: Nodo = null
+	func _init(_dato: Dictionary):
+		dato = _dato
+
+var raiz: Nodo = null
+
+func agregar_nodo(dato: Dictionary) -> void:
+	var nuevo_nodo = Nodo.new(dato)
+	if raiz == null:
+		raiz = nuevo_nodo
+	else:
+		agregar_recursivo(raiz, nuevo_nodo)
+
+func agregar_recursivo(nodo: Nodo, nuevo: Nodo) -> void:
+	if nuevo.dato["valor"] < nodo.dato["valor"]:
+		if nodo.izq == null:
+			nodo.izq = nuevo
+		else:
+			agregar_recursivo(nodo.izq, nuevo)
+	else:
+		if nodo.der == null:
+			nodo.der = nuevo
+		else:
+			agregar_recursivo(nodo.der, nuevo)
+
+func buscar_nodo(valor: int) -> Nodo:
+	return _buscar_recursivo(raiz, valor)
+
+func _buscar_recursivo(nodo: Nodo, valor: int) -> Nodo:
+	if nodo == null:
+		return null
+	var actual_valor = nodo.dato["valor"]
+	if valor == actual_valor:
+		return nodo
+	elif valor < actual_valor:
+		return _buscar_recursivo(nodo.izq, valor)
+	else:
+		return _buscar_recursivo(nodo.der, valor)
+
+func cambiar_estado(valor: int, nuevo_estado: bool) -> bool:
+	var nodo = buscar_nodo(valor)
+	if nodo == null:
+		return false
+	nodo.dato["completado"] = nuevo_estado
+	return true
+
+func verificar_todos_completados(nodo: Nodo) -> bool:
+	if nodo == null:
+		return true
+	if not nodo.dato["completado"]:
+		return false
+	return verificar_todos_completados(nodo.izq) and verificar_todos_completados(nodo.der)
+
+
+# ============================
+# 🎮 --- LÓGICA DE JUEGO ---
+# ============================
+
+func _ready():
+	set_pickable(true)
+	print("Area2D lista. Esperando clic en shape_idx=1,2,3,4,5,6")
+
+	# Inicializar árbol con las zonas del juego
+	for zona_id in zonas.keys():
+		var nodo_data = {
+			"valor": zona_id,
+			"activado": false,
+			"completado": false
+		}
+		agregar_nodo(nodo_data)
+	print("Árbol ABB creado con zonas:", zonas.keys())
+
+
+func _input_event(viewport, event, shape_idx):
+	print("Input event recibido. shape_idx:", shape_idx, "zona_activada:", zona_activada)
+	if event is InputEventMouseButton and event.pressed:
+		if zonas.has(shape_idx) and !zona_activada[shape_idx]:
+			zona_activada[shape_idx] = true
+			generar_un_enemigo(shape_idx)
+		elif shape_idx == shape_idx_nodo_central:
+			if puede_activar_nodo_central:
+				mostrar_pantalla_victoria()
+			else:
+				print("Aún no puedes activar el nodo central")
+
+
+func generar_un_enemigo(shape_idx):
+	var zona = zonas[shape_idx]
+	if enemigos_generados[shape_idx] < zona["max_enemigos"]:
+		var root = get_parent().get_parent()
+		var spawn_marker = root.get_node(zona["spawn"])
+		if spawn_marker:
+			var enemy_instance = EnemyScene.instantiate()
+			enemy_instance.global_position = spawn_marker.global_position
+			enemy_instance.connect("enemy_defeated", Callable(self, "_on_enemy_defeated").bind(shape_idx))
+			enemy_instance.connect("enemy_fully_removed", Callable(self, "_on_enemy_fully_removed").bind(shape_idx))
+			root.add_child(enemy_instance)
+			enemigos_generados[shape_idx] += 1
+			enemigos_vivos[shape_idx] += 1
+	else:
+		print("Ya se generaron todos los enemigos de esta zona.")
+
+
+func _on_enemy_defeated(shape_idx):
+	enemigos_vivos[shape_idx] -= 1
+	if enemigos_generados[shape_idx] < zonas[shape_idx]["max_enemigos"]:
+		generar_un_enemigo(shape_idx)
+
+
 func _on_enemy_fully_removed(shape_idx):
 	enemigos_removidos[shape_idx] += 1
-	print("Enemigos removidos tras muerte en zona", shape_idx, ":", enemigos_removidos[shape_idx])
 	if enemigos_removidos[shape_idx] == zonas[shape_idx]["max_enemigos"]:
-		print("¡Ganaste la zona", shape_idx, "realmente!")
+		# ✅ actualizar estado del árbol al completar la zona
+		cambiar_estado(shape_idx, true)
+		print("Zona", shape_idx, "marcada como completada en el árbol ABB")
+
 		enemigos_generados[shape_idx] = 0
 		enemigos_vivos[shape_idx] = 0
 		enemigos_removidos[shape_idx] = 0
 		zona_activada[shape_idx] = false
-		zonas_completadas[shape_idx] = true # <-- ¡Agrega esto!
+		zonas_completadas[shape_idx] = true
 
 		var escena = escenas_por_zona[shape_idx].instantiate()
-
-		# Agregamos la escena al CanvasLayer (Overlay)
 		var overlay = get_tree().get_current_scene().get_node("Overlay")
 		overlay.add_child(escena)
-		
 		escena.connect("minijuego_completado", Callable(self, "_on_minijuego_completado").bind(shape_idx))
-		
-		if _todas_zonas_completas() and not juego_finalizado:
+
+		if verificar_todos_completados(raiz) and not juego_finalizado:
 			juego_finalizado = true
 			_mostrar_mensaje_final()
 			_activar_nodo_central()
 
-func _todas_zonas_completas():
-	for key in zonas_completadas.keys():
-		if not zonas_completadas[key]:
-			return false
-	return true
-	
+
+func _on_minijuego_completado(shape_idx):
+	cambiar_estado(shape_idx, true)
+	if verificar_todos_completados(raiz) and not juego_finalizado:
+		juego_finalizado = true
+		_mostrar_mensaje_final()
+		_activar_nodo_central()
+
+
 func _mostrar_mensaje_final():
 	var overlay = get_tree().get_current_scene().get_node("Overlay")
 	var label = Label.new()
@@ -127,13 +195,5 @@ func mostrar_pantalla_victoria():
 	var win_scene = preload("res://inicio/win.tscn").instantiate()
 	var overlay = get_tree().get_current_scene().get_node("Overlay")
 	overlay.add_child(win_scene)
-	# Opcional: eliminar el mensaje final si existe
 	if overlay.has_node("MensajeFinal"):
 		overlay.get_node("MensajeFinal").queue_free()
-		
-func _on_minijuego_completado(shape_idx):
-	zonas_completadas[shape_idx] = true
-	if _todas_zonas_completas() and not juego_finalizado:
-		juego_finalizado = true
-		_mostrar_mensaje_final()
-		_activar_nodo_central()

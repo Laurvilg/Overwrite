@@ -20,6 +20,11 @@ config/icon="res://icon.svg"
 AudioManager="*res://inicio/audio/AudioManager.tscn"
 SceneTransitions="*res://inicio/SceneTransitions.tscn"
 
+[display]
+
+window/size/mode=3
+window/stretch/mode="viewport"
+
 [input]
 
 up={
