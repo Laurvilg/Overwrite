@@ -13,7 +13,7 @@ func agregar_nodo(dato: Dictionary) -> void:
 		_agregar_recursivo(raiz, nuevo_nodo)
 
 func _agregar_recursivo(nodo: Nodo, nuevo: Nodo) -> void:
-	# ABB por dificultad: menor a la izquierda, mayor/igual a la derecha
+	# ABB por dificultad: menor a la izquierda, mayor o igual a la derecha
 	if nuevo.dato["valor"] < nodo.dato["valor"]:
 		if nodo.izq == null:
 			nodo.izq = nuevo
@@ -33,7 +33,6 @@ func _agregar_recursivo(nodo: Nodo, nuevo: Nodo) -> void:
 			if nodo.der == null: nodo.der = nuevo
 			else: _agregar_recursivo(nodo.der, nuevo)
 
-# ---- Búsquedas/actualizaciones por zona ----
 func buscar_por_zona(zona_id: int, nodo: Nodo = raiz) -> Nodo:
 	if nodo == null:
 		return null
@@ -49,7 +48,6 @@ func cambiar_estado_por_zona(zona_id: int, nuevo_estado: bool) -> bool:
 	n.dato["completado"] = nuevo_estado
 	return true
 
-# ---- Verificaciones ----
 func verificar_todos_completados(nodo: Nodo = raiz) -> bool:
 	if nodo == null:
 		return true

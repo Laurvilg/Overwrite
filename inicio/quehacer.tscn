@@ -1,8 +1,9 @@
-[gd_scene load_steps=13 format=3 uid="uid://c5mfmn2fl0bt7"]
+[gd_scene load_steps=14 format=3 uid="uid://c5mfmn2fl0bt7"]
 
 [ext_resource type="Script" uid="uid://ti1k7t8u8bj4" path="res://inicio/quehacer.gd" id="1_ob3ok"]
 [ext_resource type="Texture2D" uid="uid://b32s3y7lv63jc" path="res://inicio/image/fondo33.png" id="2_osm0n"]
 [ext_resource type="Texture2D" uid="uid://cn1tlbq5ax54y" path="res://inicio/buttons/palanca.tres" id="3_rs8xj"]
+[ext_resource type="Texture2D" uid="uid://dounll4jakj80" path="res://inicio/buttons/palanca1.tres" id="4_6adhu"]
 [ext_resource type="Texture2D" uid="uid://csle6qiixv070" path="res://inicio/buttons/personaje1.tres" id="4_ccsh4"]
 [ext_resource type="FontFile" uid="uid://b5lt21bsvyn6v" path="res://assets/Fonts/Pixeled.ttf" id="6_6adhu"]
 [ext_resource type="FontFile" uid="uid://t8w28xx3wyy5" path="res://assets/Fonts/ComicHelvetic_Heavy.otf" id="7_pgjfs"]
@@ -25,12 +26,21 @@ theme_override_styles/panel = SubResource("StyleBoxTexture_nqsku")
 
 [node name="TextureRect" type="TextureRect" parent="Panel"]
 layout_mode = 0
-offset_left = 632.0
-offset_top = 136.0
-offset_right = 675.0
-offset_bottom = 176.0
+offset_left = 328.0
+offset_top = 104.0
+offset_right = 371.0
+offset_bottom = 144.0
 scale = Vector2(6, 6)
 texture = ExtResource("3_rs8xj")
+
+[node name="TextureRect2" type="TextureRect" parent="Panel"]
+layout_mode = 0
+offset_left = 800.0
+offset_top = 128.0
+offset_right = 852.0
+offset_bottom = 168.0
+scale = Vector2(6, 6)
+texture = ExtResource("4_6adhu")
 
 [node name="TextureRect3" type="TextureRect" parent="Panel"]
 layout_mode = 0
@@ -54,13 +64,25 @@ paragraph_separator = "\\"
 
 [node name="Label2" type="Label" parent="Panel"]
 layout_mode = 0
-offset_left = 224.0
-offset_top = 200.0
-offset_right = 537.0
-offset_bottom = 293.0
+offset_left = 32.0
+offset_top = 224.0
+offset_right = 345.0
+offset_bottom = 317.0
 theme_override_fonts/font = ExtResource("7_pgjfs")
 theme_override_font_sizes/font_size = 30
 text = "Haz click en la palanca azul."
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="Label4" type="Label" parent="Panel"]
+layout_mode = 0
+offset_left = 576.0
+offset_top = 232.0
+offset_right = 889.0
+offset_bottom = 325.0
+theme_override_fonts/font = ExtResource("7_pgjfs")
+theme_override_font_sizes/font_size = 30
+text = "Nodo Central"
 horizontal_alignment = 1
 autowrap_mode = 2
 

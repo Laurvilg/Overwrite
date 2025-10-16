@@ -41,7 +41,6 @@ func _ready():
 	set_pickable(true)  # Permite que el Area2D reciba clics.
 	print("Area2D lista. Esperando clic en shape_idx=1,2,3,4,5,6")
 
-	# ----- Construcción del ABB por dificultad -----
 	# Por cada zona se crea un nodo en el ABB con:
 	# valor = dificultad (max_enemigos), zona_id, y flags iniciales.
 	for zona_id in zonas.keys():
@@ -76,7 +75,7 @@ func _input_event(viewport, event, shape_idx):
 				print("Aún no puedes activar el nodo central")
 
 func generar_un_enemigo(shape_idx):
-	# Seguridad extra: nunca generes si la zona ya está completada (bloqueo pos-ronda)
+	# Seguridad extra: nunca genera si la zona ya está completada (bloqueo pos-ronda)
 	if zonas_completadas[shape_idx]:
 		return
 
@@ -90,7 +89,6 @@ func generar_un_enemigo(shape_idx):
 			enemy_instance.global_position = spawn_marker.global_position
 
 			# Señales del enemigo:
-			# enemy_defeated: se murió pero aún puede quedar su limpieza pendiente
 			# enemy_fully_removed: desapareció del árbol de nodos (limpieza completa)
 			enemy_instance.connect("enemy_defeated", Callable(self, "_on_enemy_defeated").bind(shape_idx))
 			enemy_instance.connect("enemy_fully_removed", Callable(self, "_on_enemy_fully_removed").bind(shape_idx))
@@ -104,23 +102,23 @@ func generar_un_enemigo(shape_idx):
 		print("Ya se generaron todos los enemigos de esta zona.")  # No genera más de los permitidos.
 
 func _on_enemy_defeated(shape_idx):
-	# Cuando un enemigo “muere” (pero no ha sido removido del todo)
+	# Cuando un enemigo “muere” pero se vuelven a regenerar
 	enemigos_vivos[shape_idx] -= 1
 
-	# Si aún no alcanzamos el máximo de esa zona, generamos el siguiente
+	# Si aún no se alcanza el máximo de esa zona se genera el siguiente
 	if enemigos_generados[shape_idx] < zonas[shape_idx]["max_enemigos"]:
 		generar_un_enemigo(shape_idx)
 
 func _on_enemy_fully_removed(shape_idx):
-	# Cuando la instancia del enemigo ya fue removida completamente del árbol de nodos
-	enemigos_removidos[shape_idx] += 1
+	
+	enemigos_removidos[shape_idx] += 1 # Cuando la instancia del enemigo ya fue removida completamente del árbol de nodos
 
 	# Si ya se removieron tantos como el máximo de la zona, la zona se considera “limpia”
 	if enemigos_removidos[shape_idx] == zonas[shape_idx]["max_enemigos"]:
 		arbol.cambiar_estado_por_zona(shape_idx, true)  # Marca la zona como completada dentro del ABB (progreso)
 		print("Zona", shape_idx, "completada en ABB (por dificultad).")
 
-		# Resetea contadores operativos de esa zona (pero NO permite rejugar porque zonas_completadas queda en true)
+		# Resetea contadores operativos de esa zona pero NO permite rejugar porque zonas_completadas queda en true
 		enemigos_generados[shape_idx] = 0
 		enemigos_vivos[shape_idx] = 0
 		enemigos_removidos[shape_idx] = 0
