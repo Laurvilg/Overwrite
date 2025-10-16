@@ -13,41 +13,63 @@ func agregar_nodo(dato: Dictionary) -> void:
 		_agregar_recursivo(raiz, nuevo_nodo)
 
 func _agregar_recursivo(nodo: Nodo, nuevo: Nodo) -> void:
+	# ABB por dificultad: menor a la izquierda, mayor/igual a la derecha
 	if nuevo.dato["valor"] < nodo.dato["valor"]:
 		if nodo.izq == null:
 			nodo.izq = nuevo
 		else:
 			_agregar_recursivo(nodo.izq, nuevo)
-	else:
+	elif nuevo.dato["valor"] > nodo.dato["valor"]:
 		if nodo.der == null:
 			nodo.der = nuevo
 		else:
 			_agregar_recursivo(nodo.der, nuevo)
+	else:
+		# Empate de dificultad: desempata por zona_id (opcional)
+		if nuevo.dato.get("zona_id", 0) < nodo.dato.get("zona_id", 0):
+			if nodo.izq == null: nodo.izq = nuevo
+			else: _agregar_recursivo(nodo.izq, nuevo)
+		else:
+			if nodo.der == null: nodo.der = nuevo
+			else: _agregar_recursivo(nodo.der, nuevo)
 
-func buscar_nodo(valor: int) -> Nodo:
-	return _buscar_recursivo(raiz, valor)
-
-func _buscar_recursivo(nodo: Nodo, valor: int) -> Nodo:
+# ---- Búsquedas/actualizaciones por zona ----
+func buscar_por_zona(zona_id: int, nodo: Nodo = raiz) -> Nodo:
 	if nodo == null:
 		return null
-	var actual_valor = nodo.dato["valor"]
-	if valor == actual_valor:
+	if nodo.dato.get("zona_id") == zona_id:
 		return nodo
-	elif valor < actual_valor:
-		return _buscar_recursivo(nodo.izq, valor)
-	else:
-		return _buscar_recursivo(nodo.der, valor)
+	var izq = buscar_por_zona(zona_id, nodo.izq)
+	return izq if izq != null else buscar_por_zona(zona_id, nodo.der)
 
-func cambiar_estado(valor: int, nuevo_estado: bool) -> bool:
-	var nodo = buscar_nodo(valor)
-	if nodo == null:
+func cambiar_estado_por_zona(zona_id: int, nuevo_estado: bool) -> bool:
+	var n = buscar_por_zona(zona_id)
+	if n == null:
 		return false
-	nodo.dato["completado"] = nuevo_estado
+	n.dato["completado"] = nuevo_estado
 	return true
 
+# ---- Verificaciones ----
 func verificar_todos_completados(nodo: Nodo = raiz) -> bool:
 	if nodo == null:
 		return true
-	if not nodo.dato["completado"]:
+	if not nodo.dato.get("completado", false):
 		return false
 	return verificar_todos_completados(nodo.izq) and verificar_todos_completados(nodo.der)
+
+# Gating: ¿todas las zonas con dificultad menor a d están completadas?
+func todos_menores_completados(d: int, nodo: Nodo = raiz) -> bool:
+	if nodo == null:
+		return true
+	var ok_este = true
+	if nodo.dato["valor"] < d:
+		ok_este = nodo.dato.get("completado", false)
+	return ok_este and todos_menores_completados(d, nodo.izq) and todos_menores_completados(d, nodo.der)
+
+# (Opcional) Debug: listado en-order (fácil -> difícil)
+func inorder_list(nodo: Nodo = raiz, acc := []):
+	if nodo == null: return acc
+	inorder_list(nodo.izq, acc)
+	acc.append(nodo.dato.duplicate())
+	inorder_list(nodo.der, acc)
+	return acc

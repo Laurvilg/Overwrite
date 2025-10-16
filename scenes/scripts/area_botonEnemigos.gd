@@ -7,7 +7,7 @@ var zonas_completadas := {1: false, 2: false, 3: false, 4: false, 5: false, 6: f
 var juego_finalizado := false
 var puede_activar_nodo_central := false
 var shape_idx_nodo_central := 0
-var arbol := Arbol.new()  
+var arbol := Arbol.new()
 
 var zonas := {
 	1: {"max_enemigos": 3, "spawn": "Enemy1Spawn"},
@@ -36,29 +36,42 @@ func _ready():
 	set_pickable(true)
 	print("Area2D lista. Esperando clic en shape_idx=1,2,3,4,5,6")
 
-	for zona_id in zonas.keys(): #crea el árbol con las zonas
+	# Árbol ABB por dificultad
+	for zona_id in zonas.keys():
+		var dificultad = int(zonas[zona_id]["max_enemigos"])
 		var nodo_data = {
-			"valor": zona_id,
+			"valor": dificultad,
+			"zona_id": zona_id,
 			"activado": false,
 			"completado": false
 		}
 		arbol.agregar_nodo(nodo_data)
 
-	print("Árbol ABB creado con zonas:", zonas.keys())
+	print("Árbol ABB por dificultad creado. In-order:", arbol.inorder_list())
 
 func _input_event(viewport, event, shape_idx):
-	print("Input event recibido. shape_idx:", shape_idx, "zona_activada:", zona_activada)
 	if event is InputEventMouseButton and event.pressed:
-		if zonas.has(shape_idx) and !zona_activada[shape_idx]:
-			zona_activada[shape_idx] = true
-			generar_un_enemigo(shape_idx)
+		if zonas.has(shape_idx):
+			# ⛔ Si ya se completó, no permite volver a iniciar
+			if zonas_completadas[shape_idx]:
+				print("La zona", shape_idx, "ya fue completada. No se puede reiniciar.")
+				return
+
+			if !zona_activada[shape_idx]:
+				zona_activada[shape_idx] = true
+				generar_un_enemigo(shape_idx)
 		elif shape_idx == shape_idx_nodo_central:
 			if puede_activar_nodo_central:
 				mostrar_pantalla_victoria()
 			else:
 				print("Aún no puedes activar el nodo central")
 
+
 func generar_un_enemigo(shape_idx):
+	# ⛔ Seguridad extra: no generar si la zona ya está completada
+	if zonas_completadas[shape_idx]:
+		return
+
 	var zona = zonas[shape_idx]
 	if enemigos_generados[shape_idx] < zona["max_enemigos"]:
 		var root = get_parent().get_parent()
@@ -74,6 +87,7 @@ func generar_un_enemigo(shape_idx):
 	else:
 		print("Ya se generaron todos los enemigos de esta zona.")
 
+
 func _on_enemy_defeated(shape_idx):
 	enemigos_vivos[shape_idx] -= 1
 	if enemigos_generados[shape_idx] < zonas[shape_idx]["max_enemigos"]:
@@ -82,8 +96,8 @@ func _on_enemy_defeated(shape_idx):
 func _on_enemy_fully_removed(shape_idx):
 	enemigos_removidos[shape_idx] += 1
 	if enemigos_removidos[shape_idx] == zonas[shape_idx]["max_enemigos"]:
-		arbol.cambiar_estado(shape_idx, true)
-		print("Zona", shape_idx, "marcada como completada en el árbol ABB")
+		arbol.cambiar_estado_por_zona(shape_idx, true)
+		print("Zona", shape_idx, "completada en ABB (por dificultad).")
 
 		enemigos_generados[shape_idx] = 0
 		enemigos_vivos[shape_idx] = 0
@@ -102,7 +116,7 @@ func _on_enemy_fully_removed(shape_idx):
 			_activar_nodo_central()
 
 func _on_minijuego_completado(shape_idx):
-	arbol.cambiar_estado(shape_idx, true)
+	arbol.cambiar_estado_por_zona(shape_idx, true)
 	if arbol.verificar_todos_completados() and not juego_finalizado:
 		juego_finalizado = true
 		_mostrar_mensaje_final()
