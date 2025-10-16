@@ -54,7 +54,6 @@ func _ready():
 		}
 		arbol.agregar_nodo(nodo_data)
 
-	print("Árbol ABB por dificultad creado. In-order:", arbol.inorder_list())  # Debug: muestra orden de fácil→difícil.
 
 func _input_event(viewport, event, shape_idx):
 	# Maneja click del mouse en las zonas o en el nodo central.

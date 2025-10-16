@@ -57,19 +57,11 @@ func verificar_todos_completados(nodo: Nodo = raiz) -> bool:
 		return false
 	return verificar_todos_completados(nodo.izq) and verificar_todos_completados(nodo.der)
 
-# Gating: ¿todas las zonas con dificultad menor a d están completadas?
-func todos_menores_completados(d: int, nodo: Nodo = raiz) -> bool:
+
+func todos_menores_completados(d: int, nodo: Nodo = raiz) -> bool: #zonas menores completadas
 	if nodo == null:
 		return true
 	var ok_este = true
 	if nodo.dato["valor"] < d:
 		ok_este = nodo.dato.get("completado", false)
 	return ok_este and todos_menores_completados(d, nodo.izq) and todos_menores_completados(d, nodo.der)
-
-# (Opcional) Debug: listado en-order (fácil -> difícil)
-func inorder_list(nodo: Nodo = raiz, acc := []):
-	if nodo == null: return acc
-	inorder_list(nodo.izq, acc)
-	acc.append(nodo.dato.duplicate())
-	inorder_list(nodo.der, acc)
-	return acc
