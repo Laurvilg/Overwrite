@@ -1,8 +1,13 @@
 extends Area2D  # Este script controla el mapa/área clickeable y la lógica de enemigos por zona.
 
-# ---------- Precargas y estructuras base ----------
+# Nodo principal
+var nodo_principal := 2
+
 var EnemyScene = preload("res://scenes/enemigo1/enemigo1.tscn")   # Escena del enemigo a instanciar.
 var Arbol = preload("res://scenes/scripts/arbol.gd")              # Clase del ABB (progreso por dificultad).
+var Vertice = preload("res://grafo/vertice.gd")
+var Grafo = preload("res://grafo/grafo.gd")
+var grafo := Grafo.new()
 
 # Estados globales de juego
 var zonas_completadas := {1: false, 2: false, 3: false, 4: false, 5: false, 6: false}  # True cuando una zona ya se superó (no rejugable).
@@ -10,6 +15,8 @@ var juego_finalizado := false
 var puede_activar_nodo_central := false
 var shape_idx_nodo_central := 0  # Índice de colisión para el "nodo central" (palanca de victoria).
 var arbol := Arbol.new()         # Instancia del Árbol Binario de Búsqueda (ABB) ordenado por dificultad.
+var vertices_dict := {}  # Para acceder a los vértices por zona_id
+
 
 # Configuración por zona: dificultad = max_enemigos, y el Marker donde spawnean
 var zonas := {
@@ -41,6 +48,28 @@ func _ready():
 	set_pickable(true)  # Permite que el Area2D reciba clics.
 	print("Area2D lista. Esperando clic en shape_idx=1,2,3,4,5,6")
 
+	# Inicializar contadores
+	for zona_id in zonas.keys():
+		enemigos_generados[zona_id] = 0
+		enemigos_vivos[zona_id] = 0
+		enemigos_removidos[zona_id] = 0
+		zona_activada[zona_id] = false
+
+	# Crear vértices y agregarlos al grafo
+	for zona_id in zonas.keys():
+		var v = Vertice.new(str(zona_id))
+		grafo.agregar_vertice(v)
+		vertices_dict[zona_id] = v
+
+# Conectar zonas según flujo deseado:
+	grafo.conectar_vertice(vertices_dict[2], vertices_dict[1])
+	grafo.conectar_vertice(vertices_dict[1], vertices_dict[3])
+	grafo.conectar_vertice(vertices_dict[1], vertices_dict[4])
+	grafo.conectar_vertice(vertices_dict[4], vertices_dict[5])
+	grafo.conectar_vertice(vertices_dict[4], vertices_dict[6])
+
+	grafo.imprimir() #depuración
+
 	# Por cada zona se crea un nodo en el ABB con:
 	# valor = dificultad (max_enemigos), zona_id, y flags iniciales.
 	for zona_id in zonas.keys():
@@ -53,27 +82,51 @@ func _ready():
 		}
 		arbol.agregar_nodo(nodo_data)
 
+# Función que revisa si una zona puede activarse según su padre en el grafo
+func puede_activar_zona(zona_id):
+	if zona_id == nodo_principal: 
+		return true  # Nodo principal siempre activable
 
+	var vertice = vertices_dict.get(zona_id)
+	if vertice == null:
+		return false
+
+	# Solo activable si al menos uno de sus padres ya fue completado
+	for ady in vertice.get_adyacentes():
+		var padre_id = int(ady.get_dato())
+		# Consideramos solo los padres “hacia atrás” (puedes definirlos según tu grafo)
+		if zonas_completadas.get(padre_id, false):
+			return true
+
+	return false
+
+# Modificación de _input_event() para respetar la activación de grafo
 func _input_event(viewport, event, shape_idx):
-	# Maneja click del mouse en las zonas o en el nodo central.
 	if event is InputEventMouseButton and event.pressed:
 		if zonas.has(shape_idx):
-			# Si la zona ya fue completada, no se permite rejugar.
+			# Verifica si puede activarse según el grafo
+			if not puede_activar_zona(shape_idx):
+				print("No puedes activar la zona", shape_idx, "- depende de otra zona.")
+				return
+
+			# Si la zona ya fue completada, no se permite reiniciar
 			if zonas_completadas[shape_idx]:
 				print("La zona", shape_idx, "ya fue completada. No se puede reiniciar.")
 				return
 
 			# Evita re-activar si ya está en curso
-			if !zona_activada[shape_idx]:
+			if not zona_activada[shape_idx]:
 				zona_activada[shape_idx] = true
 				generar_un_enemigo(shape_idx)  # Arranca la ronda para esa zona
+
 		elif shape_idx == shape_idx_nodo_central:
 			# Palanca final: solo funciona si se activó tras completar todas las zonas
 			if puede_activar_nodo_central:
 				mostrar_pantalla_victoria()
 			else:
-				print("Aún no puedes activar el nodo central")
+					print("Aún no puedes activar el nodo central")
 
+#GENERACION DE ENEMIGOS
 func generar_un_enemigo(shape_idx):
 	# Seguridad extra: nunca genera si la zona ya está completada (bloqueo pos-ronda)
 	if zonas_completadas[shape_idx]:
@@ -139,14 +192,19 @@ func _on_enemy_fully_removed(shape_idx):
 			_activar_nodo_central()
 
 func _on_minijuego_completado(shape_idx):
-	# Redundancia segura: marca completado por si el flujo llega directo del minijuego
-	arbol.cambiar_estado_por_zona(shape_idx, true)
-
+	zonas_completadas[shape_idx] = true
 	# Si todo está completo en el ABB, activamos el final
 	if arbol.verificar_todos_completados() and not juego_finalizado:
 		juego_finalizado = true
 		_mostrar_mensaje_final()
 		_activar_nodo_central()
+
+#ZONAS COMPLETADAS
+func todas_zonas_completadas():
+	for id in zonas_completadas.keys():
+		if not zonas_completadas[id]:
+			return false
+	return true
 
 func _mostrar_mensaje_final():
 	# Muestra un label centrado avisando que ya puedes ir al nodo central
