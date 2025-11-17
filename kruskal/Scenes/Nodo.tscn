@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://jbu4q7mrlv0f"]
+
+[ext_resource type="Script" uid="uid://dkhe6o5gquxwy" path="res://kruskal/Scripts/Nodo.gd" id="1_t5pu4"]
+[ext_resource type="Texture2D" uid="uid://cotwe4eahl4su" path="res://assets/props/props2.png" id="2_jj08c"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xdma2"]
+atlas = ExtResource("2_jj08c")
+region = Rect2(244.819, 48.9037, 23.3509, 31.2699)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ni62j"]
+size = Vector2(24, 32)
+
+[node name="Nodo" type="Node2D"]
+script = ExtResource("1_t5pu4")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("AtlasTexture_xdma2")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_ni62j")
+
+[node name="Label" type="Label" parent="."]
+offset_right = 40.0
+offset_bottom = 23.0

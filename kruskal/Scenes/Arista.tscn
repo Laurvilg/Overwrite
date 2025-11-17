@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=3 uid="uid://bsai5yeq3b05c"]
+
+[ext_resource type="Script" uid="uid://5472rblrsrlt" path="res://kruskal/Scripts/Arista.gd" id="1_285pa"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cs8rx"]
+size = Vector2(5, 100)
+
+[node name="Arista" type="Node2D"]
+script = ExtResource("1_285pa")
+
+[node name="Line2D" type="Line2D" parent="."]
+
+[node name="Label" type="Label" parent="."]
+offset_right = 40.0
+offset_bottom = 23.0
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_cs8rx")
+
+[connection signal="input_event" from="Area2D" to="." method="_on_area_2d_input_event"]
