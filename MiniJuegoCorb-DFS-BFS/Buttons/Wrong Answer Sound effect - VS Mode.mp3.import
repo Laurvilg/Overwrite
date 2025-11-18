@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://gvnny4apdhti"
+path="res://.godot/imported/Wrong Answer Sound effect - VS Mode.mp3-4f96919df3c1e7d88b2cef999a286df3.mp3str"
+
+[deps]
+
+source_file="res://MiniJuegoCorb-DFS-BFS/Buttons/Wrong Answer Sound effect - VS Mode.mp3"
+dest_files=["res://.godot/imported/Wrong Answer Sound effect - VS Mode.mp3-4f96919df3c1e7d88b2cef999a286df3.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

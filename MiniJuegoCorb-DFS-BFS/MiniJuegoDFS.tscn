@@ -1,0 +1,105 @@
+[gd_scene load_steps=7 format=3 uid="uid://5xrojvqbqhxm"]
+
+[ext_resource type="Script" uid="uid://6o3ucvw82usg" path="res://MiniJuegoCorb-DFS-BFS/game_manager.gd" id="1_8epq2"]
+[ext_resource type="AudioStream" uid="uid://ymevn3wn1n1l" path="res://MiniJuegoCorb-DFS-BFS/Buttons/Correct Sound Effect  Bgm & Sound Effect - asnat farooq.mp3" id="2_d5hbi"]
+[ext_resource type="AudioStream" uid="uid://gvnny4apdhti" path="res://MiniJuegoCorb-DFS-BFS/Buttons/Wrong Answer Sound effect - VS Mode.mp3" id="3_kwyer"]
+[ext_resource type="AudioStream" uid="uid://b6ni7r83ohe7p" path="res://MiniJuegoCorb-DFS-BFS/Buttons/WIN sound effect no copyright - JG Green Screen.mp3" id="4_b8lro"]
+[ext_resource type="AudioStream" uid="uid://dg37y4cuwjtbm" path="res://MiniJuegoCorb-DFS-BFS/Buttons/Fail Sound Effect - Sound Effects.mp3" id="5_k6jwp"]
+[ext_resource type="Texture2D" uid="uid://gyp8t6rntrsk" path="res://MiniJuegoCorb-DFS-BFS/Buttons/FondoMiniCorb.png" id="6_kwyer"]
+
+[node name="MiniJuegoDfs" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 610.0
+offset_top = 5.0
+offset_right = 1122.0
+offset_bottom = 323.0
+
+[node name="ModeOption" type="OptionButton" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="StartButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Start
+"
+
+[node name="InfoLabel" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="GraphContainer" type="Control" parent="."]
+anchors_preset = 0
+offset_left = 10.0
+offset_top = 76.0
+offset_right = 298.0
+offset_bottom = 213.0
+
+[node name="0" type="Button" parent="GraphContainer"]
+layout_mode = 0
+offset_left = 749.0
+offset_top = 213.0
+offset_right = 822.0
+offset_bottom = 262.0
+
+[node name="1" type="Button" parent="GraphContainer"]
+layout_mode = 0
+offset_left = 399.0
+offset_top = 183.0
+offset_right = 472.0
+offset_bottom = 235.0
+
+[node name="2" type="Button" parent="GraphContainer"]
+layout_mode = 0
+offset_left = 537.0
+offset_top = 335.0
+offset_right = 609.0
+offset_bottom = 385.0
+
+[node name="3" type="Button" parent="GraphContainer"]
+layout_mode = 0
+offset_left = 47.0
+offset_top = 246.0
+offset_right = 122.0
+offset_bottom = 298.0
+
+[node name="4" type="Button" parent="GraphContainer"]
+layout_mode = 0
+offset_left = 348.0
+offset_top = 440.0
+offset_right = 422.0
+offset_bottom = 492.0
+
+[node name="5" type="Button" parent="GraphContainer"]
+layout_mode = 0
+offset_left = 223.0
+offset_top = -9.0
+offset_right = 296.0
+offset_bottom = 42.0
+
+[node name="GameManager" type="Control" parent="." node_paths=PackedStringArray("buttons", "mode_option", "start_button", "info_label")]
+anchors_preset = 0
+offset_left = 142.0
+offset_top = 13.0
+offset_right = 182.0
+offset_bottom = 53.0
+script = ExtResource("1_8epq2")
+buttons = [NodePath("../GraphContainer/0"), NodePath("../GraphContainer/1"), NodePath("../GraphContainer/2"), NodePath("../GraphContainer/3"), NodePath("../GraphContainer/4"), NodePath("../GraphContainer/5")]
+mode_option = NodePath("../VBoxContainer/ModeOption")
+start_button = NodePath("../VBoxContainer/StartButton")
+info_label = NodePath("../VBoxContainer/InfoLabel")
+correct_sound = ExtResource("2_d5hbi")
+wrong_sound = ExtResource("3_kwyer")
+win_sound = ExtResource("4_b8lro")
+lose_sound = ExtResource("5_k6jwp")
+
+[node name="FondoMiniCorb" type="Sprite2D" parent="."]
+show_behind_parent = true
+position = Vector2(590, 322.49997)
+scale = Vector2(0.6145833, 0.61574066)
+texture = ExtResource("6_kwyer")

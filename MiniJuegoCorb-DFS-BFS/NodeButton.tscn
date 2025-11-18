@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://bo771dw7cp40u"]
+
+[ext_resource type="Script" uid="uid://qlt6dotcir5y" path="res://MiniJuegoCorb-DFS-BFS/node_button.gd" id="1_x1mdo"]
+
+[node name="NodeButton" type="Button"]
+anchors_preset = -1
+anchor_right = 0.037
+anchor_bottom = 0.051000003
+offset_right = 0.37599945
+offset_bottom = -0.048000336
+script = ExtResource("1_x1mdo")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]

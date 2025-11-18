@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=3 uid="uid://hxannuoo4ix1"]
+
+[ext_resource type="Texture2D" uid="uid://ddb07g8g7nmul" path="res://MiniJuegoCorb-DFS-BFS/Buttons/HistoriaCorb.png" id="1_k510j"]
+[ext_resource type="Script" uid="uid://bqglgbgb4trsl" path="res://MiniJuegoCorb-DFS-BFS/histo_manager.gd" id="2_nopcn"]
+[ext_resource type="PackedScene" uid="uid://5xrojvqbqhxm" path="res://MiniJuegoCorb-DFS-BFS/MiniJuegoDFS.tscn" id="3_ewoqv"]
+
+[node name="MiniCorbHistory" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HistoriaCorb" type="Sprite2D" parent="."]
+position = Vector2(578.5, 318)
+scale = Vector2(0.60364586, 0.6111111)
+texture = ExtResource("1_k510j")
+
+[node name="HistoManager" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("2_nopcn")
+next_scene = ExtResource("3_ewoqv")

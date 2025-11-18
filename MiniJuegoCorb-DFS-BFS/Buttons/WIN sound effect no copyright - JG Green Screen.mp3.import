@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://b6ni7r83ohe7p"
+path="res://.godot/imported/WIN sound effect no copyright - JG Green Screen.mp3-46c77d40e4718f478812729f501130a0.mp3str"
+
+[deps]
+
+source_file="res://MiniJuegoCorb-DFS-BFS/Buttons/WIN sound effect no copyright - JG Green Screen.mp3"
+dest_files=["res://.godot/imported/WIN sound effect no copyright - JG Green Screen.mp3-46c77d40e4718f478812729f501130a0.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
