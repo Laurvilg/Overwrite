@@ -1,11 +1,13 @@
-[gd_scene load_steps=14 format=3 uid="uid://dsytkntcnptsh"]
+[gd_scene load_steps=16 format=3 uid="uid://dsytkntcnptsh"]
 
 [ext_resource type="Script" uid="uid://my7mbk8y44o1" path="res://dijkstraLaura - copia/dijkstra.gd" id="1_nwf3n"]
 [ext_resource type="Texture2D" uid="uid://drwvedr4q2k2r" path="res://inicio/image/2.png" id="1_sm1f8"]
 [ext_resource type="Texture2D" uid="uid://cywopum7etive" path="res://inicio/buttons/buttonBlue.tres" id="2_24yc5"]
 [ext_resource type="Script" uid="uid://clgxhjpqhslik" path="res://dijkstraLaura - copia/grafo_visual.gd" id="3_8vwas"]
+[ext_resource type="Texture2D" uid="uid://dstyka644yd5g" path="res://dijkstraLaura - copia/image/purple-gradient-circle-free-png.webp" id="3_j66lj"]
 [ext_resource type="Texture2D" uid="uid://cqlua8sjro0ag" path="res://inicio/buttons/buttonBlueC.tres" id="3_l6wk2"]
 [ext_resource type="PackedScene" uid="uid://btwx61slv0f5l" path="res://dijkstraLaura - copia/LineDrawer.tscn" id="4_ix473"]
+[ext_resource type="Texture2D" uid="uid://caj5en62ctwgq" path="res://dijkstraLaura - copia/image/red-gradient-circle-free-png.webp" id="4_q5a7c"]
 [ext_resource type="FontFile" uid="uid://t8w28xx3wyy5" path="res://assets/Fonts/ComicHelvetic_Heavy.otf" id="4_qa8sy"]
 [ext_resource type="PackedScene" uid="uid://cac10h4xersha" path="res://dijkstraLaura - copia/NodoVertice.tscn" id="5_hn6a0"]
 [ext_resource type="FontFile" uid="uid://biasfq1fvbi0t" path="res://assets/Fonts/Silver.ttf" id="15_j4vsr"]
@@ -42,6 +44,22 @@ offset_right = 672.0
 offset_bottom = 496.0
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_ml2ii")
+
+[node name="TextureRect" type="TextureRect" parent="Panel2"]
+offset_left = 40.0
+offset_top = 32.0
+offset_right = 1020.0
+offset_bottom = 1012.0
+scale = Vector2(0.09, 0.09)
+texture = ExtResource("3_j66lj")
+
+[node name="TextureRect2" type="TextureRect" parent="Panel2"]
+offset_left = 528.0
+offset_top = 336.0
+offset_right = 1508.0
+offset_bottom = 1316.0
+scale = Vector2(0.09, 0.09)
+texture = ExtResource("4_q5a7c")
 
 [node name="grafoVisual" type="Node2D" parent="Panel2"]
 position = Vector2(-40, -48)

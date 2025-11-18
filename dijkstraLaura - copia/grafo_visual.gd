@@ -45,15 +45,24 @@ func _crear_vertices():
 		add_child(nodo)
 		vertices[v_data["name"]] = nodo
 
+		# Obtener el Sprite2D del nodo
 		var sprite_node := nodo.get_node_or_null("Sprite2D")
 		if sprite_node == null:
 			for c in nodo.get_children():
 				if c is Sprite2D:
 					sprite_node = c
 					break
+
+		# Ajustar z_index
 		if sprite_node:
 			sprite_node.z_index = 10
 			nodo.z_index = 10
+
+			# Cambiar la textura del vértice F a una imagen invisible
+			if nodo.name == "F":
+				var tex = load("res://dijkstraLaura - copia/image/ordenador malo.png")
+				sprite_node.texture = tex
+
 
 # Crear aristas
 func _crear_aristas():
@@ -121,10 +130,12 @@ func _on_verificar_button_pressed() -> void:
 				encontrado = true
 				break
 		if not encontrado:
-			resultado_label.text = "Ruta inválida: %s -> %s" % [o, d]
+			resultado_label.text = "Ruta inválida." 
 			return
 
 	if peso_usuario == peso_minimo:
-		resultado_label.text = "✅ Correcto! Peso mínimo de A a F: %d" % peso_usuario
+		resultado_label.text = "✅ Correcto!"
+		print("✅ Correcto! Peso mínimo de A a F: %d" % peso_usuario)
 	else:
-		resultado_label.text = "❌ No es el camino mínimo. Usuario: %d, Mínimo: %d" % [peso_usuario, peso_minimo]
+		resultado_label.text = "❌ No es el camino mínimo. Presiona en repetir."
+		print("❌ No es el camino mínimo. Usuario: %d, Mínimo: %d" % [peso_usuario, peso_minimo])
