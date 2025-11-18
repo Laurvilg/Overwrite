@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://c1rxffpkoq65w"]
+
+[ext_resource type="Texture2D" uid="uid://bkb0a0w7jaish" path="res://Edmonds-Karp/JuegoEdRespaldo/2.png" id="2_b6107"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ku0y5"]
+texture = ExtResource("2_b6107")
+
+[node name="FlowGraph" type="Node2D"]
+
+[node name="Panel" type="Panel" parent="."]
+offset_right = 1151.0
+offset_bottom = 645.0
+theme_override_styles/panel = SubResource("StyleBoxTexture_ku0y5")

@@ -1,0 +1,60 @@
+[gd_scene load_steps=7 format=3 uid="uid://b7r46eqi5qs43"]
+
+[ext_resource type="Texture2D" uid="uid://bjiakbttsorff" path="res://Edmonds-Karp/JuegoEdRespaldo/1.png" id="1_7ghgu"]
+[ext_resource type="FontFile" uid="uid://bj44644dulh07" path="res://assets/Fonts/ComicHelvetic_Light.otf" id="2_1gpmu"]
+[ext_resource type="Texture2D" uid="uid://cmog44xkn300q" path="res://inicio/buttons/buttonxd.tres" id="3_rxuny"]
+[ext_resource type="Texture2D" uid="uid://qhc5c5va7xqh" path="res://inicio/buttons/buttonPress.tres" id="4_b1kk1"]
+[ext_resource type="Script" uid="uid://p0jy3pc7ohls" path="res://Edmonds-Karp/start_button.gd" id="5_k32hq"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_1gpmu"]
+texture = ExtResource("1_7ghgu")
+
+[node name="LevelIntro" type="Node2D"]
+
+[node name="Panel" type="Panel" parent="."]
+offset_right = 1152.0
+offset_bottom = 648.0
+theme_override_styles/panel = SubResource("StyleBoxTexture_1gpmu")
+
+[node name="Label" type="Label" parent="."]
+offset_left = 7.0
+offset_top = 91.0
+offset_right = 595.0
+offset_bottom = 574.0
+theme_override_constants/line_spacing = 0
+theme_override_fonts/font = ExtResource("2_1gpmu")
+theme_override_font_sizes/font_size = 25
+text = "Misión: Optimiza la red de respaldo
+
+Eres el operador principal del Centro de Control (S). Tu tarea es dirigir el flujo de datos hacia el Servidor de Respaldo (T) utilizando los dispositivos intermedios (A–F).
+
+Selecciona paso a paso los nodos por los que crees que debe pasar el flujo máximo. Cuando llegues al servidor, verifica tu ruta.
+
+ Recuerda: solo puedes avanzar por conexiones válidas, y cada una tiene una capacidad limitada.
+
+¿Podrás encontrar el camino óptimo como lo haría el algoritmo Edmonds-Karp?
+
+¡Buena suerte, operador!"
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="StartButton" type="TextureButton" parent="."]
+offset_left = 740.0
+offset_top = 438.0
+offset_right = 797.0
+offset_bottom = 460.0
+scale = Vector2(5, 5)
+texture_normal = ExtResource("3_rxuny")
+texture_pressed = ExtResource("4_b1kk1")
+script = ExtResource("5_k32hq")
+
+[node name="Siguiente" type="Label" parent="."]
+offset_left = 736.0
+offset_top = 454.0
+offset_right = 1041.0
+offset_bottom = 532.0
+theme_override_font_sizes/font_size = 54
+text = "Start"
+horizontal_alignment = 1
+
+[connection signal="pressed" from="StartButton" to="StartButton" method="_on_pressed"]
