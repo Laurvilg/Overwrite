@@ -2,6 +2,17 @@ extends Node2D
 class_name FlowGraph
 
 # ==============================
+#  LABEL ÚNICO DE INFO
+# ==============================
+
+# PathLabel es hijo DIRECTO de este nodo (FlowGraph)
+@onready var info_label: Label = $"PathLabel"
+
+# Si tienes un panel de estado, bien; si no, será null y no pasa nada
+@onready var status_label: Label = get_node_or_null("Panel/Label")
+
+
+# ==============================
 #  GRAFO LÓGICO (CAPACIDADES)
 # ==============================
 
@@ -55,10 +66,8 @@ func get_capacity(from_node: String, to_node: String) -> int:
 	"F-T": $Edge_F_T,
 }
 
-@onready var verify_button: BaseButton = $"VerificarButton"
-@onready var reset_button: BaseButton  = $"ReiniciarButton"
+@onready var reset_button: BaseButton = $"ReiniciarButton"
 
-@onready var status_label: Label = get_node_or_null("Panel/Label")
 
 # ==============================
 #  ESTADO DEL JUEGO
@@ -75,24 +84,22 @@ var ek_result: Dictionary = {}         # resultado de Edmonds
 
 func _ready() -> void:
 	print("--- DEBUG _ready FlowGraph ---")
+	print("info_label =", info_label)
 
-	# Asegurar layout de los labels del InfoPanel
-	_setup_info_labels()
+	_setup_info_label()   # Ajustar SOLO estilo del label (no posición/size)
 
 	# Conectar botones de vértices
 	for vertex_id in vertex_buttons.keys():
 		var btn: BaseButton = vertex_buttons[vertex_id]
 		btn.pressed.connect(_on_vertex_pressed.bind(vertex_id))
 
-	# Conectar botones de verificar / reiniciar
-	if is_instance_valid(verify_button):
-		verify_button.pressed.connect(_on_verify_pressed)
+	# Conectar botón de reinicio
 	if is_instance_valid(reset_button):
 		reset_button.pressed.connect(_on_reset_pressed)
 
 	_reset_vertices_visual()
 	_reset_edges_visual()
-	_clear_info_labels()
+	_clear_info_label()
 
 	# Calcular solución con Edmonds-Karp
 	_compute_solution()
@@ -139,7 +146,6 @@ func _on_vertex_pressed(vertex_id: String) -> void:
 		selected_vertices.clear()
 		selected_vertices.append(vertex_id)
 		_highlight_vertex(vertex_id)
-		_update_path_label()
 		_update_status("Inicio del camino en " + vertex_id + ". Selecciona el siguiente vértice.")
 		return
 
@@ -151,51 +157,56 @@ func _on_vertex_pressed(vertex_id: String) -> void:
 		var cap = edges[last][vertex_id]
 		_highlight_vertex(vertex_id)
 		_highlight_edge(last, vertex_id)
-		_update_path_label()
 		_update_status("Salto válido: %s -> %s (capacidad %d)." % [last, vertex_id, cap])
 	else:
 		_update_status("Movimiento inválido: %s -> %s. Deben ser vértices adyacentes." % [last, vertex_id])
 
 
 # ==============================
-#  VERIFICAR / REINICIAR
+#  FUNCIÓN QUE LLAMA EL BOTÓN VERIFICAR
 # ==============================
 
 func _on_verify_pressed() -> void:
-	var lbl_res := _get_result_label()
-	var lbl_flow := _get_flow_label()
+	print(">>> _on_verify_pressed llamado")
+
+	if info_label == null:
+		print("❌ PathLabel no encontrado (asegúrate que se llama exactamente 'PathLabel' y es hijo de FlowGraph)")
+		return
 
 	if selected_vertices.is_empty():
 		_update_status("Primero selecciona un camino desde S hasta T.")
-		if lbl_res:
-			lbl_res.text = "Resultado: selecciona un camino primero."
+		info_label.text = "Selecciona un camino desde S hasta T."
 		return
+
+	var path_str := _format_path(selected_vertices)
 
 	if selected_vertices[0] != "S" or selected_vertices.back() != "T":
 		_update_status("Tu camino debe empezar en S y terminar en T.")
-		if lbl_res:
-			lbl_res.text = "Resultado: el camino debe ir de S hasta T."
+		info_label.text = "Camino elegido: %s\n❌ Debe empezar en S y terminar en T." % path_str
 		return
 
 	print("Camino jugador:", selected_vertices)
 	print("Camino solución:", solution_path)
 
+	var optimal_str := _format_path(solution_path)
+	var max_flow: int = int(ek_result.get("max_flow", 0))
+
 	if selected_vertices == solution_path:
+		# ✅ Caso correcto: mostramos TODO
 		_update_status("✅ ¡Correcto! Has encontrado el camino óptimo.")
-		if lbl_res:
-			lbl_res.text = "Resultado: ✅ Correcto"
-		if lbl_flow:
-			var pretty_sol := _format_path(solution_path)
-			var max_flow: int = int(ek_result.get("max_flow", 0))
-			lbl_flow.text = "Flujo máximo = %d\nCamino óptimo = %s" % [max_flow, pretty_sol]
+		info_label.text = "Camino elegido: %s\n✅ Correcto\nFlujo máximo = %d\nCamino óptimo = %s" \
+			% [path_str, max_flow, optimal_str]
 	else:
+		# ❌ Caso incorrecto: SOLO mostramos el camino elegido y el mensaje de error
 		_update_status("❌ Camino incorrecto. Intenta de nuevo.")
-		if lbl_res:
-			lbl_res.text = "Resultado: ❌ Incorrecto, intenta de nuevo."
-		if lbl_flow:
-			lbl_flow.text = ""
+		info_label.text = "Camino elegido: %s\n❌ Incorrecto, intenta de nuevo." % path_str
 		_restart_player_path()
 
+
+
+# ==============================
+#  REINICIAR
+# ==============================
 
 func _on_reset_pressed() -> void:
 	_restart_player_path()
@@ -205,7 +216,7 @@ func _restart_player_path() -> void:
 	selected_vertices.clear()
 	_reset_edges_visual()
 	_reset_vertices_visual()
-	_clear_info_labels()
+	# NO llamamos _clear_info_label aquí, para que se siga viendo el mensaje
 	_update_status("Camino reiniciado. Selecciona de nuevo desde S.")
 
 
@@ -225,7 +236,7 @@ func _highlight_vertex(vertex_id: String) -> void:
 
 
 # ==============================
-#  VISUAL: ARISTAS (Line2D TUYAS)
+#  VISUAL: ARISTAS
 # ==============================
 
 func _reset_edges_visual() -> void:
@@ -246,7 +257,7 @@ func _highlight_edge(from_id: String, to_id: String) -> void:
 
 
 # ==============================
-#  MENSAJES + LABELS DE INFO
+#  MENSAJES / FORMATO
 # ==============================
 
 func _update_status(msg: String) -> void:
@@ -262,77 +273,33 @@ func _format_path(path: Array) -> String:
 	return " -> ".join(path)
 
 
-# ---- Helpers para LABELS ----
-
-func _get_path_label() -> Label:
-	var lbl := get_node_or_null("InfoPanel/PathLabel") as Label
-	if not lbl:
-		print("❌ No se encontró InfoPanel/PathLabel")
-	return lbl
-
-func _get_result_label() -> Label:
-	var lbl := get_node_or_null("InfoPanel/ResultLabel") as Label
-	if not lbl:
-		print("❌ No se encontró InfoPanel/ResultLabel")
-	return lbl
-
-func _get_flow_label() -> Label:
-	var lbl := get_node_or_null("InfoPanel/FlowLabel") as Label
-	if not lbl:
-		print("❌ No se encontró InfoPanel/FlowLabel")
-	return lbl
-
-
-func _update_path_label() -> void:
-	var lbl := _get_path_label()
-	if lbl:
-		lbl.text = "Camino seleccionado: " + _format_path(selected_vertices)
-
-
-func _clear_info_labels() -> void:
-	var lbl_path := _get_path_label()
-	var lbl_res  := _get_result_label()
-	var lbl_flow := _get_flow_label()
-
-	if lbl_path:
-		lbl_path.text = "Camino seleccionado: —"
-	if lbl_res:
-		lbl_res.text = ""
-	if lbl_flow:
-		lbl_flow.text = ""
+func _clear_info_label() -> void:
+	if info_label:
+		info_label.text = ""
 
 
 # ==============================
-#  FORZAR LAYOUT / COLOR DE LABELS
+#  CONFIG VISUAL DEL LABEL
 # ==============================
 
-func _setup_info_labels() -> void:
-	var panel := get_node_or_null("InfoPanel") as Control
-	if not panel:
-		print("❌ No se encontró InfoPanel")
+func _setup_info_label() -> void:
+	if info_label == null:
+		print("❌ PathLabel sigue sin encontrarse")
 		return
 
-	var lbl_path := _get_path_label()
-	var lbl_res  := _get_result_label()
-	var lbl_flow := _get_flow_label()
+	# Que se vea y esté encima del fondo
+	info_label.visible = true
+	info_label.z_index = 100
 
-	var labels := [lbl_path, lbl_res, lbl_flow]
-	var y := 10.0
+	# Texto blanco
+	info_label.modulate = Color(1, 1, 1, 1)
+	info_label.self_modulate = Color(1, 1, 1, 1)
+	info_label.add_theme_color_override("font_color", Color(1, 1, 1))
 
-	for lbl in labels:
-		if lbl:
-			# que estén visibles, en blanco y con tamaño decente
-			lbl.visible = true
-			lbl.modulate = Color(1, 1, 1, 1)
-			lbl.self_modulate = Color(1, 1, 1, 1)
-			lbl.add_theme_color_override("font_color", Color(1, 1, 1))
+	# Que el texto se quede dentro del rectángulo y salte de línea
+	info_label.autowrap_mode = TextServer.AUTOWRAP_WORD
+	info_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT
+	info_label.vertical_alignment = VERTICAL_ALIGNMENT_TOP
 
-			lbl.anchor_left = 0.0
-			lbl.anchor_right = 1.0
-			lbl.anchor_top = 0.0
-			lbl.anchor_bottom = 0.0
-
-			lbl.position = Vector2(10, y)
-			lbl.size = Vector2(panel.size.x - 20, 24)
-
-			y += 28.0
+	# Limpia texto inicial
+	info_label.text = ""

@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://c1rxffpkoq65w"]
+[gd_scene load_steps=16 format=3 uid="uid://c1rxffpkoq65w"]
 
 [ext_resource type="Script" uid="uid://bpuutblovvjpk" path="res://Edmonds-Karp/FlowGraph.gd" id="1_it76y"]
 [ext_resource type="Texture2D" uid="uid://cmog44xkn300q" path="res://inicio/buttons/buttonxd.tres" id="2_ku0y5"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://qhc5c5va7xqh" path="res://inicio/buttons/buttonPress.tres" id="4_3eenm"]
 [ext_resource type="Script" uid="uid://csqrj24mykb6s" path="res://Edmonds-Karp/c_button.gd" id="5_rpfk8"]
 [ext_resource type="Script" uid="uid://bdayxejs6xkaj" path="res://Edmonds-Karp/d_button.gd" id="6_8r4c8"]
+[ext_resource type="Script" uid="uid://bqlqowb8kyosb" path="res://Edmonds-Karp/verificar_button.gd" id="6_nta0d"]
 [ext_resource type="Script" uid="uid://cariemmd4w4vc" path="res://Edmonds-Karp/e_button.gd" id="7_djofa"]
 [ext_resource type="Script" uid="uid://b7mvpheitt3ht" path="res://Edmonds-Karp/f_button.gd" id="8_clrsr"]
 [ext_resource type="Script" uid="uid://cimtsd64pt5mm" path="res://Edmonds-Karp/B-button.gd" id="8_nta0d"]
@@ -65,47 +66,18 @@ points = PackedVector2Array(513, 374, 740, 248)
 [node name="Edge_F_T" type="Line2D" parent="."]
 points = PackedVector2Array(596, 224, 740, 225)
 
-[node name="InfoPanel" type="Panel" parent="."]
-offset_left = 868.0
-offset_top = 266.0
-offset_right = 1089.0
-offset_bottom = 522.0
-
-[node name="PathLabel" type="Label" parent="InfoPanel"]
-layout_mode = 1
+[node name="PathLabel" type="Label" parent="."]
 anchors_preset = -1
-anchor_right = 0.986
-anchor_bottom = 0.297
-offset_left = -5.0
-offset_top = -1.0
-offset_right = 0.0939941
-offset_bottom = -0.0320053
-theme_override_fonts/font = ExtResource("11_7xb1d")
-theme_override_font_sizes/font_size = 68
+anchor_right = 1.0
+anchor_bottom = 1.008
+offset_left = 863.0
+offset_top = 265.0
+offset_right = 1082.0
+offset_bottom = 521.0
+theme_override_font_sizes/font_size = 20
 horizontal_alignment = 1
 vertical_alignment = 1
-
-[node name="ResultLabel" type="Label" parent="InfoPanel"]
-layout_mode = 1
-anchors_preset = -1
-anchor_top = 0.297
-anchor_right = 0.982
-anchor_bottom = 0.574
-offset_left = -3.0
-offset_top = -0.0320053
-offset_right = -0.0220184
-offset_bottom = 0.0559998
-
-[node name="FlowLabel" type="Label" parent="InfoPanel"]
-layout_mode = 1
-anchors_preset = -1
-anchor_top = 0.574
-anchor_right = 0.982
-anchor_bottom = 0.996
-offset_left = -1.0
-offset_top = 0.0559998
-offset_right = -0.0220184
-offset_bottom = 0.0239868
+autowrap_mode = 3
 
 [node name="Panel" type="Panel" parent="."]
 offset_left = -1.0
@@ -122,6 +94,7 @@ offset_bottom = 517.0
 scale = Vector2(4, 4)
 texture_normal = ExtResource("2_ku0y5")
 texture_pressed = ExtResource("4_3eenm")
+script = ExtResource("6_nta0d")
 
 [node name="Verificar" type="Label" parent="."]
 offset_left = 166.0
@@ -240,6 +213,7 @@ theme_override_fonts/font = ExtResource("11_7xb1d")
 theme_override_font_sizes/font_size = 16
 text = "Servidor de Respaldo"
 
+[connection signal="pressed" from="VerificarButton" to="VerificarButton" method="_on_pressed"]
 [connection signal="pressed" from="S-Button" to="S-Button" method="_on_pressed"]
 [connection signal="pressed" from="A-Button" to="A-Button" method="_on_pressed"]
 [connection signal="pressed" from="B-Button" to="B-Button" method="_on_pressed"]
