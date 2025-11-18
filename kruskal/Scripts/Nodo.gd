@@ -35,3 +35,8 @@ func set_texture_from_atlas(atlas: Texture2D, region: Rect2) -> void:
 	at.region = region
 	sprite.texture = at
 	sprite.scale = Vector2.ONE * base_scale
+
+func set_nombre(n: String) -> void:
+	nombre = n
+	if is_instance_valid(label):
+		label.text = n

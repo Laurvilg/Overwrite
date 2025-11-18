@@ -14,13 +14,20 @@ var peso: int = 0
 var grafo_ref: Node = null
 var disabled: bool = false
 
+# flag para indicar si esta arista pertenece al MST calculado (usada internamente, no visible)
+var es_mst: bool = false
+
 @onready var line: Line2D = $Line2D
 @onready var lbl: Label = $Label
 @onready var area: Area2D = $Area2D
 @onready var colshape: CollisionShape2D = $Area2D/CollisionShape2D
 
 func _ready() -> void:
-	# z-order: aristas debajo
+	for a in get_tree().get_nodes_in_group("aristas"):
+		if not is_instance_valid(a.nodo_origen) or not is_instance_valid(a.nodo_destino):
+			continue
+			print("ARISTA:", a.nodo_origen.nombre, "-", a.nodo_destino.nombre, "instancia:", a)
+
 	z_index = 0
 	line.z_index = 0
 	lbl.z_index = 1
@@ -38,6 +45,7 @@ func configurar(nodo_a: Node, nodo_b: Node, peso_valor: int, grafo_node: Node) -
 	lbl.text = str(peso)
 	_actualizar_dibujo()
 	disabled = false
+	es_mst = false
 	if is_instance_valid(area):
 		area.monitoring = true
 
@@ -51,26 +59,25 @@ func _actualizar_dibujo() -> void:
 		return
 	line.visible = true
 	lbl.visible = true
-
-	# posiciones globales
 	var gp1: Vector2 = nodo_origen.global_position
 	var gp2: Vector2 = nodo_destino.global_position
-
-	# convertir a locales (Line2D espera puntos relativos al Node2D)
 	var lp1: Vector2 = to_local(gp1)
 	var lp2: Vector2 = to_local(gp2)
 	line.points = [lp1, lp2]
-
-	# label: medio + desplazamiento perpendicular para evitar solapamiento
 	var mid := (gp1 + gp2) * 0.5
 	var dir := gp2 - gp1
 	var perp := Vector2(-dir.y, dir.x)
 	if perp.length() > 0:
 		perp = perp.normalized()
 	var offset_amount := 12.0
-	lbl.global_position = mid + perp * offset_amount
-
-	# collision shape (rect centrado y rotado)
+	# Posición label: ajusta especialmente para la arista b-d
+	var custom_offset := offset_amount
+	if (
+		(nodo_origen.nombre == "b" and nodo_destino.nombre == "d") or
+		(nodo_origen.nombre == "d" and nodo_destino.nombre == "b")
+		):
+			custom_offset = -10.0 # prueba este valor, puedes aumentarlo si quieres
+	lbl.global_position = mid + perp * custom_offset
 	var length := dir.length()
 	if is_instance_valid(colshape):
 		var rect_shape := RectangleShape2D.new()
@@ -87,7 +94,9 @@ func _on_area_input_event(_viewport, event: InputEvent, _shape_idx: int) -> void
 			return
 		if not is_instance_valid(nodo_origen) or not is_instance_valid(nodo_destino):
 			return
-		var ok: bool = grafo_ref.intentar_conectar(nodo_origen.nombre, nodo_destino.nombre, peso)
+		var origen: String = nodo_origen.nombre if "nombre" in nodo_origen else nodo_origen.name
+		var destino: String = nodo_destino.nombre if "nombre" in nodo_destino else nodo_destino.name
+		var ok: bool = grafo_ref.intentar_conectar(origen, destino, peso)
 		if ok:
 			_marcar_aceptada()
 			emit_signal("clicked", self)
@@ -109,10 +118,18 @@ func _marcar_rechazada_temporal() -> void:
 		line.default_color = color_default
 		line.width = line_width
 
-# Método público para restaurar la arista a su estado inicial (soft-reset)
 func reiniciar_visual() -> void:
+	# soft reset visual: vuelve al aspecto por defecto independientemente de es_mst
 	disabled = false
 	if is_instance_valid(area):
 		area.monitoring = true
 	line.default_color = color_default
 	line.width = line_width
+
+# marcar_mst solo cambia la flag interna, NO altera color ni visual
+func marcar_mst() -> void:
+	es_mst = true
+
+func desmarcar_mst() -> void:
+	es_mst = false
+	# no alterar apariencia aquí (reiniciar_visual deja el visual por defecto)

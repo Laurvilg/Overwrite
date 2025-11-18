@@ -1,6 +1,7 @@
 extends Node2D
 
-# Script "GameManager" para tu escena principal RebuildNet.
+# Script "GameManager" para la escena RebuildNet.
+# Controla el botón Reset (soft reset) y delega en el nodo Grafo.
 
 @onready var grafo := $Grafo if has_node("Grafo") else null
 @onready var ui_label := $UI/Label_Status if has_node("UI/Label_Status") else null
@@ -13,11 +14,11 @@ func _ready() -> void:
 	# si el grafo existe, actualizar status inicial
 	if is_instance_valid(grafo):
 		if ui_label:
-			grafo.call_deferred("_update_status", "Listo. Generando red...")
+			grafo.call_deferred("_update_status", "Generando red...")
 			if "status_label" in grafo:
 				grafo.status_label = ui_label
 
-# Soft reset: limpia selecciones, no regenera grafo
+# Soft reset: limpia selecciones, no regenera grafo ni randomiza pesos
 func _on_reset_pressed() -> void:
 	if is_instance_valid(grafo):
 		if grafo.has_method("limpiar_selecciones"):

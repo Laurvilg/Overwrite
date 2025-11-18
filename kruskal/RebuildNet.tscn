@@ -1,24 +1,65 @@
-[gd_scene load_steps=3 format=3 uid="uid://2wxuxom227yp"]
+[gd_scene load_steps=8 format=3 uid="uid://2wxuxom227yp"]
 
 [ext_resource type="Script" uid="uid://hdv377ojl7xa" path="res://kruskal/Scripts/RebuildNet.gd" id="1_6nj6q"]
 [ext_resource type="Script" uid="uid://b6ydoa7wbbkg4" path="res://kruskal/Scripts/Grafo.gd" id="1_ye8f7"]
+[ext_resource type="Texture2D" path="res://inicio/buttons/buttonBlue.tres" id="2_p3toe"]
+[ext_resource type="Texture2D" uid="uid://d1nnxaafglgi7" path="res://inicio/image/fondo.png" id="2_s250g"]
+[ext_resource type="PackedScene" uid="uid://bsai5yeq3b05c" path="res://kruskal/Scenes/Arista.tscn" id="3_oo3x6"]
+[ext_resource type="Texture2D" path="res://inicio/buttons/buttonBlueC.tres" id="3_q0wes"]
+[ext_resource type="PackedScene" uid="uid://jbu4q7mrlv0f" path="res://kruskal/Scenes/Nodo.tscn" id="4_s250g"]
 
 [node name="RebuildNet" type="Node2D"]
 script = ExtResource("1_6nj6q")
+
+[node name="Fondo" type="TextureRect" parent="."]
+show_behind_parent = true
+visibility_layer = 513
+offset_left = 1.0
+offset_top = 2.0
+offset_right = 1154.0
+offset_bottom = 649.0
+texture = ExtResource("2_s250g")
+
+[node name="ColorRect" type="ColorRect" parent="Fondo"]
+offset_left = 69.0
+offset_top = 78.0
+offset_right = 1099.0
+offset_bottom = 525.0
+mouse_filter = 2
+color = Color(0.472918, 0.300448, 0.090146, 0.32549)
+
+[node name="Grafo" type="Node2D" parent="."]
+script = ExtResource("1_ye8f7")
+AristaScene = ExtResource("3_oo3x6")
+NodoScene = ExtResource("4_s250g")
+
+[node name="NodoContainer" type="Node2D" parent="Grafo"]
 
 [node name="UI" type="CanvasLayer" parent="."]
 
 [node name="Label_Status" type="Label" parent="UI"]
 offset_right = 1153.0
-offset_bottom = 68.0
+offset_bottom = 233.0
+theme_override_font_sizes/font_size = 35
+horizontal_alignment = 1
+uppercase = true
 
-[node name="Button_Reset" type="Button" parent="UI"]
-offset_right = 8.0
-offset_bottom = 8.0
+[node name="Button_Reset" type="TextureButton" parent="UI"]
+offset_left = 466.0
+offset_top = 552.0
+offset_right = 692.0
+offset_bottom = 613.0
+texture_normal = ExtResource("2_p3toe")
+texture_pressed = ExtResource("3_q0wes")
+stretch_mode = 0
 
-[node name="Grafo" type="Node2D" parent="."]
-script = ExtResource("1_ye8f7")
-
-[node name="NodoContainer" type="Node2D" parent="Grafo"]
+[node name="Label" type="Label" parent="UI/Button_Reset"]
+layout_mode = 0
+offset_left = 65.0
+offset_top = 3.0
+offset_right = 166.0
+offset_bottom = 52.0
+theme_override_font_sizes/font_size = 35
+text = "RESET"
 
 [connection signal="pressed" from="UI/Button_Reset" to="Grafo" method="_on_button_reset_pressed"]
