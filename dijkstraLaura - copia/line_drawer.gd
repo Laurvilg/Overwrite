@@ -8,8 +8,8 @@ signal clicked(arista)
 @export var color_accept: Color = Color(0.1, 0.85, 0.25)
 @export var color_reject: Color = Color(1, 0.35, 0.35)
 
-@export_range(1, 20) var peso_min: int = 1  # peso mínimo
-@export_range(1, 20) var peso_max: int = 10 # peso máximo
+@export_range(5, 50) var peso_min: int = 5
+@export_range(5, 50) var peso_max: int = 20
 
 var nodo_origen: Node = null
 var nodo_destino: Node = null
@@ -30,9 +30,10 @@ func _ready() -> void:
 		line.default_color = color_default
 		line.z_index = 0
 	if lbl:
-		lbl.scale = Vector2(0.85, 0.85)
+		lbl.scale = Vector2(1, 1)
 		lbl.z_index = 1
-
+		lbl.add_theme_color_override("font_color", Color.BLACK)
+		lbl.add_theme_font_size_override("font_size", 20)
 	if area:
 		area.input_pickable = true
 		area.monitorable = true
@@ -44,7 +45,7 @@ func configurar(nodo_a: Node, nodo_b: Node, grafo_node: Node) -> void:
 	nodo_origen = nodo_a
 	nodo_destino = nodo_b
 	grafo_ref = grafo_node
-	# Generar peso aleatorio cada vez que se crea la arista
+	# Generar peso aleatorio
 	peso = randi() % (peso_max - peso_min + 1) + peso_min
 	if lbl:
 		lbl.text = str(peso)
@@ -98,13 +99,11 @@ func _on_area_2d_input_event(_viewport, event: InputEvent, _shape_idx: int) -> v
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
 		if not is_instance_valid(grafo_ref):
 			return
-		var ok = false
-		if grafo_ref.has_method("intentar_conectar"):
-			ok = grafo_ref.intentar_conectar(nodo_origen.name, nodo_destino.name, peso)
+		var ok = true # Siempre aceptar click
 		if ok:
 			_marcar_aceptada()
-		else:
-			_marcar_rechazada_temporal()
+			if is_instance_valid(grafo_ref):
+				grafo_ref.registrar_ruta(nodo_origen.name, nodo_destino.name)
 		emit_signal("clicked", self)
 
 func _marcar_aceptada() -> void:
@@ -114,14 +113,6 @@ func _marcar_aceptada() -> void:
 	if line:
 		line.default_color = color_accept
 		line.width = line_width * 1.2
-
-func _marcar_rechazada_temporal() -> void:
-	if line:
-		line.default_color = color_reject
-	await get_tree().create_timer(0.35).timeout
-	if not disabled and line:
-		line.default_color = color_default
-		line.width = line_width
 
 func reiniciar_visual() -> void:
 	disabled = false
@@ -133,9 +124,3 @@ func reiniciar_visual() -> void:
 	if line:
 		line.default_color = color_default
 		line.width = line_width
-
-func marcar_mst() -> void:
-	es_mst = true
-
-func desmarcar_mst() -> void:
-	es_mst = false

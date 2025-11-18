@@ -63,19 +63,19 @@ text = "Resultados"
 autowrap_mode = 3
 
 [node name="verificarButton" type="TextureButton" parent="."]
-offset_left = 56.0
+offset_left = 48.0
 offset_top = 528.0
-offset_right = 114.0
-offset_bottom = 549.0
+offset_right = 106.0
+offset_bottom = 552.0
 scale = Vector2(5, 5)
 texture_normal = ExtResource("2_24yc5")
 texture_pressed = ExtResource("3_l6wk2")
 texture_hover = ExtResource("3_l6wk2")
 
 [node name="Label" type="Label" parent="."]
-offset_left = 112.0
+offset_left = 96.0
 offset_top = 560.0
-offset_right = 306.0
+offset_right = 290.0
 offset_bottom = 593.0
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("4_qa8sy")
@@ -83,9 +83,9 @@ theme_override_font_sizes/font_size = 35
 text = "VERIFICAR"
 
 [node name="repeatButton" type="TextureButton" parent="."]
-offset_left = 384.0
+offset_left = 368.0
 offset_top = 528.0
-offset_right = 442.0
+offset_right = 426.0
 offset_bottom = 549.0
 scale = Vector2(5, 5)
 texture_normal = ExtResource("2_24yc5")
@@ -93,9 +93,9 @@ texture_pressed = ExtResource("3_l6wk2")
 texture_hover = ExtResource("3_l6wk2")
 
 [node name="Label2" type="Label" parent="."]
-offset_left = 456.0
+offset_left = 440.0
 offset_top = 560.0
-offset_right = 650.0
+offset_right = 634.0
 offset_bottom = 593.0
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("4_qa8sy")

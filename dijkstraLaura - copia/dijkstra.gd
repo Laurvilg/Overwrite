@@ -3,15 +3,15 @@ class_name Dijkstra
 
 const INF = 999999
 
-func dijkstra(grafo_dict: Dictionary, origen: String):
-
+# Retorna un diccionario con la distancia mínima desde el nodo origen
+func dijkstra(grafo_dict: Dictionary, origen: String) -> Dictionary:
 	var dist = {}
 	var visitado = {}
 
-	# Inicializar todo
-	for v in grafo_dict.keys():
-		dist[v] = INF
-		visitado[v] = false
+	# Inicializar distancias
+	for nodo in grafo_dict.keys():
+		dist[nodo] = INF
+		visitado[nodo] = false
 
 	dist[origen] = 0
 
@@ -20,10 +20,10 @@ func dijkstra(grafo_dict: Dictionary, origen: String):
 		var min_dist = INF
 
 		# Buscar nodo no visitado con menor distancia
-		for v in dist.keys():
-			if not visitado[v] and dist[v] < min_dist:
-				min_dist = dist[v]
-				actual = v
+		for nodo in dist.keys():
+			if not visitado[nodo] and dist[nodo] < min_dist:
+				min_dist = dist[nodo]
+				actual = nodo
 
 		if actual == null:
 			break
