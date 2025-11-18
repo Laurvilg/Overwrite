@@ -1,0 +1,125 @@
+[gd_scene load_steps=14 format=3 uid="uid://dsytkntcnptsh"]
+
+[ext_resource type="Script" uid="uid://my7mbk8y44o1" path="res://dijkstraLaura - copia/dijkstra.gd" id="1_nwf3n"]
+[ext_resource type="Texture2D" uid="uid://drwvedr4q2k2r" path="res://inicio/image/2.png" id="1_sm1f8"]
+[ext_resource type="Texture2D" uid="uid://cywopum7etive" path="res://inicio/buttons/buttonBlue.tres" id="2_24yc5"]
+[ext_resource type="Script" uid="uid://clgxhjpqhslik" path="res://dijkstraLaura - copia/grafo_visual.gd" id="3_8vwas"]
+[ext_resource type="Texture2D" uid="uid://cqlua8sjro0ag" path="res://inicio/buttons/buttonBlueC.tres" id="3_l6wk2"]
+[ext_resource type="PackedScene" uid="uid://btwx61slv0f5l" path="res://dijkstraLaura - copia/LineDrawer.tscn" id="4_ix473"]
+[ext_resource type="FontFile" uid="uid://t8w28xx3wyy5" path="res://assets/Fonts/ComicHelvetic_Heavy.otf" id="4_qa8sy"]
+[ext_resource type="PackedScene" uid="uid://cac10h4xersha" path="res://dijkstraLaura - copia/NodoVertice.tscn" id="5_hn6a0"]
+[ext_resource type="FontFile" uid="uid://biasfq1fvbi0t" path="res://assets/Fonts/Silver.ttf" id="15_j4vsr"]
+[ext_resource type="Texture2D" uid="uid://d4ni14x8nl2n" path="res://inicio/buttons/musicaButton.tres" id="18_oio7h"]
+[ext_resource type="Script" uid="uid://d4jgkqfp5ly5q" path="res://inicio/scripts/musica_button.gd" id="19_ubsib"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_qa08j"]
+texture = ExtResource("1_sm1f8")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ml2ii"]
+bg_color = Color(0.47451, 0.517647, 0.168627, 0.611765)
+
+[node name="Dijkstra" type="Node2D"]
+script = ExtResource("1_nwf3n")
+
+[node name="Panel" type="Panel" parent="."]
+offset_right = 1150.0
+offset_bottom = 645.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_qa08j")
+
+[node name="Panel3" type="Panel" parent="."]
+offset_left = 760.0
+offset_top = 184.0
+offset_right = 1104.0
+offset_bottom = 568.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ml2ii")
+
+[node name="Panel2" type="Panel" parent="."]
+offset_left = 40.0
+offset_top = 48.0
+offset_right = 672.0
+offset_bottom = 496.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ml2ii")
+
+[node name="grafoVisual" type="Node2D" parent="Panel2"]
+position = Vector2(-40, -48)
+script = ExtResource("3_8vwas")
+
+[node name="NodoVertice" parent="Panel2/grafoVisual" instance=ExtResource("5_hn6a0")]
+visible = false
+
+[node name="LineDrawer" parent="Panel2/grafoVisual" instance=ExtResource("4_ix473")]
+
+[node name="resultadosLabel" type="Label" parent="."]
+offset_left = 776.0
+offset_top = 220.0
+offset_right = 1072.0
+offset_bottom = 543.0
+theme_override_fonts/font = ExtResource("4_qa8sy")
+theme_override_font_sizes/font_size = 34
+text = "Resultados"
+autowrap_mode = 3
+
+[node name="verificarButton" type="TextureButton" parent="."]
+offset_left = 56.0
+offset_top = 528.0
+offset_right = 114.0
+offset_bottom = 549.0
+scale = Vector2(5, 5)
+texture_normal = ExtResource("2_24yc5")
+texture_pressed = ExtResource("3_l6wk2")
+texture_hover = ExtResource("3_l6wk2")
+
+[node name="Label" type="Label" parent="."]
+offset_left = 112.0
+offset_top = 560.0
+offset_right = 306.0
+offset_bottom = 593.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("4_qa8sy")
+theme_override_font_sizes/font_size = 35
+text = "VERIFICAR"
+
+[node name="repeatButton" type="TextureButton" parent="."]
+offset_left = 384.0
+offset_top = 528.0
+offset_right = 442.0
+offset_bottom = 549.0
+scale = Vector2(5, 5)
+texture_normal = ExtResource("2_24yc5")
+texture_pressed = ExtResource("3_l6wk2")
+texture_hover = ExtResource("3_l6wk2")
+
+[node name="Label2" type="Label" parent="."]
+offset_left = 456.0
+offset_top = 560.0
+offset_right = 650.0
+offset_bottom = 593.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("4_qa8sy")
+theme_override_font_sizes/font_size = 35
+text = "REPETIR"
+
+[node name="Label3" type="Label" parent="."]
+offset_left = 792.0
+offset_top = 80.0
+offset_right = 1104.0
+offset_bottom = 213.0
+theme_override_fonts/font = ExtResource("15_j4vsr")
+theme_override_font_sizes/font_size = 120
+text = "Dijkstra"
+
+[node name="musicaButton" type="TextureButton" parent="."]
+offset_left = 1088.0
+offset_top = 8.0
+offset_right = 1105.0
+offset_bottom = 25.0
+scale = Vector2(3.2, 3.2)
+texture_normal = ExtResource("18_oio7h")
+script = ExtResource("19_ubsib")
+
+[connection signal="pressed" from="verificarButton" to="Panel2/grafoVisual" method="_on_verificar_button_pressed"]
+[connection signal="pressed" from="repeatButton" to="Panel2/grafoVisual" method="_on_repeat_button_pressed"]
+[connection signal="pressed" from="musicaButton" to="musicaButton" method="_on_pressed"]

@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://cac10h4xersha"]
+
+[ext_resource type="Script" uid="uid://cex8jh1etrcfb" path="res://dijkstraLaura - copia/nodo_vertice.gd" id="1_oht5r"]
+[ext_resource type="Texture2D" uid="uid://bh5ijvtyqrghu" path="res://dijkstraLaura - copia/image/ordenador  bueno.png" id="2_wwbps"]
+
+[node name="NodoVertice" type="Node2D"]
+script = ExtResource("1_oht5r")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.12, 0.12)
+texture = ExtResource("2_wwbps")
+
+[node name="Label" type="Label" parent="."]
+offset_right = 40.0
+offset_bottom = 23.0

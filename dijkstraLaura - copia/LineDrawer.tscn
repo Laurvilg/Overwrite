@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://btwx61slv0f5l"]
+
+[ext_resource type="Script" uid="uid://c1cavymf8bo5q" path="res://dijkstraLaura - copia/line_drawer.gd" id="1_hapiq"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_65sy2"]
+
+[node name="LineDrawer" type="Node2D"]
+script = ExtResource("1_hapiq")
+
+[node name="Label" type="Label" parent="."]
+offset_right = 40.0
+offset_bottom = 23.0
+
+[node name="Line2D" type="Line2D" parent="."]
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_65sy2")
+
+[connection signal="input_event" from="Area2D" to="." method="_on_area_2d_input_event"]
