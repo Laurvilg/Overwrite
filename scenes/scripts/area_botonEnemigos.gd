@@ -2,6 +2,9 @@ extends Area2D  # Este script controla el mapa/área clickeable y la lógica de 
 
 # Nodo principal
 var nodo_principal := 2
+var nodo_actual := 1  # Nodo actual del jugador, empieza en 1
+@onready var resultados_label = $"../../CanvasLayer/Resultados"
+
 
 var EnemyScene = preload("res://scenes/enemigo1/enemigo1.tscn")   # Escena del enemigo a instanciar.
 var Arbol = preload("res://scenes/scripts/arbol.gd")              # Clase del ABB (progreso por dificultad).
@@ -36,8 +39,8 @@ var zona_activada :=      {1: false, 2: false, 3: false, 4: false, 5: false, 6: 
 
 # Qué minijuego/pantalla se abre al completar cada zona
 var escenas_por_zona := {
-	1: preload("res://minijuego/juego.tscn"),
-	2: preload("res://pantallasPreguntas/preg1.tscn"),
+	1: preload("res://dijkstraLaura - copia/inicio.tscn"),
+	2: preload("res://MiniJuegoCorb-DFS-BFS/MiniCorbHistory.tscn"),
 	3: preload("res://pantallasPreguntas/preg2.tscn"),
 	4: preload("res://minijuego/juego.tscn"),
 	5: preload("res://pantallasPreguntas/preg3.tscn"),
@@ -69,6 +72,7 @@ func _ready():
 	grafo.conectar_vertice(vertices_dict[4], vertices_dict[6])
 
 	grafo.imprimir() #depuración
+	actualizar_resultado_lineal()
 
 	# Por cada zona se crea un nodo en el ABB con:
 	# valor = dificultad (max_enemigos), zona_id, y flags iniciales.
@@ -227,3 +231,21 @@ func mostrar_pantalla_victoria():
 	overlay.add_child(win_scene)
 	if overlay.has_node("MensajeFinal"):
 		overlay.get_node("MensajeFinal").queue_free()
+
+func _on_palanca_activada(shape_idx):
+	nodo_actual = shape_idx
+	actualizar_resultado_lineal()
+
+func actualizar_resultado_lineal():
+	if resultados_label == null:
+		return
+
+	# Si el nodo actual ya fue completado, buscamos el siguiente
+	if zonas_completadas.get(nodo_actual, false):
+		nodo_actual += 1  # siguiente nodo en línea
+		if nodo_actual > vertices_dict.size():
+			resultados_label.text = "¡Todos los nodos completados!"
+			return
+
+	resultados_label.text = "Activa el nodo " + str(nodo_actual) + " para activar el siguiente"
+	resultados_label.visible = true

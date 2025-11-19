@@ -1,3 +1,134 @@
-[gd_scene format=3 uid="uid://cp2jf5cxqm1hd"]
+[gd_scene load_steps=14 format=3 uid="uid://cp2jf5cxqm1hd"]
+
+[ext_resource type="Script" uid="uid://cg41u7cafh7qh" path="res://dijkstraLaura - copia/scripts/inicio.gd" id="1_ogrqt"]
+[ext_resource type="Texture2D" uid="uid://c7tregmc2s2cv" path="res://dijkstraLaura - copia/image/explicar.png" id="1_wcf3k"]
+[ext_resource type="FontFile" uid="uid://t8w28xx3wyy5" path="res://assets/Fonts/ComicHelvetic_Heavy.otf" id="2_ogrqt"]
+[ext_resource type="FontFile" uid="uid://biasfq1fvbi0t" path="res://assets/Fonts/Silver.ttf" id="3_qbwfb"]
+[ext_resource type="Texture2D" uid="uid://caj5en62ctwgq" path="res://dijkstraLaura - copia/image/red-gradient-circle-free-png.webp" id="4_3cxyj"]
+[ext_resource type="Texture2D" uid="uid://d4ni14x8nl2n" path="res://inicio/buttons/musicaButton.tres" id="4_dlegv"]
+[ext_resource type="Script" uid="uid://d4jgkqfp5ly5q" path="res://inicio/scripts/musica_button.gd" id="5_2fqih"]
+[ext_resource type="Texture2D" uid="uid://usbotglorkdk" path="res://dijkstraLaura - copia/image/ordenador malo.png" id="5_dlegv"]
+[ext_resource type="Texture2D" uid="uid://cywopum7etive" path="res://inicio/buttons/buttonBlue.tres" id="6_2fqih"]
+[ext_resource type="Texture2D" uid="uid://cqlua8sjro0ag" path="res://inicio/buttons/buttonBlueC.tres" id="7_g2gsb"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_n13ev"]
+texture = ExtResource("1_wcf3k")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qraif"]
+bg_color = Color(0.819444, 0.272986, 0.267183, 0.466667)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ws25q"]
+bg_color = Color(0.456566, 0.157875, 0.82878, 0.47451)
 
 [node name="Inicio" type="Node2D"]
+script = ExtResource("1_ogrqt")
+
+[node name="Panel" type="Panel" parent="."]
+offset_right = 1152.0
+offset_bottom = 648.0
+theme_override_styles/panel = SubResource("StyleBoxTexture_n13ev")
+
+[node name="Label" type="Label" parent="Panel"]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 96.0
+offset_right = 570.0
+offset_bottom = 139.0
+theme_override_colors/font_shadow_color = Color(0.811765, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_ogrqt")
+theme_override_font_sizes/font_size = 43
+text = "Misión: Optimiza la red 💡"
+
+[node name="musicaButton" type="TextureButton" parent="Panel"]
+offset_left = 1088.0
+offset_top = 8.0
+offset_right = 1105.0
+offset_bottom = 25.0
+scale = Vector2(3.2, 3.2)
+texture_normal = ExtResource("4_dlegv")
+script = ExtResource("5_2fqih")
+
+[node name="Label" type="Label" parent="."]
+offset_left = 704.0
+offset_top = 128.0
+offset_right = 1059.0
+offset_bottom = 295.0
+theme_override_colors/font_shadow_color = Color(0.133, 0, 0.57, 1)
+theme_override_fonts/font = ExtResource("3_qbwfb")
+theme_override_font_sizes/font_size = 150
+text = "Dijkstra"
+
+[node name="TextureRect2" type="TextureRect" parent="."]
+offset_left = 768.0
+offset_top = 288.0
+offset_right = 1768.0
+offset_bottom = 1288.0
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("4_3cxyj")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_left = 792.0
+offset_top = 304.0
+offset_right = 1304.0
+offset_bottom = 816.0
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("5_dlegv")
+
+[node name="Label2" type="Label" parent="."]
+offset_left = 720.0
+offset_top = 48.0
+offset_right = 896.0
+offset_bottom = 71.0
+theme_override_fonts/font = ExtResource("2_ogrqt")
+theme_override_font_sizes/font_size = 23
+text = "Camino mínimo"
+
+[node name="Label3" type="Label" parent="."]
+offset_left = 32.0
+offset_top = 192.0
+offset_right = 600.0
+offset_bottom = 584.0
+theme_override_fonts/font = ExtResource("2_ogrqt")
+theme_override_font_sizes/font_size = 23
+text = "Eres Bella, quién controla sistema, y debes llevar los datos desde el nodo morado (inicio) hasta el nodo rojo (destino). Tu alter ego Eva intenta confundirte, pero tú sabes cuál es cuál porque la red está organizada en un círculo de nodos. Selecciona paso a paso por dónde viajarán los datos sin caer en rutas inútiles.
+
+Para lograrlo, piensa como Dijkstra, el algoritmo que encuentra siempre el camino más corto en un grafo. En el juego debes elegir las conexiones que reduzcan al mínimo el recorrido hasta llegar al rojo, y al final comprobar si tu ruta coincide con la óptima. ¡Encuentra el camino mínimo y derrota a Eva!"
+autowrap_mode = 2
+
+[node name="Panel2" type="Panel" parent="."]
+offset_left = 24.0
+offset_top = 240.0
+offset_right = 256.0
+offset_bottom = 264.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_qraif")
+
+[node name="Panel3" type="Panel" parent="."]
+offset_left = 240.0
+offset_top = 216.0
+offset_right = 480.0
+offset_bottom = 240.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_ws25q")
+
+[node name="TextureButton" type="TextureButton" parent="."]
+offset_left = 744.0
+offset_top = 512.0
+offset_right = 802.0
+offset_bottom = 534.0
+scale = Vector2(4.3, 4.3)
+texture_normal = ExtResource("6_2fqih")
+texture_pressed = ExtResource("7_g2gsb")
+texture_hover = ExtResource("7_g2gsb")
+
+[node name="Label4" type="Label" parent="."]
+offset_left = 792.0
+offset_top = 536.0
+offset_right = 946.0
+offset_bottom = 579.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0.354232, 0.0709727, 0.982598, 1)
+theme_override_fonts/font = ExtResource("2_ogrqt")
+theme_override_font_sizes/font_size = 46
+text = "START"
+
+[connection signal="pressed" from="Panel/musicaButton" to="Panel/musicaButton" method="_on_pressed"]
+[connection signal="pressed" from="TextureButton" to="." method="_on_texture_button_pressed"]

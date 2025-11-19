@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://5xrojvqbqhxm"]
+[gd_scene load_steps=8 format=3 uid="uid://5xrojvqbqhxm"]
 
 [ext_resource type="Script" uid="uid://6o3ucvw82usg" path="res://MiniJuegoCorb-DFS-BFS/game_manager.gd" id="1_8epq2"]
 [ext_resource type="AudioStream" uid="uid://ymevn3wn1n1l" path="res://MiniJuegoCorb-DFS-BFS/Buttons/Correct Sound Effect  Bgm & Sound Effect - asnat farooq.mp3" id="2_d5hbi"]
 [ext_resource type="AudioStream" uid="uid://gvnny4apdhti" path="res://MiniJuegoCorb-DFS-BFS/Buttons/Wrong Answer Sound effect - VS Mode.mp3" id="3_kwyer"]
 [ext_resource type="AudioStream" uid="uid://b6ni7r83ohe7p" path="res://MiniJuegoCorb-DFS-BFS/Buttons/WIN sound effect no copyright - JG Green Screen.mp3" id="4_b8lro"]
 [ext_resource type="AudioStream" uid="uid://dg37y4cuwjtbm" path="res://MiniJuegoCorb-DFS-BFS/Buttons/Fail Sound Effect - Sound Effects.mp3" id="5_k6jwp"]
+[ext_resource type="PackedScene" uid="uid://d0iw1w3p4wq0o" path="res://scenes/mapa/mapa.tscn" id="6_b8lro"]
 [ext_resource type="Texture2D" uid="uid://gyp8t6rntrsk" path="res://MiniJuegoCorb-DFS-BFS/Buttons/FondoMiniCorb.png" id="6_kwyer"]
 
 [node name="MiniJuegoDfs" type="Control"]
@@ -97,9 +98,10 @@ correct_sound = ExtResource("2_d5hbi")
 wrong_sound = ExtResource("3_kwyer")
 win_sound = ExtResource("4_b8lro")
 lose_sound = ExtResource("5_k6jwp")
+next_scene = ExtResource("6_b8lro")
 
 [node name="FondoMiniCorb" type="Sprite2D" parent="."]
 show_behind_parent = true
-position = Vector2(590, 322.49997)
-scale = Vector2(0.6145833, 0.61574066)
+position = Vector2(590, 322.5)
+scale = Vector2(0.614583, 0.615741)
 texture = ExtResource("6_kwyer")

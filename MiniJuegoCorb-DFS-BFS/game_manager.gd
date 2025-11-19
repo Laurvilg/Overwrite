@@ -135,7 +135,7 @@ func _change_scene_after_delay(sec: float) -> void:
 	var t = get_tree().create_timer(sec)
 	await t.timeout
 	if next_scene != null:
-		get_tree().change_scene_to(next_scene)
+		self.visible = false
 
 # --- BFS ---
 func _bfs(start: int) -> Array[int]:

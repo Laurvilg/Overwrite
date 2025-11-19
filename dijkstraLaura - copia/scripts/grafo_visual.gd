@@ -10,14 +10,16 @@ var vertices_data := [
 	{"name": "C", "position": Vector2(120, 390)},
 	{"name": "D", "position": Vector2(450, 330)},
 	{"name": "E", "position": Vector2(600, 120)},
-	{"name": "F", "position": Vector2(610, 423)}
+	{"name": "F", "position": Vector2(610, 423)},
+	{"name": "G", "position": Vector2(303, 423)},
+	{"name": "H", "position": Vector2(350, 100)}
 ]
 
 # Conexiones
 var aristas_data := [
-	["A", "B"], ["A", "E"], ["B", "D"], ["F", "D"],
-	["C", "A"], ["C", "B"], ["E", "F"], ["C", "F"],
-	["B", "E"], ["D", "E"]
+	["A", "B"], ["A", "H"], ["B", "D"], ["F", "D"],
+	["C", "A"], ["C", "B"], ["E", "F"], ["G", "B"],
+	["B", "E"], ["D", "E"], ["G","C"],["F","G"], ["E","H"] 
 ]
 
 # Variables de control
@@ -34,7 +36,7 @@ func _ready():
 	_crear_vertices()
 	_crear_aristas()
 	_calcular_peso_minimo()
-	resultado_label.text = "Selecciona el camino de A a F"
+	resultado_label.text = "Selecciona el camino desde el nodo morado al nodo rojo."
 
 # Crear nodos
 func _crear_vertices():
@@ -111,7 +113,7 @@ func _on_repeat_button_pressed() -> void:
 		if is_instance_valid(edge) and edge.has_method("reiniciar_visual"):
 			edge.reiniciar_visual()
 	ruta_usuario.clear()
-	resultado_label.text = "Selecciona el camino de A a F"
+	resultado_label.text = "Selecciona el camino desde el nodo morado al nodo rojo."
 
 # Verificar camino
 func _on_verificar_button_pressed() -> void:
@@ -130,11 +132,11 @@ func _on_verificar_button_pressed() -> void:
 				encontrado = true
 				break
 		if not encontrado:
-			resultado_label.text = "Ruta inválida." 
+			resultado_label.text = "Ruta inválida. Presione en repetir." 
 			return
 
 	if peso_usuario == peso_minimo:
-		resultado_label.text = "✅ Correcto!"
+		resultado_label.text = "✅ Seleccionaste el camino correcto."
 		print("✅ Correcto! Peso mínimo de A a F: %d" % peso_usuario)
 	else:
 		resultado_label.text = "❌ No es el camino mínimo. Presiona en repetir."

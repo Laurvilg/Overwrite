@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=4 uid="uid://d0iw1w3p4wq0o"]
+[gd_scene load_steps=36 format=4 uid="uid://d0iw1w3p4wq0o"]
 
 [ext_resource type="Script" uid="uid://by6mvl2w6bni2" path="res://scenes/mapa/mapa.gd" id="1_ml2m4"]
 [ext_resource type="TileSet" uid="uid://dlfb1o3vtqvt0" path="res://tilesets/gameWallsTileSet.tres" id="1_pg520"]
@@ -26,8 +26,14 @@
 [ext_resource type="FontFile" uid="uid://b5lt21bsvyn6v" path="res://assets/Fonts/Pixeled.ttf" id="23_86csk"]
 [ext_resource type="FontFile" uid="uid://t8w28xx3wyy5" path="res://assets/Fonts/ComicHelvetic_Heavy.otf" id="24_d725c"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f1evb"]
+bg_color = Color(0.6, 0.6, 0.6, 0.364706)
+
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_27aa5"]
 texture = ExtResource("18_wfprg")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ohftx"]
+bg_color = Color(0.87, 0.49677, 0.1914, 0.380392)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_dtod7"]
 height = 28.0
@@ -90,6 +96,24 @@ texture_pressed = ExtResource("14_okm07")
 texture_hover = ExtResource("14_okm07")
 script = ExtResource("15_f1toh")
 
+[node name="Panel" type="Panel" parent="CanvasLayer"]
+offset_left = 792.0
+offset_top = 88.0
+offset_right = 1112.0
+offset_bottom = 216.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_f1evb")
+
+[node name="Resultados" type="Label" parent="CanvasLayer"]
+offset_left = 800.0
+offset_top = 112.0
+offset_right = 1104.0
+offset_bottom = 192.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("24_d725c")
+theme_override_font_sizes/font_size = 26
+horizontal_alignment = 1
+autowrap_mode = 2
+
 [node name="lupaPanel" type="Panel" parent="CanvasLayer"]
 visible = false
 offset_left = 0.00012207
@@ -110,11 +134,11 @@ script = ExtResource("20_ohftx")
 
 [node name="TextureRect3" type="TextureRect" parent="CanvasLayer/lupaPanel"]
 layout_mode = 0
-offset_left = 242.0
-offset_top = 352.0
-offset_right = 290.0
-offset_bottom = 396.0
-scale = Vector2(6, 6)
+offset_left = 760.0
+offset_top = 192.0
+offset_right = 808.0
+offset_bottom = 236.0
+scale = Vector2(5, 5)
 texture = ExtResource("22_5posd")
 
 [node name="Label" type="Label" parent="CanvasLayer/lupaPanel"]
@@ -129,10 +153,10 @@ text = "TENER EN CUENTA"
 
 [node name="Label3" type="Label" parent="CanvasLayer/lupaPanel"]
 layout_mode = 0
-offset_left = 608.0
-offset_top = 456.0
-offset_right = 952.0
-offset_bottom = 549.0
+offset_left = 728.0
+offset_top = 136.0
+offset_right = 1072.0
+offset_bottom = 229.0
 theme_override_fonts/font = ExtResource("24_d725c")
 theme_override_font_sizes/font_size = 30
 text = "Presiona la tecla F o haz click para atacar."
@@ -153,19 +177,19 @@ script = ExtResource("12_4ouhh")
 
 [node name="TextureRect2" type="TextureRect" parent="CanvasLayer/lupaPanel"]
 layout_mode = 0
-offset_left = 800.0
-offset_top = 128.0
-offset_right = 852.0
-offset_bottom = 168.0
-scale = Vector2(6, 6)
+offset_left = 408.0
+offset_top = 200.0
+offset_right = 460.0
+offset_bottom = 240.0
+scale = Vector2(5, 5)
 texture = ExtResource("16_f1evb")
 
 [node name="Label2" type="Label" parent="CanvasLayer/lupaPanel"]
 layout_mode = 0
-offset_left = 32.0
-offset_top = 224.0
+offset_left = 31.9999
+offset_top = 128.0
 offset_right = 345.0
-offset_bottom = 317.0
+offset_bottom = 221.0
 theme_override_fonts/font = ExtResource("24_d725c")
 theme_override_font_sizes/font_size = 30
 text = "Haz click en la palanca azul."
@@ -174,22 +198,63 @@ autowrap_mode = 2
 
 [node name="TextureRect" type="TextureRect" parent="CanvasLayer/lupaPanel"]
 layout_mode = 0
-offset_left = 328.0
-offset_top = 104.0
-offset_right = 371.0
-offset_bottom = 144.0
-scale = Vector2(6, 6)
+offset_left = 87.9999
+offset_top = 208.0
+offset_right = 131.0
+offset_bottom = 248.0
+scale = Vector2(5, 5)
 texture = ExtResource("21_qs5g0")
 
 [node name="Label4" type="Label" parent="CanvasLayer/lupaPanel"]
 layout_mode = 0
-offset_left = 576.0
-offset_top = 232.0
-offset_right = 889.0
-offset_bottom = 325.0
+offset_left = 384.0
+offset_top = 152.0
+offset_right = 697.0
+offset_bottom = 245.0
 theme_override_fonts/font = ExtResource("24_d725c")
 theme_override_font_sizes/font_size = 30
 text = "Nodo Central"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="Panel" type="Panel" parent="CanvasLayer/lupaPanel"]
+layout_mode = 0
+offset_left = 192.0
+offset_top = 424.0
+offset_right = 936.0
+offset_bottom = 608.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_ohftx")
+
+[node name="Label5" type="Label" parent="CanvasLayer/lupaPanel"]
+offset_left = 216.0
+offset_top = 520.0
+offset_right = 529.0
+offset_bottom = 613.0
+theme_override_fonts/font = ExtResource("24_d725c")
+theme_override_font_sizes/font_size = 30
+text = "Izquierda: Nodo 1, Nodo 2 y Nodo 3"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="Label6" type="Label" parent="CanvasLayer/lupaPanel"]
+offset_left = 600.0
+offset_top = 520.0
+offset_right = 913.0
+offset_bottom = 613.0
+theme_override_fonts/font = ExtResource("24_d725c")
+theme_override_font_sizes/font_size = 30
+text = "Derecha: Nodo 4, Nodo 5  y Nodo 6"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="Label7" type="Label" parent="CanvasLayer/lupaPanel"]
+offset_left = 328.0
+offset_top = 416.0
+offset_right = 792.0
+offset_bottom = 500.0
+theme_override_fonts/font = ExtResource("23_86csk")
+theme_override_font_sizes/font_size = 30
+text = "UBICACIONES NODO:"
 horizontal_alignment = 1
 autowrap_mode = 2
 
@@ -304,10 +369,64 @@ theme_override_fonts/font = ExtResource("24_d725c")
 theme_override_font_sizes/font_size = 20
 text = "Nodo Central"
 
+[node name="Label2" type="Label" parent="."]
+offset_left = -1168.0
+offset_top = 944.0
+offset_right = -1088.0
+offset_bottom = 966.0
+theme_override_fonts/font = ExtResource("24_d725c")
+theme_override_font_sizes/font_size = 20
+text = "Nodo 1"
+
 [node name="Overlay" type="CanvasLayer" parent="."]
 offset = Vector2(-10, -10)
 transform = Transform2D(1, 0, 0, 1, -10, -10)
 script = ExtResource("9_vt6gj")
+
+[node name="Label3" type="Label" parent="."]
+offset_left = -592.0
+offset_top = 560.0
+offset_right = -512.0
+offset_bottom = 582.0
+theme_override_fonts/font = ExtResource("24_d725c")
+theme_override_font_sizes/font_size = 20
+text = "Nodo 2"
+
+[node name="Label4" type="Label" parent="."]
+offset_left = -16.0
+offset_top = 952.0
+offset_right = 64.0
+offset_bottom = 974.0
+theme_override_fonts/font = ExtResource("24_d725c")
+theme_override_font_sizes/font_size = 20
+text = "Nodo 3"
+
+[node name="Label5" type="Label" parent="."]
+offset_left = 880.0
+offset_top = 944.0
+offset_right = 960.0
+offset_bottom = 966.0
+theme_override_fonts/font = ExtResource("24_d725c")
+theme_override_font_sizes/font_size = 20
+text = "Nodo 4"
+
+[node name="Label6" type="Label" parent="."]
+offset_left = 1448.0
+offset_top = 536.0
+offset_right = 1528.0
+offset_bottom = 558.0
+theme_override_fonts/font = ExtResource("24_d725c")
+theme_override_font_sizes/font_size = 20
+text = "Nodo 5"
+
+[node name="Label7" type="Label" parent="."]
+offset_left = 2032.0
+offset_top = 952.0
+offset_right = 2112.0
+offset_bottom = 974.0
+theme_override_fonts/font = ExtResource("24_d725c")
+theme_override_font_sizes/font_size = 20
+text = "Nodo 6"
 
 [connection signal="pressed" from="CanvasLayer/lupaButton" to="." method="_on_lupa_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/exitButton" to="CanvasLayer/exitButton" method="_on_pressed"]
