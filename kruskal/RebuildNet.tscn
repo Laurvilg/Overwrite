@@ -21,6 +21,7 @@ offset_bottom = 649.0
 texture = ExtResource("2_s250g")
 
 [node name="ColorRect" type="ColorRect" parent="Fondo"]
+layout_mode = 0
 offset_left = 69.0
 offset_top = 78.0
 offset_right = 1099.0

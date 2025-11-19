@@ -183,11 +183,17 @@ func _on_enemy_fully_removed(shape_idx):
 		zonas_completadas[shape_idx] = true  # Bloquea futuros intentos
 
 		# Abre el minijuego/pregunta asociada a esa zona
-		var escena = escenas_por_zona[shape_idx].instantiate()
-		var overlay = get_tree().get_current_scene().get_node("Overlay")
-		overlay.add_child(escena)
-		# Cuando el minijuego emite “minijuego_completado”, llamamos a nuestro handler con el shape_idx
+	var escena = escenas_por_zona[shape_idx].instantiate()
+	var overlay = get_tree().get_current_scene().get_node("Overlay")
+	overlay.add_child(escena)
+	escena.connect("minijuegoBFS_completado", Callable(self, "_on_bfs_completado"))
+
+# Conectar señal correcta según el minijuego
+	if shape_idx == 2:   # El minijuego BFS/DFS
+		escena.connect("minijuegoBFS_completado", Callable(self, "_on_bfs_completado"))
+	else:
 		escena.connect("minijuego_completado", Callable(self, "_on_minijuego_completado").bind(shape_idx))
+
 
 		# Si TODAS las zonas están completadas (según el ABB), activamos el nodo central y mostramos mensaje final
 		if arbol.verificar_todos_completados() and not juego_finalizado:
@@ -197,7 +203,7 @@ func _on_enemy_fully_removed(shape_idx):
 
 func _on_minijuego_completado(shape_idx):
 	zonas_completadas[shape_idx] = true
-	# Si todo está completo en el ABB, activamos el final
+	# Si todo está completo en el ABB, activamos el final	
 	if arbol.verificar_todos_completados() and not juego_finalizado:
 		juego_finalizado = true
 		_mostrar_mensaje_final()
@@ -249,3 +255,12 @@ func actualizar_resultado_lineal():
 
 	resultados_label.text = "Activa el nodo " + str(nodo_actual) + " para activar el siguiente"
 	resultados_label.visible = true
+	
+func _on_bfs_completado():
+	var overlay = get_tree().current_scene.get_node("Overlay")
+
+	# Cerrar el minijuego BFS
+	for child in overlay.get_children():
+		child.queue_free()
+
+	overlay.visible = false

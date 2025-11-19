@@ -2,8 +2,8 @@
 
 [ext_resource type="Texture2D" uid="uid://ddb07g8g7nmul" path="res://MiniJuegoCorb-DFS-BFS/Buttons/HistoriaCorb.png" id="1_k510j"]
 [ext_resource type="Script" uid="uid://bqglgbgb4trsl" path="res://MiniJuegoCorb-DFS-BFS/histo_manager.gd" id="2_nopcn"]
-[ext_resource type="Texture2D" uid="uid://cywopum7etive" path="res://inicio/buttons/buttonBlue.tres" id="4_52354"]
-[ext_resource type="Texture2D" uid="uid://cqlua8sjro0ag" path="res://inicio/buttons/buttonBlueC.tres" id="5_ncv2e"]
+[ext_resource type="Texture2D" path="res://inicio/buttons/buttonBlue.tres" id="4_52354"]
+[ext_resource type="Texture2D" path="res://inicio/buttons/buttonBlueC.tres" id="5_ncv2e"]
 [ext_resource type="FontFile" uid="uid://t8w28xx3wyy5" path="res://assets/Fonts/ComicHelvetic_Heavy.otf" id="6_j1wa8"]
 [ext_resource type="Texture2D" uid="uid://d4ni14x8nl2n" path="res://inicio/buttons/musicaButton.tres" id="7_j1wa8"]
 [ext_resource type="Script" uid="uid://d4jgkqfp5ly5q" path="res://inicio/scripts/musica_button.gd" id="8_naj3l"]
@@ -28,6 +28,7 @@ offset_bottom = 40.0
 script = ExtResource("2_nopcn")
 
 [node name="TextureButton" type="TextureButton" parent="."]
+layout_mode = 0
 offset_left = 744.0
 offset_top = 512.0
 offset_right = 802.0
@@ -38,6 +39,7 @@ texture_pressed = ExtResource("5_ncv2e")
 texture_hover = ExtResource("5_ncv2e")
 
 [node name="Label4" type="Label" parent="."]
+layout_mode = 0
 offset_left = 792.0
 offset_top = 536.0
 offset_right = 946.0
@@ -49,6 +51,7 @@ theme_override_font_sizes/font_size = 46
 text = "START"
 
 [node name="musicaButton" type="TextureButton" parent="."]
+layout_mode = 0
 offset_left = 1088.0
 offset_top = 8.0
 offset_right = 1105.0

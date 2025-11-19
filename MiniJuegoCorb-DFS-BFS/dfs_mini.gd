@@ -1,5 +1,6 @@
 # GameManager.gd
 extends Control
+
 # Manager central del minijuego: recibe lista de botones por Inspector,
 # define la adyacencia (grafo fijo) y verifica orden BFS/DFS.
 
@@ -160,7 +161,7 @@ func _bfs(start:int) -> Array:
 		var u: int = int(q.pop_front())
 		order.append(u)
 		if u >=0 and u < adjacency.size():
-			var neigh_raw := adjacency[u]
+			var neigh_raw = adjacency[u]
 			for v_raw in neigh_raw:
 				var v: int = int(v_raw)
 				if v >=0 and v < n and not visited[v]:
@@ -181,7 +182,7 @@ func _dfs_rec(u:int, visited:Array, order:Array) -> void:
 	visited[u] = true
 	order.append(u)
 	if u >=0 and u < adjacency.size():
-		var neigh_raw := adjacency[u]
+		var neigh_raw = adjacency[u]
 		for v_raw in neigh_raw:
 			var v: int = int(v_raw)
 			if v >=0 and v < visited.size() and not visited[v]:
