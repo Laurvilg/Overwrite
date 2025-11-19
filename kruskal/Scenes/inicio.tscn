@@ -1,0 +1,95 @@
+[gd_scene load_steps=10 format=3 uid="uid://un761cugajjc"]
+
+[ext_resource type="Script" uid="uid://d0hgdao3w68xu" path="res://kruskal/Scenes/inicio.gd" id="1_o3w4w"]
+[ext_resource type="Texture2D" uid="uid://c7tregmc2s2cv" path="res://dijkstraLaura - copia/image/explicar.png" id="1_p7ayy"]
+[ext_resource type="FontFile" uid="uid://t8w28xx3wyy5" path="res://assets/Fonts/ComicHelvetic_Heavy.otf" id="2_o3w4w"]
+[ext_resource type="Texture2D" uid="uid://d4ni14x8nl2n" path="res://inicio/buttons/musicaButton.tres" id="3_tdy6t"]
+[ext_resource type="Script" uid="uid://d4jgkqfp5ly5q" path="res://inicio/scripts/musica_button.gd" id="4_bljou"]
+[ext_resource type="FontFile" uid="uid://biasfq1fvbi0t" path="res://assets/Fonts/Silver.ttf" id="5_0ac11"]
+[ext_resource type="Texture2D" path="res://inicio/buttons/buttonBlue.tres" id="6_cj8ey"]
+[ext_resource type="Texture2D" path="res://inicio/buttons/buttonBlueC.tres" id="7_h28wl"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_bl3d1"]
+texture = ExtResource("1_p7ayy")
+
+[node name="Inicio" type="Node2D"]
+script = ExtResource("1_o3w4w")
+
+[node name="Panel" type="Panel" parent="."]
+offset_right = 1152.0
+offset_bottom = 648.0
+theme_override_styles/panel = SubResource("StyleBoxTexture_bl3d1")
+
+[node name="Label" type="Label" parent="Panel"]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 96.0
+offset_right = 570.0
+offset_bottom = 139.0
+theme_override_colors/font_shadow_color = Color(0.811765, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_o3w4w")
+theme_override_font_sizes/font_size = 43
+text = "Misión: RebuildNet"
+
+[node name="musicaButton" type="TextureButton" parent="Panel"]
+layout_mode = 0
+offset_left = 1088.0
+offset_top = 8.0
+offset_right = 1105.0
+offset_bottom = 25.0
+scale = Vector2(3.2, 3.2)
+texture_normal = ExtResource("3_tdy6t")
+script = ExtResource("4_bljou")
+
+[node name="Label" type="Label" parent="."]
+offset_left = 704.0
+offset_top = 128.0
+offset_right = 1059.0
+offset_bottom = 295.0
+theme_override_colors/font_shadow_color = Color(0.133, 0, 0.57, 1)
+theme_override_fonts/font = ExtResource("5_0ac11")
+theme_override_font_sizes/font_size = 150
+text = "Kruskal"
+
+[node name="Label2" type="Label" parent="."]
+offset_left = 720.0
+offset_top = 48.0
+offset_right = 896.0
+offset_bottom = 71.0
+theme_override_fonts/font = ExtResource("2_o3w4w")
+theme_override_font_sizes/font_size = 23
+text = "Camino mínimo"
+
+[node name="Label3" type="Label" parent="."]
+offset_left = 32.0
+offset_top = 192.0
+offset_right = 600.0
+offset_bottom = 584.0
+theme_override_fonts/font = ExtResource("2_o3w4w")
+theme_override_font_sizes/font_size = 23
+text = "Eres Bella, encargada de restaurar el orden en una red llena de conexiones caóticas. Eva, tu alter ego, está mezclando enlaces para confundirte, pero tú sabes cómo trabajar: eligiendo siempre las conexiones más ligeras y evitando ciclos inútiles. Piensa como Kruskal, selecciona arista por arista con cuidado y construye el Árbol de Expansión Mínima que mantendrá la red estable. ¡Demuestra que tú eres quien realmente controla el sistema!"
+autowrap_mode = 2
+
+[node name="TextureButton" type="TextureButton" parent="."]
+offset_left = 744.0
+offset_top = 512.0
+offset_right = 802.0
+offset_bottom = 534.0
+scale = Vector2(4.3, 4.3)
+texture_normal = ExtResource("6_cj8ey")
+texture_pressed = ExtResource("7_h28wl")
+texture_hover = ExtResource("7_h28wl")
+
+[node name="Label4" type="Label" parent="."]
+offset_left = 792.0
+offset_top = 536.0
+offset_right = 946.0
+offset_bottom = 579.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0.354232, 0.0709727, 0.982598, 1)
+theme_override_fonts/font = ExtResource("2_o3w4w")
+theme_override_font_sizes/font_size = 46
+text = "START"
+
+[connection signal="pressed" from="Panel/musicaButton" to="Panel/musicaButton" method="_on_pressed"]
+[connection signal="pressed" from="TextureButton" to="." method="_on_texture_button_pressed"]

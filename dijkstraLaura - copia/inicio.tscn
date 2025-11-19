@@ -8,8 +8,8 @@
 [ext_resource type="Texture2D" uid="uid://d4ni14x8nl2n" path="res://inicio/buttons/musicaButton.tres" id="4_dlegv"]
 [ext_resource type="Script" uid="uid://d4jgkqfp5ly5q" path="res://inicio/scripts/musica_button.gd" id="5_2fqih"]
 [ext_resource type="Texture2D" uid="uid://usbotglorkdk" path="res://dijkstraLaura - copia/image/ordenador malo.png" id="5_dlegv"]
-[ext_resource type="Texture2D" uid="uid://cywopum7etive" path="res://inicio/buttons/buttonBlue.tres" id="6_2fqih"]
-[ext_resource type="Texture2D" uid="uid://cqlua8sjro0ag" path="res://inicio/buttons/buttonBlueC.tres" id="7_g2gsb"]
+[ext_resource type="Texture2D" path="res://inicio/buttons/buttonBlue.tres" id="6_2fqih"]
+[ext_resource type="Texture2D" path="res://inicio/buttons/buttonBlueC.tres" id="7_g2gsb"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_n13ev"]
 texture = ExtResource("1_wcf3k")
@@ -40,6 +40,7 @@ theme_override_font_sizes/font_size = 43
 text = "Misión: Optimiza la red 💡"
 
 [node name="musicaButton" type="TextureButton" parent="Panel"]
+layout_mode = 0
 offset_left = 1088.0
 offset_top = 8.0
 offset_right = 1105.0
