@@ -8,7 +8,7 @@ extends CharacterBody2D
 @onready var hurtbox: Area2D   = $Hurtbox
 
 var is_dead := false
-var speed := 150.0
+var speed := 200.0  #Aqui se modifica la velocidad del personaje, LAS DEMAS COSAS AFECTAN AL ATAQUE Y MOVIMIENTO WASD (NO TOCAR)
 var last_direction := "down"
 var atacar := false
 
