@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://5xrojvqbqhxm"]
+[gd_scene load_steps=15 format=3 uid="uid://5xrojvqbqhxm"]
 
 [ext_resource type="Script" uid="uid://6o3ucvw82usg" path="res://MiniJuegoCorb-DFS-BFS/game_manager.gd" id="1_8epq2"]
 [ext_resource type="AudioStream" uid="uid://ymevn3wn1n1l" path="res://MiniJuegoCorb-DFS-BFS/Buttons/Correct Sound Effect  Bgm & Sound Effect - asnat farooq.mp3" id="2_d5hbi"]
@@ -9,6 +9,9 @@
 [ext_resource type="Texture2D" uid="uid://cmog44xkn300q" path="res://inicio/buttons/buttonxd.tres" id="9_scgg3"]
 [ext_resource type="Texture2D" uid="uid://bcmbxpsbvia53" path="res://inicio/buttons/buttonS.tres" id="9_srutd"]
 [ext_resource type="FontFile" uid="uid://t8w28xx3wyy5" path="res://assets/Fonts/ComicHelvetic_Heavy.otf" id="10_kxkpg"]
+[ext_resource type="PackedScene" uid="uid://hxannuoo4ix1" path="res://MiniJuegoCorb-DFS-BFS/MiniCorbHistory.tscn" id="10_xt5yy"]
+[ext_resource type="Texture2D" uid="uid://cywopum7etive" path="res://inicio/buttons/buttonBlue.tres" id="11_kjqi4"]
+[ext_resource type="Texture2D" uid="uid://cqlua8sjro0ag" path="res://inicio/buttons/buttonBlueC.tres" id="12_a8ub7"]
 
 [sub_resource type="GDScript" id="GDScript_b8lro"]
 script/source = "extends Control
@@ -17,6 +20,12 @@ func _on_texture_button_pressed() -> void:
 	AudioManager.SFXPlayer.stream = preload(\"res://inicio/audio/button-305770.mp3\")
 	AudioManager.SFXPlayer.play()
 	self.visible = false
+
+@onready var inicio = $MiniCorbHistory
+func _on_start_button_pressed() -> void:
+	AudioManager.SFXPlayer.stream = preload(\"res://inicio/audio/button-305770.mp3\")
+	AudioManager.SFXPlayer.play()
+	inicio.visible = false
 "
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_k6jwp"]
@@ -138,6 +147,7 @@ text = "Empezar desde el 0"
 
 [node name="salirPanel" type="Panel" parent="."]
 visible = false
+layout_mode = 0
 offset_left = 936.0
 offset_top = 536.0
 offset_right = 1240.0
@@ -166,4 +176,31 @@ theme_override_fonts/font = ExtResource("10_kxkpg")
 theme_override_font_sizes/font_size = 30
 text = "CONTINUAR"
 
+[node name="MiniCorbHistory" parent="." instance=ExtResource("10_xt5yy")]
+layout_mode = 1
+
+[node name="startButton" type="TextureButton" parent="MiniCorbHistory"]
+layout_mode = 0
+offset_left = 744.0
+offset_top = 512.0
+offset_right = 802.0
+offset_bottom = 534.0
+scale = Vector2(4.3, 4.3)
+texture_normal = ExtResource("11_kjqi4")
+texture_pressed = ExtResource("12_a8ub7")
+texture_hover = ExtResource("12_a8ub7")
+
+[node name="Label5" type="Label" parent="MiniCorbHistory"]
+layout_mode = 0
+offset_left = 792.0
+offset_top = 536.0
+offset_right = 946.0
+offset_bottom = 579.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0.354232, 0.0709727, 0.982598, 1)
+theme_override_fonts/font = ExtResource("10_kxkpg")
+theme_override_font_sizes/font_size = 46
+text = "START"
+
 [connection signal="pressed" from="salirPanel/TextureButton" to="." method="_on_texture_button_pressed"]
+[connection signal="pressed" from="MiniCorbHistory/startButton" to="." method="_on_start_button_pressed"]

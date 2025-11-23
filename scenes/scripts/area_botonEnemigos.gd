@@ -1,7 +1,7 @@
 extends Area2D  # Este script controla el mapa/área clickeable y la lógica de enemigos por zona.
 
 # Nodo principal
-var nodo_principal := 2
+var nodo_principal := 1
 var nodo_actual := 1  # Nodo actual del jugador, empieza en 1
 @onready var resultados_label = $"../../CanvasLayer/Resultados"
 
@@ -39,9 +39,9 @@ var zona_activada :=      {1: false, 2: false, 3: false, 4: false, 5: false, 6: 
 
 # Qué minijuego/pantalla se abre al completar cada zona
 var escenas_por_zona := {
-	2: preload("res://dijkstraLaura - copia/inicio.tscn"),
-	1: preload("res://MiniJuegoCorb-DFS-BFS/MiniCorbHistory.tscn"),
-	3: preload("res://Edmonds-Karp/LevelIntro.tscn"),
+	1: preload("res://dijkstraLaura - copia/dijkstra.tscn"),
+	2: preload("res://MiniJuegoCorb-DFS-BFS/MiniJuegoDFS.tscn"),
+	3: preload("res://Edmonds-Karp/FlowGraph.tscn"),
 	4: preload("res://minijuego/juego.tscn"),
 	5: preload("res://pantallasPreguntas/preg3.tscn"),
 	6: preload("res://pantallasPreguntas/preg4.tscn"),
@@ -65,13 +65,15 @@ func _ready():
 		vertices_dict[zona_id] = v
 
 # Conectar zonas según flujo deseado:
-	grafo.conectar_vertice(vertices_dict[2], vertices_dict[1])
+	grafo.conectar_vertice(vertices_dict[1], vertices_dict[2])
 	grafo.conectar_vertice(vertices_dict[1], vertices_dict[3])
 	grafo.conectar_vertice(vertices_dict[1], vertices_dict[4])
 	grafo.conectar_vertice(vertices_dict[4], vertices_dict[5])
 	grafo.conectar_vertice(vertices_dict[4], vertices_dict[6])
 
 	grafo.imprimir() #depuración
+	#
+	nodo_actual = nodo_principal
 	actualizar_resultado_lineal()
 
 	# Por cada zona se crea un nodo en el ABB con:
@@ -108,27 +110,32 @@ func puede_activar_zona(zona_id):
 func _input_event(viewport, event, shape_idx):
 	if event is InputEventMouseButton and event.pressed:
 		if zonas.has(shape_idx):
-			# Verifica si puede activarse según el grafo
-			if not puede_activar_zona(shape_idx):
-				print("No puedes activar la zona", shape_idx, "- depende de otra zona.")
-				return
-
-			# Si la zona ya fue completada, no se permite reiniciar
+			# Nodo ya completado
 			if zonas_completadas[shape_idx]:
-				print("La zona", shape_idx, "ya fue completada. No se puede reiniciar.")
+				actualizar_resultado_lineal(shape_idx)
 				return
 
-			# Evita re-activar si ya está en curso
-			if not zona_activada[shape_idx]:
-				zona_activada[shape_idx] = true
-				generar_un_enemigo(shape_idx)  # Arranca la ronda para esa zona
-
+			# Nodo activable según grafo
+			if puede_activar_zona(shape_idx):
+				if not zona_activada[shape_idx]:
+					zona_activada[shape_idx] = true
+					generar_un_enemigo(shape_idx)
+					actualizar_resultado_lineal()
+			else:
+				resultados_label.text = "No puedes activar el nodo " + str(shape_idx) + " todavía."
+				resultados_label.visible = true
+				await get_tree().create_timer(2.0).timeout
+				actualizar_resultado_lineal()
+				
 		elif shape_idx == shape_idx_nodo_central:
-			# Palanca final: solo funciona si se activó tras completar todas las zonas
 			if puede_activar_nodo_central:
 				mostrar_pantalla_victoria()
 			else:
-					print("Aún no puedes activar el nodo central")
+				resultados_label.text = "Aún no puedes activar el nodo central."
+				resultados_label.visible = true
+				await get_tree().create_timer(2.0).timeout
+				actualizar_resultado_lineal()
+
 
 #GENERACION DE ENEMIGOS
 func generar_un_enemigo(shape_idx):
@@ -167,7 +174,6 @@ func _on_enemy_defeated(shape_idx):
 		generar_un_enemigo(shape_idx)
 
 func _on_enemy_fully_removed(shape_idx):
-	
 	enemigos_removidos[shape_idx] += 1 # Cuando la instancia del enemigo ya fue removida completamente del árbol de nodos
 
 	# Si ya se removieron tantos como el máximo de la zona, la zona se considera “limpia”
@@ -182,24 +188,29 @@ func _on_enemy_fully_removed(shape_idx):
 		zona_activada[shape_idx] = false
 		zonas_completadas[shape_idx] = true  # Bloquea futuros intentos
 
-		# Abre el minijuego/pregunta asociada a esa zona
-	var escena = escenas_por_zona[shape_idx].instantiate()
-	var overlay = get_tree().get_current_scene().get_node("Overlay")
-	overlay.add_child(escena)
-	escena.connect("minijuegoBFS_completado", Callable(self, "_on_bfs_completado"))
+		# Abre el minijuego/pregunta asociada a esa zona (SÓLO aquí)
+		var escena = escenas_por_zona[shape_idx].instantiate()
+		var overlay = get_tree().get_current_scene().get_node("Overlay")
+		if overlay == null:
+			push_error("No se encontró nodo Overlay. Revisa la escena actual.")
+			return
 
-# Conectar señal correcta según el minijuego
-	if shape_idx == 2:   # El minijuego BFS/DFS
-		escena.connect("minijuegoBFS_completado", Callable(self, "_on_bfs_completado"))
-	else:
-		escena.connect("minijuego_completado", Callable(self, "_on_minijuego_completado").bind(shape_idx))
+		overlay.add_child(escena)
+		overlay.visible = true
 
+		# Conectar la señal adecuada y pasar la referencia de 'escena' para poder liberarla en el callback
+		if shape_idx == 2:
+			# Minijuego BFS/DFS
+			escena.connect("minijuegoBFS_completado", Callable(self, "_on_bfs_completado").bind(escena))
+		else:
+			escena.connect("minijuego_completado", Callable(self, "_on_minijuego_completado").bind(shape_idx, escena))
 
 		# Si TODAS las zonas están completadas (según el ABB), activamos el nodo central y mostramos mensaje final
 		if arbol.verificar_todos_completados() and not juego_finalizado:
 			juego_finalizado = true
 			_mostrar_mensaje_final()
 			_activar_nodo_central()
+
 
 func _on_minijuego_completado(shape_idx):
 	zonas_completadas[shape_idx] = true
@@ -220,10 +231,10 @@ func _mostrar_mensaje_final():
 	# Muestra un label centrado avisando que ya puedes ir al nodo central
 	var overlay = get_tree().get_current_scene().get_node("Overlay")
 	var label = Label.new()
-	label.text = "¡Dirígete al nodo central y activa la palanca para ganar!"
-	label.name = "MensajeFinal"
-	label.set_anchors_preset(Control.PRESET_CENTER)
-	overlay.add_child(label)
+	resultados_label.text = "¡Dirígete al nodo central y activa la palanca para ganar!"
+	#label.name = "MensajeFinal"
+	#label.set_anchors_preset(Control.PRESET_CENTER)
+	#overlay.add_child(label)
 
 func _activar_nodo_central():
 	# Habilita la interacción con el nodo central (palanca de victoria)
@@ -242,19 +253,30 @@ func _on_palanca_activada(shape_idx):
 	nodo_actual = shape_idx
 	actualizar_resultado_lineal()
 
-func actualizar_resultado_lineal():
+# -----------------------------------------------------------------
+# RESULTADOS: indicar qué nodo se debe activar o mensaje si ya completado
+# -----------------------------------------------------------------
+func actualizar_resultado_lineal(nodo_intento: int = -1):
 	if resultados_label == null:
 		return
 
-	# Si el nodo actual ya fue completado, buscamos el siguiente
-	if zonas_completadas.get(nodo_actual, false):
-		nodo_actual += 1  # siguiente nodo en línea
-		if nodo_actual > vertices_dict.size():
-			resultados_label.text = "¡Todos los nodos completados!"
-			return
+	var siguiente = nodo_actual
+	while siguiente <= zonas_completadas.size() and zonas_completadas.get(siguiente, false):
+		siguiente += 1
 
-	resultados_label.text = "Activa el nodo " + str(nodo_actual) + " para activar el siguiente"
+	if nodo_intento != -1 and zonas_completadas.get(nodo_intento, false):
+		# Mensaje si intenta un nodo ya completado
+		resultados_label.text = "Ey, el nodo " + str(nodo_intento) + " ya lo completaste!"
+	elif siguiente > zonas_completadas.size():
+		resultados_label.text = "¡Todos los nodos están completados!"
+	else:
+		resultados_label.text = "Activa el nodo " + str(siguiente) + " para avanzar"
 	resultados_label.visible = true
+
+# -----------------------------------------------------------------
+# Para usar:
+# - actualizar_resultado_lineal() => muestra siguiente nodo a activar
+# - actualizar_resultado_lineal(nodo_intento) => muestra mensaje si el nodo ya fue completado
 	
 func _on_bfs_completado():
 	var overlay = get_tree().current_scene.get_node("Overlay")

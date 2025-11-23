@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://c1rxffpkoq65w"]
+[gd_scene load_steps=20 format=3 uid="uid://c1rxffpkoq65w"]
 
 [ext_resource type="Script" uid="uid://bpuutblovvjpk" path="res://Edmonds-Karp/FlowGraph.gd" id="1_it76y"]
 [ext_resource type="Texture2D" uid="uid://cmog44xkn300q" path="res://inicio/buttons/buttonxd.tres" id="2_ku0y5"]
@@ -16,6 +16,7 @@
 [ext_resource type="Script" path="res://Edmonds-Karp/t_button.gd" id="9_mlah5"]
 [ext_resource type="FontFile" uid="uid://bj44644dulh07" path="res://assets/Fonts/ComicHelvetic_Light.otf" id="11_7xb1d"]
 [ext_resource type="Texture2D" uid="uid://bcmbxpsbvia53" path="res://inicio/buttons/buttonS.tres" id="16_2gxsu"]
+[ext_resource type="PackedScene" uid="uid://b7r46eqi5qs43" path="res://Edmonds-Karp/LevelIntro.tscn" id="17_p7jgg"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ku0y5"]
 texture = ExtResource("2_yfmhq")
@@ -248,6 +249,28 @@ theme_override_fonts/font = ExtResource("6_ikugt")
 theme_override_font_sizes/font_size = 30
 text = "CONTINUAR"
 
+[node name="LevelIntro" parent="." instance=ExtResource("17_p7jgg")]
+
+[node name="StartButton2" type="TextureButton" parent="LevelIntro"]
+offset_left = 744.0
+offset_top = 512.0
+offset_right = 801.0
+offset_bottom = 534.0
+scale = Vector2(4.3, 4.3)
+texture_normal = ExtResource("2_ku0y5")
+texture_pressed = ExtResource("4_3eenm")
+
+[node name="Label5" type="Label" parent="LevelIntro"]
+offset_left = 792.0
+offset_top = 536.0
+offset_right = 946.0
+offset_bottom = 579.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0.354232, 0.0709727, 0.982598, 1)
+theme_override_fonts/font = ExtResource("6_ikugt")
+theme_override_font_sizes/font_size = 46
+text = "START"
+
 [connection signal="pressed" from="VerificarButton" to="VerificarButton" method="_on_pressed"]
 [connection signal="pressed" from="S-Button" to="S-Button" method="_on_pressed"]
 [connection signal="pressed" from="A-Button" to="A-Button" method="_on_pressed"]
@@ -258,3 +281,4 @@ text = "CONTINUAR"
 [connection signal="pressed" from="F-Button" to="F-Button" method="_on_pressed"]
 [connection signal="pressed" from="T-Button" to="T-Button" method="_on_pressed"]
 [connection signal="pressed" from="salirPanel/TextureButton" to="." method="_on_texture_button_pressed"]
+[connection signal="pressed" from="LevelIntro/StartButton2" to="." method="_on_start_button_2_pressed"]

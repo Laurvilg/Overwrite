@@ -1,6 +1,6 @@
 [gd_scene load_steps=13 format=3 uid="uid://feq2sbdfg1h8"]
 
-[ext_resource type="Script" path="res://kruskal/Scenes/inicio.gd" id="1_o3w4w"]
+[ext_resource type="Script" uid="uid://d0hgdao3w68xu" path="res://kruskal/Scenes/inicio.gd" id="1_o3w4w"]
 [ext_resource type="Texture2D" uid="uid://c7tregmc2s2cv" path="res://dijkstraLaura - copia/image/explicar.png" id="1_p7ayy"]
 [ext_resource type="FontFile" uid="uid://t8w28xx3wyy5" path="res://assets/Fonts/ComicHelvetic_Heavy.otf" id="2_o3w4w"]
 [ext_resource type="Texture2D" uid="uid://d4ni14x8nl2n" path="res://inicio/buttons/musicaButton.tres" id="3_tdy6t"]

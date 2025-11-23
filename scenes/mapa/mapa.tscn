@@ -111,6 +111,7 @@ offset_bottom = 192.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("24_d725c")
 theme_override_font_sizes/font_size = 26
+text = "hol"
 horizontal_alignment = 1
 autowrap_mode = 2
 
@@ -379,7 +380,7 @@ offset_right = -1088.0
 offset_bottom = 966.0
 theme_override_fonts/font = ExtResource("24_d725c")
 theme_override_font_sizes/font_size = 20
-text = "Nodo 1"
+text = "Nodo 2"
 
 [node name="Overlay" type="CanvasLayer" parent="."]
 offset = Vector2(-10, -10)
@@ -393,7 +394,7 @@ offset_right = -512.0
 offset_bottom = 582.0
 theme_override_fonts/font = ExtResource("24_d725c")
 theme_override_font_sizes/font_size = 20
-text = "Nodo 2"
+text = "Nodo 1"
 
 [node name="Label4" type="Label" parent="."]
 offset_left = -16.0
@@ -411,7 +412,7 @@ offset_right = 960.0
 offset_bottom = 966.0
 theme_override_fonts/font = ExtResource("24_d725c")
 theme_override_font_sizes/font_size = 20
-text = "Nodo 4"
+text = "Nodo 5"
 
 [node name="Label6" type="Label" parent="."]
 offset_left = 1448.0
@@ -420,7 +421,7 @@ offset_right = 1528.0
 offset_bottom = 558.0
 theme_override_fonts/font = ExtResource("24_d725c")
 theme_override_font_sizes/font_size = 20
-text = "Nodo 5"
+text = "Nodo 4"
 
 [node name="Label7" type="Label" parent="."]
 offset_left = 2032.0
