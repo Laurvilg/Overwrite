@@ -374,10 +374,10 @@ theme_override_font_sizes/font_size = 20
 text = "Nodo Central"
 
 [node name="Label2" type="Label" parent="."]
-offset_left = -1168.0
-offset_top = 944.0
-offset_right = -1088.0
-offset_bottom = 966.0
+offset_left = -1160.0
+offset_top = 960.0
+offset_right = -1080.0
+offset_bottom = 982.0
 theme_override_fonts/font = ExtResource("24_d725c")
 theme_override_font_sizes/font_size = 20
 text = "Nodo 2"
@@ -431,6 +431,44 @@ offset_bottom = 974.0
 theme_override_fonts/font = ExtResource("24_d725c")
 theme_override_font_sizes/font_size = 20
 text = "Nodo 6"
+
+[node name="Label8" type="Label" parent="."]
+offset_left = -696.0
+offset_top = 568.0
+offset_right = -680.0
+offset_bottom = 590.0
+theme_override_fonts/font = ExtResource("24_d725c")
+theme_override_font_sizes/font_size = 20
+text = "2"
+
+[node name="Label10" type="Label" parent="."]
+offset_left = -24.0
+offset_top = 896.0
+offset_right = -12.0
+offset_bottom = 939.0
+theme_override_fonts/font = ExtResource("24_d725c")
+theme_override_font_sizes/font_size = 20
+text = "1
+"
+
+[node name="Label10" type="Label" parent="Label10"]
+offset_left = -1152.0
+offset_right = -1140.0
+offset_bottom = 43.0
+theme_override_fonts/font = ExtResource("24_d725c")
+theme_override_font_sizes/font_size = 20
+text = "1
+"
+
+[node name="Label9" type="Label" parent="."]
+offset_left = -440.0
+offset_top = 568.0
+offset_right = -428.0
+offset_bottom = 611.0
+theme_override_fonts/font = ExtResource("24_d725c")
+theme_override_font_sizes/font_size = 20
+text = "3
+"
 
 [connection signal="pressed" from="CanvasLayer/lupaButton" to="." method="_on_lupa_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/exitButton" to="CanvasLayer/exitButton" method="_on_pressed"]

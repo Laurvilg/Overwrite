@@ -210,6 +210,9 @@ func _on_enemy_fully_removed(shape_idx):
 			juego_finalizado = true
 			_mostrar_mensaje_final()
 			_activar_nodo_central()
+		
+		# Actualiza inmediatamente el Label con el siguiente nodo
+	actualizar_resultado_lineal()
 
 
 func _on_minijuego_completado(shape_idx):
@@ -266,7 +269,7 @@ func actualizar_resultado_lineal(nodo_intento: int = -1):
 
 	if nodo_intento != -1 and zonas_completadas.get(nodo_intento, false):
 		# Mensaje si intenta un nodo ya completado
-		resultados_label.text = "Ey, el nodo " + str(nodo_intento) + " ya lo completaste!"
+		resultados_label.text = "Ya el nodo " + str(nodo_intento) + " ya lo completaste!"
 	elif siguiente > zonas_completadas.size():
 		resultados_label.text = "¡Todos los nodos están completados!"
 	else:
