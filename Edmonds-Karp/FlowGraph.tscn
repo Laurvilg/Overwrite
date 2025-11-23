@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://c1rxffpkoq65w"]
+[gd_scene load_steps=19 format=3 uid="uid://c1rxffpkoq65w"]
 
 [ext_resource type="Script" uid="uid://bpuutblovvjpk" path="res://Edmonds-Karp/FlowGraph.gd" id="1_it76y"]
 [ext_resource type="Texture2D" uid="uid://cmog44xkn300q" path="res://inicio/buttons/buttonxd.tres" id="2_ku0y5"]
@@ -15,6 +15,7 @@
 [ext_resource type="Script" path="res://Edmonds-Karp/B-button.gd" id="8_nta0d"]
 [ext_resource type="Script" path="res://Edmonds-Karp/t_button.gd" id="9_mlah5"]
 [ext_resource type="FontFile" uid="uid://bj44644dulh07" path="res://assets/Fonts/ComicHelvetic_Light.otf" id="11_7xb1d"]
+[ext_resource type="Texture2D" uid="uid://bcmbxpsbvia53" path="res://inicio/buttons/buttonS.tres" id="16_2gxsu"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ku0y5"]
 texture = ExtResource("2_yfmhq")
@@ -218,6 +219,7 @@ theme_override_font_sizes/font_size = 16
 text = "Servidor de Respaldo"
 
 [node name="salirPanel" type="Panel" parent="."]
+visible = false
 offset_left = 936.0
 offset_top = 536.0
 offset_right = 1240.0
@@ -225,16 +227,18 @@ offset_bottom = 680.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_ikugt")
 
 [node name="TextureButton" type="TextureButton" parent="salirPanel"]
+layout_mode = 0
 offset_left = -80.0
 offset_top = -16.0
 offset_right = -23.0
 offset_bottom = 6.0
 scale = Vector2(4, 4)
 texture_normal = ExtResource("2_ku0y5")
-texture_pressed = ExtResource("2_ku0y5")
-texture_hover = ExtResource("2_ku0y5")
+texture_pressed = ExtResource("16_2gxsu")
+texture_hover = ExtResource("16_2gxsu")
 
 [node name="Label4" type="Label" parent="salirPanel"]
+layout_mode = 0
 offset_left = -56.0
 offset_top = 16.0
 offset_right = 154.0

@@ -2,10 +2,10 @@
 
 [ext_resource type="Script" uid="uid://hdv377ojl7xa" path="res://kruskal/Scripts/RebuildNet.gd" id="1_6nj6q"]
 [ext_resource type="Script" uid="uid://b6ydoa7wbbkg4" path="res://kruskal/Scripts/Grafo.gd" id="1_ye8f7"]
-[ext_resource type="Texture2D" path="res://inicio/buttons/buttonBlue.tres" id="2_p3toe"]
+[ext_resource type="Texture2D" uid="uid://cywopum7etive" path="res://inicio/buttons/buttonBlue.tres" id="2_p3toe"]
 [ext_resource type="Texture2D" uid="uid://d1nnxaafglgi7" path="res://inicio/image/fondo.png" id="2_s250g"]
 [ext_resource type="PackedScene" uid="uid://bsai5yeq3b05c" path="res://kruskal/Scenes/Arista.tscn" id="3_oo3x6"]
-[ext_resource type="Texture2D" path="res://inicio/buttons/buttonBlueC.tres" id="3_q0wes"]
+[ext_resource type="Texture2D" uid="uid://cqlua8sjro0ag" path="res://inicio/buttons/buttonBlueC.tres" id="3_q0wes"]
 [ext_resource type="PackedScene" uid="uid://jbu4q7mrlv0f" path="res://kruskal/Scenes/Nodo.tscn" id="4_s250g"]
 
 [node name="RebuildNet" type="Node2D"]

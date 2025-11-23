@@ -38,7 +38,9 @@ func dijkstra(grafo_dict: Dictionary, origen: String) -> Dictionary:
 
 	return dist
 
-func _on_texture_button_pressed() -> void:
+
+
+func _on_salird_pressed() -> void:
 	AudioManager.SFXPlayer.stream = preload("res://inicio/audio/button-305770.mp3")
 	AudioManager.SFXPlayer.play()
 	self.visible = false

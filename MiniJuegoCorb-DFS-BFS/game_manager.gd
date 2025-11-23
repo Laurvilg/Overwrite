@@ -1,10 +1,5 @@
 extends Control
-<<<<<<< Updated upstream
-signal minijuegoBFS_completado
-
-=======
 @onready var salir_panel = $"../salirPanel"
->>>>>>> Stashed changes
 # --- Inspector Variables ---
 @export var buttons: Array[Button] = []       # Botones de los nodos (drag & drop)
 @export var mode_option: OptionButton         # OptionButton (modos)
@@ -12,6 +7,7 @@ signal minijuegoBFS_completado
 @export var info_label: Label                 # Label para mensajes
 @export var start_node: int = 0               # Nodo inicial
 @export var error_limit: int = 3              # Errores permitidos
+
 # --- Sonidos ---
 @export var correct_sound: AudioStream
 @export var wrong_sound: AudioStream
@@ -66,7 +62,7 @@ func _reset_state_ui() -> void:
 	for b in buttons:
 		b.disabled = false
 	if info_label != null:
-		info_label.text = "Elige el modo y presione Start."
+		info_label.text = "Elige modo y presiona Start"
 
 # --- Start pressed ---
 func _on_start_pressed() -> void:
@@ -107,13 +103,8 @@ func _on_button_pressed(id: int) -> void:
 			info_label.text = "¡Ganaste! 🎉"
 			_play_sound(win_sound)
 			# Esperar un segundo antes de cambiar de escena
-<<<<<<< Updated upstream
-			await get_tree().create_timer(1.0).timeout
-			_emitir_victoria()
-			
-=======
+			_change_scene_after_delay(1.0)
 			salir_panel.visible = true
->>>>>>> Stashed changes
 		else:
 			info_label.text = "Correcto."
 	else:
@@ -141,10 +132,11 @@ func _reset_after_delay(sec: float) -> void:
 	_reset_state_ui()
 
 # --- Cambiar escena después de delay ---
-#func _change_scene_after_delay(sec: float) -> void:
-#	await t.timeout
-#	if next_scene != null:
-#		self.visible = false
+func _change_scene_after_delay(sec: float) -> void:
+	var t = get_tree().create_timer(sec)
+	await t.timeout
+	if next_scene != null:
+		get_tree().change_scene_to(next_scene)
 
 # --- BFS ---
 func _bfs(start: int) -> Array[int]:
@@ -186,7 +178,3 @@ func _dfs_rec(u: int, visited: Array[bool], order: Array[int]) -> void:
 	for v in adjacency[u]:
 		if v >= 0 and v < visited.size() and not visited[v]:
 			_dfs_rec(v, visited, order)
-			
-func _emitir_victoria():
-	emit_signal("minijuegoBFS_completado")
-	queue_free()  # cerrar solo el minijuego, NO el overlay

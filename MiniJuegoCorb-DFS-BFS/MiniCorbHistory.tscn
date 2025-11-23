@@ -1,14 +1,13 @@
-[gd_scene load_steps=10 format=3 uid="uid://hxannuoo4ix1"]
+[gd_scene load_steps=9 format=3 uid="uid://hxannuoo4ix1"]
 
 [ext_resource type="Texture2D" uid="uid://ddb07g8g7nmul" path="res://MiniJuegoCorb-DFS-BFS/Buttons/HistoriaCorb.png" id="1_k510j"]
 [ext_resource type="Script" uid="uid://bqglgbgb4trsl" path="res://MiniJuegoCorb-DFS-BFS/histo_manager.gd" id="2_nopcn"]
+[ext_resource type="PackedScene" uid="uid://5xrojvqbqhxm" path="res://MiniJuegoCorb-DFS-BFS/MiniJuegoDFS.tscn" id="3_ewoqv"]
 [ext_resource type="Texture2D" uid="uid://cywopum7etive" path="res://inicio/buttons/buttonBlue.tres" id="4_52354"]
 [ext_resource type="Texture2D" uid="uid://cqlua8sjro0ag" path="res://inicio/buttons/buttonBlueC.tres" id="5_ncv2e"]
 [ext_resource type="FontFile" uid="uid://t8w28xx3wyy5" path="res://assets/Fonts/ComicHelvetic_Heavy.otf" id="6_j1wa8"]
-[ext_resource type="Texture2D" uid="uid://d4ni14x8nl2n" path="res://inicio/buttons/musicaButton.tres" id="7_j1wa8"]
 [ext_resource type="Texture2D" uid="uid://caj5en62ctwgq" path="res://dijkstraLaura - copia/image/red-gradient-circle-free-png.webp" id="8_04m5k"]
-[ext_resource type="Script" uid="uid://d4jgkqfp5ly5q" path="res://inicio/scripts/musica_button.gd" id="8_naj3l"]
-[ext_resource type="Texture2D" uid="uid://bh5ijvtyqrghu" path="res://dijkstraLaura - copia/image/ordenador  bueno.png" id="9_8l88r"]
+[ext_resource type="Texture2D" uid="uid://cfswd37h2xf6j" path="res://MiniJuegoCorb-DFS-BFS/Buttons/PCpngg.png" id="8_j1wa8"]
 
 [node name="MiniCorbHistory" type="Control"]
 layout_mode = 3
@@ -19,7 +18,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="HistoriaCorb" type="Sprite2D" parent="."]
-position = Vector2(576, 328)
+position = Vector2(578.5, 318)
 scale = Vector2(0.603646, 0.611111)
 texture = ExtResource("1_k510j")
 
@@ -28,9 +27,9 @@ anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("2_nopcn")
+next_scene = ExtResource("3_ewoqv")
 
 [node name="TextureButton" type="TextureButton" parent="."]
-layout_mode = 0
 offset_left = 744.0
 offset_top = 512.0
 offset_right = 802.0
@@ -41,7 +40,6 @@ texture_pressed = ExtResource("5_ncv2e")
 texture_hover = ExtResource("5_ncv2e")
 
 [node name="Label4" type="Label" parent="."]
-layout_mode = 0
 offset_left = 792.0
 offset_top = 536.0
 offset_right = 946.0
@@ -52,18 +50,7 @@ theme_override_fonts/font = ExtResource("6_j1wa8")
 theme_override_font_sizes/font_size = 46
 text = "START"
 
-[node name="musicaButton" type="TextureButton" parent="."]
-layout_mode = 0
-offset_left = 1088.0
-offset_top = 8.0
-offset_right = 1105.0
-offset_bottom = 25.0
-scale = Vector2(3.2, 3.2)
-texture_normal = ExtResource("7_j1wa8")
-script = ExtResource("8_naj3l")
-
 [node name="TextureRect2" type="TextureRect" parent="."]
-layout_mode = 0
 offset_left = 768.0
 offset_top = 288.0
 offset_right = 1768.0
@@ -72,13 +59,9 @@ scale = Vector2(0.2, 0.2)
 texture = ExtResource("8_04m5k")
 
 [node name="TextureRect" type="TextureRect" parent="."]
-layout_mode = 0
 offset_left = 792.0
 offset_top = 304.0
 offset_right = 1304.0
 offset_bottom = 816.0
 scale = Vector2(0.3, 0.3)
-texture = ExtResource("9_8l88r")
-
-[connection signal="pressed" from="TextureButton" to="HistoManager" method="_on_texture_button_pressed"]
-[connection signal="pressed" from="musicaButton" to="musicaButton" method="_on_pressed"]
+texture = ExtResource("8_j1wa8")

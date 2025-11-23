@@ -1,17 +1,25 @@
 [gd_scene load_steps=12 format=3 uid="uid://5xrojvqbqhxm"]
 
 [ext_resource type="Script" uid="uid://6o3ucvw82usg" path="res://MiniJuegoCorb-DFS-BFS/game_manager.gd" id="1_8epq2"]
-[ext_resource type="Script" uid="uid://6nf5f86f76ae" path="res://MiniJuegoCorb-DFS-BFS/mini_juego_dfs.gd" id="1_tadv4"]
 [ext_resource type="AudioStream" uid="uid://ymevn3wn1n1l" path="res://MiniJuegoCorb-DFS-BFS/Buttons/Correct Sound Effect  Bgm & Sound Effect - asnat farooq.mp3" id="2_d5hbi"]
 [ext_resource type="AudioStream" uid="uid://gvnny4apdhti" path="res://MiniJuegoCorb-DFS-BFS/Buttons/Wrong Answer Sound effect - VS Mode.mp3" id="3_kwyer"]
 [ext_resource type="AudioStream" uid="uid://b6ni7r83ohe7p" path="res://MiniJuegoCorb-DFS-BFS/Buttons/WIN sound effect no copyright - JG Green Screen.mp3" id="4_b8lro"]
 [ext_resource type="AudioStream" uid="uid://dg37y4cuwjtbm" path="res://MiniJuegoCorb-DFS-BFS/Buttons/Fail Sound Effect - Sound Effects.mp3" id="5_k6jwp"]
-[ext_resource type="PackedScene" uid="uid://d0iw1w3p4wq0o" path="res://scenes/mapa/mapa.tscn" id="6_b8lro"]
 [ext_resource type="Texture2D" uid="uid://gyp8t6rntrsk" path="res://MiniJuegoCorb-DFS-BFS/Buttons/FondoMiniCorb.png" id="6_kwyer"]
 [ext_resource type="Texture2D" uid="uid://cmog44xkn300q" path="res://inicio/buttons/buttonxd.tres" id="9_scgg3"]
+[ext_resource type="Texture2D" uid="uid://bcmbxpsbvia53" path="res://inicio/buttons/buttonS.tres" id="9_srutd"]
 [ext_resource type="FontFile" uid="uid://t8w28xx3wyy5" path="res://assets/Fonts/ComicHelvetic_Heavy.otf" id="10_kxkpg"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xt5yy"]
+[sub_resource type="GDScript" id="GDScript_b8lro"]
+script/source = "extends Control
+
+func _on_texture_button_pressed() -> void:
+	AudioManager.SFXPlayer.stream = preload(\"res://inicio/audio/button-305770.mp3\")
+	AudioManager.SFXPlayer.play()
+	self.visible = false
+"
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_k6jwp"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
 
 [node name="MiniJuegoDfs" type="Control"]
@@ -21,7 +29,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_tadv4")
+script = SubResource("GDScript_b8lro")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 0
@@ -33,19 +41,19 @@ offset_bottom = 323.0
 [node name="ModeOption" type="OptionButton" parent="VBoxContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("10_kxkpg")
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 24
 
 [node name="StartButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("10_kxkpg")
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 24
 text = "Start
 "
 
 [node name="InfoLabel" type="Label" parent="VBoxContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("10_kxkpg")
-theme_override_font_sizes/font_size = 26
+theme_override_font_sizes/font_size = 30
 
 [node name="GraphContainer" type="Control" parent="."]
 anchors_preset = 0
@@ -96,21 +104,21 @@ offset_top = -9.0
 offset_right = 296.0
 offset_bottom = 42.0
 
-[node name="GameManager" type="Control" parent="." node_paths=PackedStringArray("mode_option", "start_button", "info_label")]
+[node name="GameManager" type="Control" parent="." node_paths=PackedStringArray("buttons", "mode_option", "start_button", "info_label")]
 anchors_preset = 0
 offset_left = 142.0
 offset_top = 13.0
 offset_right = 182.0
 offset_bottom = 53.0
 script = ExtResource("1_8epq2")
+buttons = [NodePath("../GraphContainer/0"), NodePath("../GraphContainer/1"), NodePath("../GraphContainer/2"), NodePath("../GraphContainer/3"), NodePath("../GraphContainer/4"), NodePath("../GraphContainer/5")]
+mode_option = NodePath("../VBoxContainer/ModeOption")
+start_button = NodePath("../VBoxContainer/StartButton")
+info_label = NodePath("../VBoxContainer/InfoLabel")
 correct_sound = ExtResource("2_d5hbi")
 wrong_sound = ExtResource("3_kwyer")
 win_sound = ExtResource("4_b8lro")
 lose_sound = ExtResource("5_k6jwp")
-next_scene = ExtResource("6_b8lro")
-mode_option = NodePath("../VBoxContainer/ModeOption")
-start_button = NodePath("../VBoxContainer/StartButton")
-info_label = NodePath("../VBoxContainer/InfoLabel")
 
 [node name="FondoMiniCorb" type="Sprite2D" parent="."]
 show_behind_parent = true
@@ -118,44 +126,44 @@ position = Vector2(590, 322.5)
 scale = Vector2(0.614583, 0.615741)
 texture = ExtResource("6_kwyer")
 
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 16.0
+offset_right = 308.0
+offset_bottom = 45.0
+theme_override_fonts/font = ExtResource("10_kxkpg")
+theme_override_font_sizes/font_size = 30
+text = "Empezar desde el 0"
+
 [node name="salirPanel" type="Panel" parent="."]
 visible = false
-layout_mode = 0
-offset_left = 816.0
-offset_top = 488.0
-offset_right = 1128.0
-offset_bottom = 632.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_xt5yy")
+offset_left = 936.0
+offset_top = 536.0
+offset_right = 1240.0
+offset_bottom = 680.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_k6jwp")
 
 [node name="TextureButton" type="TextureButton" parent="salirPanel"]
 layout_mode = 0
-offset_left = 8.00006
-offset_right = 65.0001
-offset_bottom = 22.0
-scale = Vector2(5, 5)
+offset_left = -80.0
+offset_top = -16.0
+offset_right = -23.0
+offset_bottom = 6.0
+scale = Vector2(4, 4)
 texture_normal = ExtResource("9_scgg3")
-texture_pressed = ExtResource("9_scgg3")
-texture_hover = ExtResource("9_scgg3")
+texture_pressed = ExtResource("9_srutd")
+texture_hover = ExtResource("9_srutd")
 
 [node name="Label4" type="Label" parent="salirPanel"]
 layout_mode = 0
-offset_left = 48.0
-offset_top = 40.0
-offset_right = 258.0
-offset_bottom = 73.0
+offset_left = -56.0
+offset_top = 16.0
+offset_right = 154.0
+offset_bottom = 49.0
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("10_kxkpg")
-theme_override_font_sizes/font_size = 35
+theme_override_font_sizes/font_size = 30
 text = "CONTINUAR"
-
-[node name="Label" type="Label" parent="."]
-layout_mode = 0
-offset_left = 16.0
-offset_top = 24.0
-offset_right = 234.0
-offset_bottom = 47.0
-theme_override_fonts/font = ExtResource("10_kxkpg")
-theme_override_font_sizes/font_size = 23
-text = "Empezar desde el 0"
 
 [connection signal="pressed" from="salirPanel/TextureButton" to="." method="_on_texture_button_pressed"]

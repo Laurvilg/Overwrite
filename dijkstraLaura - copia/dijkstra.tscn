@@ -153,28 +153,29 @@ offset_right = 1088.0
 offset_bottom = 520.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_id5gq")
 
-[node name="TextureButton" type="TextureButton" parent="salirPanel"]
+[node name="SALIRD" type="TextureButton" parent="salirPanel"]
 layout_mode = 0
-offset_left = 8.00006
-offset_right = 65.0001
-offset_bottom = 22.0
-scale = Vector2(5, 5)
+offset_left = 24.0
+offset_top = 32.0
+offset_right = 81.0
+offset_bottom = 54.0
+scale = Vector2(4.3, 4.3)
 texture_normal = ExtResource("14_id5gq")
 texture_pressed = ExtResource("14_id5gq")
 texture_hover = ExtResource("14_id5gq")
 
 [node name="Label4" type="Label" parent="salirPanel"]
 layout_mode = 0
-offset_left = 95.9999
-offset_top = 40.0
-offset_right = 306.0
-offset_bottom = 73.0
+offset_left = 56.0
+offset_top = 64.0
+offset_right = 266.0
+offset_bottom = 97.0
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("4_qa8sy")
-theme_override_font_sizes/font_size = 35
-text = "SALIR"
+theme_override_font_sizes/font_size = 30
+text = "CONTINUAR"
 
 [connection signal="pressed" from="verificarButton" to="Panel2/grafoVisual" method="_on_verificar_button_pressed"]
 [connection signal="pressed" from="repeatButton" to="Panel2/grafoVisual" method="_on_repeat_button_pressed"]
 [connection signal="pressed" from="musicaButton" to="musicaButton" method="_on_pressed"]
-[connection signal="pressed" from="salirPanel/TextureButton" to="." method="_on_texture_button_pressed"]
+[connection signal="pressed" from="salirPanel/SALIRD" to="." method="_on_salird_pressed"]
