@@ -1,10 +1,12 @@
-[gd_scene load_steps=7 format=3 uid="uid://b7r46eqi5qs43"]
+[gd_scene load_steps=9 format=3 uid="uid://b7r46eqi5qs43"]
 
 [ext_resource type="Texture2D" uid="uid://bjiakbttsorff" path="res://Edmonds-Karp/JuegoEdRespaldo/1.png" id="1_7ghgu"]
-[ext_resource type="FontFile" uid="uid://bj44644dulh07" path="res://assets/Fonts/ComicHelvetic_Light.otf" id="2_1gpmu"]
 [ext_resource type="Texture2D" uid="uid://cmog44xkn300q" path="res://inicio/buttons/buttonxd.tres" id="3_rxuny"]
 [ext_resource type="Texture2D" uid="uid://qhc5c5va7xqh" path="res://inicio/buttons/buttonPress.tres" id="4_b1kk1"]
-[ext_resource type="Script" uid="uid://p0jy3pc7ohls" path="res://Edmonds-Karp/start_button.gd" id="5_k32hq"]
+[ext_resource type="Script" path="res://Edmonds-Karp/start_button.gd" id="5_k32hq"]
+[ext_resource type="FontFile" uid="uid://t8w28xx3wyy5" path="res://assets/Fonts/ComicHelvetic_Heavy.otf" id="6_b1kk1"]
+[ext_resource type="Texture2D" uid="uid://dstyka644yd5g" path="res://dijkstraLaura - copia/image/purple-gradient-circle-free-png.webp" id="6_k32hq"]
+[ext_resource type="Texture2D" uid="uid://cfswd37h2xf6j" path="res://MiniJuegoCorb-DFS-BFS/Buttons/PCpngg.png" id="7_b8n48"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_1gpmu"]
 texture = ExtResource("1_7ghgu")
@@ -17,12 +19,12 @@ offset_bottom = 648.0
 theme_override_styles/panel = SubResource("StyleBoxTexture_1gpmu")
 
 [node name="Label" type="Label" parent="."]
-offset_left = 7.0
-offset_top = 91.0
-offset_right = 595.0
-offset_bottom = 574.0
+offset_left = 8.0
+offset_top = 96.0
+offset_right = 596.0
+offset_bottom = 579.0
 theme_override_constants/line_spacing = 0
-theme_override_fonts/font = ExtResource("2_1gpmu")
+theme_override_fonts/font = ExtResource("6_b1kk1")
 theme_override_font_sizes/font_size = 25
 text = "Misión: Optimiza la red de respaldo
 
@@ -39,22 +41,40 @@ horizontal_alignment = 1
 autowrap_mode = 3
 
 [node name="StartButton" type="TextureButton" parent="."]
-offset_left = 740.0
-offset_top = 438.0
-offset_right = 797.0
-offset_bottom = 460.0
-scale = Vector2(5, 5)
+offset_left = 744.0
+offset_top = 512.0
+offset_right = 801.0
+offset_bottom = 534.0
+scale = Vector2(4.3, 4.3)
 texture_normal = ExtResource("3_rxuny")
 texture_pressed = ExtResource("4_b1kk1")
 script = ExtResource("5_k32hq")
 
-[node name="Siguiente" type="Label" parent="."]
-offset_left = 736.0
-offset_top = 454.0
-offset_right = 1041.0
-offset_bottom = 532.0
-theme_override_font_sizes/font_size = 54
-text = "Start"
-horizontal_alignment = 1
+[node name="Label4" type="Label" parent="."]
+offset_left = 792.0
+offset_top = 536.0
+offset_right = 946.0
+offset_bottom = 595.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0.354232, 0.0709727, 0.982598, 1)
+theme_override_fonts/font = ExtResource("6_b1kk1")
+theme_override_font_sizes/font_size = 46
+text = "START"
+
+[node name="TextureRect2" type="TextureRect" parent="."]
+offset_left = 768.0
+offset_top = 288.0
+offset_right = 1768.0
+offset_bottom = 1288.0
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("6_k32hq")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_left = 792.0
+offset_top = 304.0
+offset_right = 1304.0
+offset_bottom = 816.0
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("7_b8n48")
 
 [connection signal="pressed" from="StartButton" to="StartButton" method="_on_pressed"]

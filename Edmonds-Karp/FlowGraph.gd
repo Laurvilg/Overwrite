@@ -7,7 +7,7 @@ class_name FlowGraph
 
 # PathLabel es hijo DIRECTO de este nodo (FlowGraph)
 @onready var info_label: Label = $"PathLabel"
-
+@onready var salir_panel = $salirPanel
 # Si tienes un panel de estado, bien; si no, será null y no pasa nada
 @onready var status_label: Label = get_node_or_null("Panel/Label")
 
@@ -196,6 +196,7 @@ func _on_verify_pressed() -> void:
 		_update_status("✅ ¡Correcto! Has encontrado el camino óptimo.")
 		info_label.text = "Camino elegido: %s\n✅ Correcto\nFlujo máximo = %d\nCamino óptimo = %s" \
 			% [path_str, max_flow, optimal_str]
+		salir_panel.visible = true
 	else:
 		# ❌ Caso incorrecto: SOLO mostramos el camino elegido y el mensaje de error
 		_update_status("❌ Camino incorrecto. Intenta de nuevo.")
@@ -303,3 +304,9 @@ func _setup_info_label() -> void:
 
 	# Limpia texto inicial
 	info_label.text = ""
+
+
+func _on_texture_button_pressed() -> void:
+	AudioManager.SFXPlayer.stream = preload("res://inicio/audio/button-305770.mp3")
+	AudioManager.SFXPlayer.play()
+	self.visible = false

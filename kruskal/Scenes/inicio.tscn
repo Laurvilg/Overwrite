@@ -1,16 +1,22 @@
-[gd_scene load_steps=10 format=3 uid="uid://un761cugajjc"]
+[gd_scene load_steps=13 format=3 uid="uid://feq2sbdfg1h8"]
 
-[ext_resource type="Script" uid="uid://d0hgdao3w68xu" path="res://kruskal/Scenes/inicio.gd" id="1_o3w4w"]
+[ext_resource type="Script" path="res://kruskal/Scenes/inicio.gd" id="1_o3w4w"]
 [ext_resource type="Texture2D" uid="uid://c7tregmc2s2cv" path="res://dijkstraLaura - copia/image/explicar.png" id="1_p7ayy"]
 [ext_resource type="FontFile" uid="uid://t8w28xx3wyy5" path="res://assets/Fonts/ComicHelvetic_Heavy.otf" id="2_o3w4w"]
 [ext_resource type="Texture2D" uid="uid://d4ni14x8nl2n" path="res://inicio/buttons/musicaButton.tres" id="3_tdy6t"]
 [ext_resource type="Script" uid="uid://d4jgkqfp5ly5q" path="res://inicio/scripts/musica_button.gd" id="4_bljou"]
 [ext_resource type="FontFile" uid="uid://biasfq1fvbi0t" path="res://assets/Fonts/Silver.ttf" id="5_0ac11"]
-[ext_resource type="Texture2D" path="res://inicio/buttons/buttonBlue.tres" id="6_cj8ey"]
-[ext_resource type="Texture2D" path="res://inicio/buttons/buttonBlueC.tres" id="7_h28wl"]
+[ext_resource type="Texture2D" uid="uid://cywopum7etive" path="res://inicio/buttons/buttonBlue.tres" id="6_cj8ey"]
+[ext_resource type="Texture2D" uid="uid://cqlua8sjro0ag" path="res://inicio/buttons/buttonBlueC.tres" id="7_h28wl"]
+[ext_resource type="Texture2D" uid="uid://dstyka644yd5g" path="res://dijkstraLaura - copia/image/purple-gradient-circle-free-png.webp" id="9_bljou"]
+[ext_resource type="Texture2D" uid="uid://cotwe4eahl4su" path="res://assets/props/props2.png" id="10_bljou"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_bl3d1"]
 texture = ExtResource("1_p7ayy")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0ac11"]
+atlas = ExtResource("10_bljou")
+region = Rect2(244.819, 48.9037, 23.3509, 31.2699)
 
 [node name="Inicio" type="Node2D"]
 script = ExtResource("1_o3w4w")
@@ -22,10 +28,10 @@ theme_override_styles/panel = SubResource("StyleBoxTexture_bl3d1")
 
 [node name="Label" type="Label" parent="Panel"]
 layout_mode = 0
-offset_left = 24.0
-offset_top = 96.0
-offset_right = 570.0
-offset_bottom = 139.0
+offset_left = 32.0
+offset_top = 112.0
+offset_right = 578.0
+offset_bottom = 155.0
 theme_override_colors/font_shadow_color = Color(0.811765, 0, 0, 1)
 theme_override_fonts/font = ExtResource("2_o3w4w")
 theme_override_font_sizes/font_size = 43
@@ -42,9 +48,9 @@ texture_normal = ExtResource("3_tdy6t")
 script = ExtResource("4_bljou")
 
 [node name="Label" type="Label" parent="."]
-offset_left = 704.0
+offset_left = 720.0
 offset_top = 128.0
-offset_right = 1059.0
+offset_right = 1075.0
 offset_bottom = 295.0
 theme_override_colors/font_shadow_color = Color(0.133, 0, 0.57, 1)
 theme_override_fonts/font = ExtResource("5_0ac11")
@@ -58,16 +64,18 @@ offset_right = 896.0
 offset_bottom = 71.0
 theme_override_fonts/font = ExtResource("2_o3w4w")
 theme_override_font_sizes/font_size = 23
-text = "Camino mínimo"
+text = "Expansión mínima"
 
 [node name="Label3" type="Label" parent="."]
 offset_left = 32.0
 offset_top = 192.0
-offset_right = 600.0
+offset_right = 584.0
 offset_bottom = 584.0
 theme_override_fonts/font = ExtResource("2_o3w4w")
 theme_override_font_sizes/font_size = 23
-text = "Eres Bella, encargada de restaurar el orden en una red llena de conexiones caóticas. Eva, tu alter ego, está mezclando enlaces para confundirte, pero tú sabes cómo trabajar: eligiendo siempre las conexiones más ligeras y evitando ciclos inútiles. Piensa como Kruskal, selecciona arista por arista con cuidado y construye el Árbol de Expansión Mínima que mantendrá la red estable. ¡Demuestra que tú eres quien realmente controla el sistema!"
+text = "Eres Bella, encargada de restaurar el orden en una red llena de conexiones caóticas. Eva, tu alter ego, está mezclando enlaces para confundirte, pero tú sabes cómo trabajar: eligiendo siempre las conexiones más ligeras y evitando ciclos inútiles. 
+
+Piensa como Kruskal, selecciona arista por arista con cuidado y construye el Árbol de Expansión Mínima que mantendrá la red estable. ¡Demuestra que tú eres quien realmente controla el sistema!"
 autowrap_mode = 2
 
 [node name="TextureButton" type="TextureButton" parent="."]
@@ -90,6 +98,19 @@ theme_override_colors/font_shadow_color = Color(0.354232, 0.0709727, 0.982598, 1
 theme_override_fonts/font = ExtResource("2_o3w4w")
 theme_override_font_sizes/font_size = 46
 text = "START"
+
+[node name="TextureRect2" type="TextureRect" parent="."]
+offset_left = 768.0
+offset_top = 272.0
+offset_right = 1768.0
+offset_bottom = 1272.0
+scale = Vector2(0.21, 0.21)
+texture = ExtResource("9_bljou")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(872, 392)
+scale = Vector2(5, 5)
+texture = SubResource("AtlasTexture_0ac11")
 
 [connection signal="pressed" from="Panel/musicaButton" to="Panel/musicaButton" method="_on_pressed"]
 [connection signal="pressed" from="TextureButton" to="." method="_on_texture_button_pressed"]

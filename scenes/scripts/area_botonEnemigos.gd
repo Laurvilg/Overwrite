@@ -39,9 +39,9 @@ var zona_activada :=      {1: false, 2: false, 3: false, 4: false, 5: false, 6: 
 
 # Qué minijuego/pantalla se abre al completar cada zona
 var escenas_por_zona := {
-	1: preload("res://dijkstraLaura - copia/inicio.tscn"),
-	2: preload("res://MiniJuegoCorb-DFS-BFS/MiniCorbHistory.tscn"),
-	3: preload("res://pantallasPreguntas/preg2.tscn"),
+	2: preload("res://dijkstraLaura - copia/inicio.tscn"),
+	1: preload("res://MiniJuegoCorb-DFS-BFS/MiniCorbHistory.tscn"),
+	3: preload("res://Edmonds-Karp/LevelIntro.tscn"),
 	4: preload("res://minijuego/juego.tscn"),
 	5: preload("res://pantallasPreguntas/preg3.tscn"),
 	6: preload("res://pantallasPreguntas/preg4.tscn"),

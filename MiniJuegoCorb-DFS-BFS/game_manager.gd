@@ -1,6 +1,10 @@
 extends Control
+<<<<<<< Updated upstream
 signal minijuegoBFS_completado
 
+=======
+@onready var salir_panel = $"../salirPanel"
+>>>>>>> Stashed changes
 # --- Inspector Variables ---
 @export var buttons: Array[Button] = []       # Botones de los nodos (drag & drop)
 @export var mode_option: OptionButton         # OptionButton (modos)
@@ -8,7 +12,6 @@ signal minijuegoBFS_completado
 @export var info_label: Label                 # Label para mensajes
 @export var start_node: int = 0               # Nodo inicial
 @export var error_limit: int = 3              # Errores permitidos
-
 # --- Sonidos ---
 @export var correct_sound: AudioStream
 @export var wrong_sound: AudioStream
@@ -63,7 +66,7 @@ func _reset_state_ui() -> void:
 	for b in buttons:
 		b.disabled = false
 	if info_label != null:
-		info_label.text = "Elige modo y presiona Start"
+		info_label.text = "Elige el modo y presione Start."
 
 # --- Start pressed ---
 func _on_start_pressed() -> void:
@@ -104,9 +107,13 @@ func _on_button_pressed(id: int) -> void:
 			info_label.text = "¡Ganaste! 🎉"
 			_play_sound(win_sound)
 			# Esperar un segundo antes de cambiar de escena
+<<<<<<< Updated upstream
 			await get_tree().create_timer(1.0).timeout
 			_emitir_victoria()
 			
+=======
+			salir_panel.visible = true
+>>>>>>> Stashed changes
 		else:
 			info_label.text = "Correcto."
 	else:

@@ -16,111 +16,88 @@ var nodo_destino: Node = null
 var peso: int = 0
 var grafo_ref: Node = null
 var disabled: bool = false
-var es_mst: bool = false
 
-# Nodos hijos
-@onready var line: Line2D = $Line2D if has_node("Line2D") else null
-@onready var lbl: Label = $Label if has_node("Label") else null
-@onready var area: Area2D = $Area2D if has_node("Area2D") else null
-@onready var colshape: CollisionShape2D = $Area2D/CollisionShape2D if has_node("Area2D/CollisionShape2D") else null
+@onready var line: Line2D = $Line2D
+@onready var lbl: Label = $Label
+@onready var area: Area2D = $Area2D
+@onready var colshape: CollisionShape2D = $Area2D/CollisionShape2D
 
 func _ready() -> void:
-	if line:
-		line.width = line_width
-		line.default_color = color_default
-		line.z_index = 0
-	if lbl:
-		lbl.scale = Vector2(1, 1)
-		lbl.z_index = 1
-		lbl.add_theme_color_override("font_color", Color.BLACK)
-		lbl.add_theme_font_size_override("font_size", 20)
-	if area:
-		area.input_pickable = true
-		area.monitorable = true
-		var cb := Callable(self, "_on_area_2d_input_event")
-		if not area.is_connected("input_event", cb):
-			area.input_event.connect(cb)
+	line.width = line_width
+	line.default_color = color_default
+	line.z_index = 0
+	
+	lbl.scale = Vector2(1, 1)
+	lbl.z_index = 1
+	lbl.add_theme_color_override("font_color", Color.BLACK)
+	lbl.add_theme_font_size_override("font_size", 20)
+	
+	var cb := Callable(self, "_on_area_2d_input_event")
+	if not area.is_connected("input_event", cb):
+		area.input_event.connect(cb)
 
 func configurar(nodo_a: Node, nodo_b: Node, grafo_node: Node) -> void:
 	nodo_origen = nodo_a
 	nodo_destino = nodo_b
 	grafo_ref = grafo_node
-	# Generar peso aleatorio
+
 	peso = randi() % (peso_max - peso_min + 1) + peso_min
-	if lbl:
-		lbl.text = str(peso)
+	lbl.text = str(peso)
+
 	_actualizar_dibujo()
 	disabled = false
-	es_mst = false
-	if area:
-		area.monitoring = true
-		area.input_pickable = true
-	if colshape:
-		colshape.disabled = false
+	area.monitoring = true
+	area.input_pickable = true
+	colshape.disabled = false
 
 func _process(_delta: float) -> void:
-	_actualizar_dibujo()
-
-func _actualizar_dibujo() -> void:
-	if not is_instance_valid(nodo_origen) or not is_instance_valid(nodo_destino):
+	# Solo actualizamos dibujo si tenemos ambos nodos válidos
+	if is_instance_valid(nodo_origen) and is_instance_valid(nodo_destino):
+		_actualizar_dibujo()
+	else:
+		# Si no son válidos, ocultamos elementos para que no den errores visuales
 		if line:
 			line.visible = false
 		if lbl:
 			lbl.visible = false
 		return
 
+
+func _actualizar_dibujo() -> void:
 	var gp1: Vector2 = nodo_origen.global_position
 	var gp2: Vector2 = nodo_destino.global_position
 
-	if line:
-		line.visible = true
-		line.points = [to_local(gp1), to_local(gp2)]
+	line.points = [to_local(gp1), to_local(gp2)]
 
-	if lbl:
-		lbl.visible = true
-		var mid = (gp1 + gp2) * 0.5
-		var dir = gp2 - gp1
-		var perp = Vector2(-dir.y, dir.x).normalized() if dir.length() > 0 else Vector2.ZERO
-		lbl.global_position = mid + perp * 12.0
+	var mid = (gp1 + gp2) * 0.5
+	var dir = gp2 - gp1
+	var perp = Vector2(-dir.y, dir.x).normalized()
+	lbl.global_position = mid + perp * 12.0
 
-	if colshape:
-		var length = (gp2 - gp1).length()
-		var rect_shape = RectangleShape2D.new()
-		rect_shape.extents = Vector2(length * 0.5, hit_width * 0.5)
-		colshape.shape = rect_shape
-		colshape.disabled = false
-		if area:
-			area.global_position = (gp1 + gp2) * 0.5
-			area.global_rotation = (gp2 - gp1).angle()
+	var length = (gp2 - gp1).length()
+	var rect_shape = RectangleShape2D.new()
+	rect_shape.extents = Vector2(length * 0.5, hit_width * 0.5)
+	colshape.shape = rect_shape
+
+	area.global_position = mid
+	area.global_rotation = dir.angle()
 
 func _on_area_2d_input_event(_viewport, event: InputEvent, _shape_idx: int) -> void:
 	if disabled:
 		return
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
-		if not is_instance_valid(grafo_ref):
-			return
-		var ok = true # Siempre aceptar click
-		if ok:
-			_marcar_aceptada()
-			if is_instance_valid(grafo_ref):
-				grafo_ref.registrar_ruta(nodo_origen.name, nodo_destino.name)
-		emit_signal("clicked", self)
+		_marcar_aceptada()
+		grafo_ref.registrar_arista(self)   # ← NUEVO Y CORRECTO
 
 func _marcar_aceptada() -> void:
 	disabled = true
-	if area:
-		area.monitoring = false
-	if line:
-		line.default_color = color_accept
-		line.width = line_width * 1.2
+	area.monitoring = false
+	line.default_color = color_accept
+	line.width = line_width * 1.2
 
 func reiniciar_visual() -> void:
 	disabled = false
-	if area:
-		area.monitoring = true
-		area.input_pickable = true
-	if colshape:
-		colshape.disabled = false
-	if line:
-		line.default_color = color_default
-		line.width = line_width
+	area.monitoring = true
+	colshape.disabled = false
+	line.default_color = color_default
+	line.width = line_width

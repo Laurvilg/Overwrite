@@ -1,22 +1,26 @@
-[gd_scene load_steps=16 format=3 uid="uid://c1rxffpkoq65w"]
+[gd_scene load_steps=18 format=3 uid="uid://c1rxffpkoq65w"]
 
 [ext_resource type="Script" uid="uid://bpuutblovvjpk" path="res://Edmonds-Karp/FlowGraph.gd" id="1_it76y"]
 [ext_resource type="Texture2D" uid="uid://cmog44xkn300q" path="res://inicio/buttons/buttonxd.tres" id="2_ku0y5"]
 [ext_resource type="Texture2D" uid="uid://daixi8gjsygjb" path="res://Edmonds-Karp/JuegoEdRespaldo/Edmond2ajustado.png" id="2_yfmhq"]
-[ext_resource type="Script" uid="uid://bqiwxe3hakcrj" path="res://Edmonds-Karp/s_button.gd" id="3_ku0y5"]
-[ext_resource type="Script" uid="uid://c7vlkqta4g2sv" path="res://Edmonds-Karp/a_button.gd" id="3_qvsl0"]
+[ext_resource type="Script" path="res://Edmonds-Karp/s_button.gd" id="3_ku0y5"]
+[ext_resource type="Script" path="res://Edmonds-Karp/a_button.gd" id="3_qvsl0"]
 [ext_resource type="Texture2D" uid="uid://qhc5c5va7xqh" path="res://inicio/buttons/buttonPress.tres" id="4_3eenm"]
-[ext_resource type="Script" uid="uid://csqrj24mykb6s" path="res://Edmonds-Karp/c_button.gd" id="5_rpfk8"]
-[ext_resource type="Script" uid="uid://bdayxejs6xkaj" path="res://Edmonds-Karp/d_button.gd" id="6_8r4c8"]
+[ext_resource type="Script" path="res://Edmonds-Karp/c_button.gd" id="5_rpfk8"]
+[ext_resource type="Script" path="res://Edmonds-Karp/d_button.gd" id="6_8r4c8"]
+[ext_resource type="FontFile" uid="uid://t8w28xx3wyy5" path="res://assets/Fonts/ComicHelvetic_Heavy.otf" id="6_ikugt"]
 [ext_resource type="Script" uid="uid://bqlqowb8kyosb" path="res://Edmonds-Karp/verificar_button.gd" id="6_nta0d"]
-[ext_resource type="Script" uid="uid://cariemmd4w4vc" path="res://Edmonds-Karp/e_button.gd" id="7_djofa"]
-[ext_resource type="Script" uid="uid://b7mvpheitt3ht" path="res://Edmonds-Karp/f_button.gd" id="8_clrsr"]
-[ext_resource type="Script" uid="uid://cimtsd64pt5mm" path="res://Edmonds-Karp/B-button.gd" id="8_nta0d"]
-[ext_resource type="Script" uid="uid://cpvr8nbc1s63j" path="res://Edmonds-Karp/t_button.gd" id="9_mlah5"]
+[ext_resource type="Script" path="res://Edmonds-Karp/e_button.gd" id="7_djofa"]
+[ext_resource type="Script" path="res://Edmonds-Karp/f_button.gd" id="8_clrsr"]
+[ext_resource type="Script" path="res://Edmonds-Karp/B-button.gd" id="8_nta0d"]
+[ext_resource type="Script" path="res://Edmonds-Karp/t_button.gd" id="9_mlah5"]
 [ext_resource type="FontFile" uid="uid://bj44644dulh07" path="res://assets/Fonts/ComicHelvetic_Light.otf" id="11_7xb1d"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ku0y5"]
 texture = ExtResource("2_yfmhq")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ikugt"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
 
 [node name="FlowGraph" type="Node2D"]
 script = ExtResource("1_it76y")
@@ -87,43 +91,43 @@ offset_bottom = 649.0
 theme_override_styles/panel = SubResource("StyleBoxTexture_ku0y5")
 
 [node name="VerificarButton" type="TextureButton" parent="."]
-offset_left = 140.0
-offset_top = 495.0
-offset_right = 199.0
-offset_bottom = 517.0
+offset_left = 104.0
+offset_top = 464.0
+offset_right = 163.0
+offset_bottom = 486.0
 scale = Vector2(4, 4)
 texture_normal = ExtResource("2_ku0y5")
 texture_pressed = ExtResource("4_3eenm")
 script = ExtResource("6_nta0d")
 
 [node name="Verificar" type="Label" parent="."]
-offset_left = 166.0
-offset_top = 510.0
-offset_right = 310.0
-offset_bottom = 551.0
+offset_left = 128.0
+offset_top = 480.0
+offset_right = 272.0
+offset_bottom = 521.0
 scale = Vector2(1.295, 1.295)
-theme_override_fonts/font = ExtResource("11_7xb1d")
+theme_override_fonts/font = ExtResource("6_ikugt")
 theme_override_font_sizes/font_size = 27
 text = "Verificar"
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="ReiniciarButton" type="TextureButton" parent="."]
-offset_left = 538.0
-offset_top = 493.0
-offset_right = 595.0
-offset_bottom = 516.0
+offset_left = 408.0
+offset_top = 464.0
+offset_right = 465.0
+offset_bottom = 487.0
 scale = Vector2(4, 4)
 texture_normal = ExtResource("2_ku0y5")
 texture_pressed = ExtResource("4_3eenm")
 
 [node name="Reiniciar" type="Label" parent="."]
-offset_left = 588.0
-offset_top = 517.0
-offset_right = 714.0
-offset_bottom = 549.0
+offset_left = 448.0
+offset_top = 488.0
+offset_right = 572.0
+offset_bottom = 517.0
 scale = Vector2(1.259, 1.259)
-theme_override_fonts/font = ExtResource("11_7xb1d")
+theme_override_fonts/font = ExtResource("6_ikugt")
 theme_override_font_sizes/font_size = 27
 text = "Reiniciar"
 
@@ -213,6 +217,33 @@ theme_override_fonts/font = ExtResource("11_7xb1d")
 theme_override_font_sizes/font_size = 16
 text = "Servidor de Respaldo"
 
+[node name="salirPanel" type="Panel" parent="."]
+offset_left = 936.0
+offset_top = 536.0
+offset_right = 1240.0
+offset_bottom = 680.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_ikugt")
+
+[node name="TextureButton" type="TextureButton" parent="salirPanel"]
+offset_left = -80.0
+offset_top = -16.0
+offset_right = -23.0
+offset_bottom = 6.0
+scale = Vector2(4, 4)
+texture_normal = ExtResource("2_ku0y5")
+texture_pressed = ExtResource("2_ku0y5")
+texture_hover = ExtResource("2_ku0y5")
+
+[node name="Label4" type="Label" parent="salirPanel"]
+offset_left = -56.0
+offset_top = 16.0
+offset_right = 154.0
+offset_bottom = 49.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("6_ikugt")
+theme_override_font_sizes/font_size = 30
+text = "CONTINUAR"
+
 [connection signal="pressed" from="VerificarButton" to="VerificarButton" method="_on_pressed"]
 [connection signal="pressed" from="S-Button" to="S-Button" method="_on_pressed"]
 [connection signal="pressed" from="A-Button" to="A-Button" method="_on_pressed"]
@@ -222,3 +253,4 @@ text = "Servidor de Respaldo"
 [connection signal="pressed" from="E-Button" to="E-Button" method="_on_pressed"]
 [connection signal="pressed" from="F-Button" to="F-Button" method="_on_pressed"]
 [connection signal="pressed" from="T-Button" to="T-Button" method="_on_pressed"]
+[connection signal="pressed" from="salirPanel/TextureButton" to="." method="_on_texture_button_pressed"]
