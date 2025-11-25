@@ -10,8 +10,8 @@
 [ext_resource type="Texture2D" uid="uid://bcmbxpsbvia53" path="res://inicio/buttons/buttonS.tres" id="9_srutd"]
 [ext_resource type="FontFile" uid="uid://t8w28xx3wyy5" path="res://assets/Fonts/ComicHelvetic_Heavy.otf" id="10_kxkpg"]
 [ext_resource type="PackedScene" uid="uid://hxannuoo4ix1" path="res://MiniJuegoCorb-DFS-BFS/MiniCorbHistory.tscn" id="10_xt5yy"]
-[ext_resource type="Texture2D" uid="uid://cywopum7etive" path="res://inicio/buttons/buttonBlue.tres" id="11_kjqi4"]
-[ext_resource type="Texture2D" uid="uid://cqlua8sjro0ag" path="res://inicio/buttons/buttonBlueC.tres" id="12_a8ub7"]
+[ext_resource type="Texture2D" path="res://inicio/buttons/buttonBlue.tres" id="11_kjqi4"]
+[ext_resource type="Texture2D" path="res://inicio/buttons/buttonBlueC.tres" id="12_a8ub7"]
 
 [sub_resource type="GDScript" id="GDScript_b8lro"]
 script/source = "extends Control

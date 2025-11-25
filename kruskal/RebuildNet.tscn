@@ -2,10 +2,10 @@
 
 [ext_resource type="Script" uid="uid://hdv377ojl7xa" path="res://kruskal/Scripts/RebuildNet.gd" id="1_6nj6q"]
 [ext_resource type="Script" uid="uid://b6ydoa7wbbkg4" path="res://kruskal/Scripts/Grafo.gd" id="1_ye8f7"]
-[ext_resource type="Texture2D" uid="uid://cywopum7etive" path="res://inicio/buttons/buttonBlue.tres" id="2_p3toe"]
+[ext_resource type="Texture2D" path="res://inicio/buttons/buttonBlue.tres" id="2_p3toe"]
 [ext_resource type="Texture2D" uid="uid://d1nnxaafglgi7" path="res://inicio/image/fondo.png" id="2_s250g"]
 [ext_resource type="PackedScene" uid="uid://bsai5yeq3b05c" path="res://kruskal/Scenes/Arista.tscn" id="3_oo3x6"]
-[ext_resource type="Texture2D" uid="uid://cqlua8sjro0ag" path="res://inicio/buttons/buttonBlueC.tres" id="3_q0wes"]
+[ext_resource type="Texture2D" path="res://inicio/buttons/buttonBlueC.tres" id="3_q0wes"]
 [ext_resource type="PackedScene" uid="uid://jbu4q7mrlv0f" path="res://kruskal/Scenes/Nodo.tscn" id="4_s250g"]
 [ext_resource type="Texture2D" uid="uid://c7tregmc2s2cv" path="res://dijkstraLaura - copia/image/explicar.png" id="8_pryx3"]
 [ext_resource type="FontFile" uid="uid://t8w28xx3wyy5" path="res://assets/Fonts/ComicHelvetic_Heavy.otf" id="9_44ryb"]
@@ -85,6 +85,7 @@ offset_bottom = 648.0
 theme_override_styles/panel = SubResource("StyleBoxTexture_jjl2y")
 
 [node name="Label3" type="Label" parent="InicioPanel"]
+layout_mode = 0
 offset_left = 720.0
 offset_top = 48.0
 offset_right = 928.0
@@ -105,6 +106,7 @@ theme_override_font_sizes/font_size = 43
 text = "Misión: RebuildNet"
 
 [node name="TextureRect2" type="TextureRect" parent="InicioPanel"]
+layout_mode = 0
 offset_left = 768.0
 offset_top = 272.0
 offset_right = 1768.0
@@ -123,6 +125,7 @@ texture_normal = ExtResource("11_pin2u")
 script = ExtResource("12_4nf8e")
 
 [node name="TextureButton" type="TextureButton" parent="InicioPanel"]
+layout_mode = 0
 offset_left = 744.0
 offset_top = 512.0
 offset_right = 802.0
@@ -133,6 +136,7 @@ texture_pressed = ExtResource("3_q0wes")
 texture_hover = ExtResource("3_q0wes")
 
 [node name="Label4" type="Label" parent="InicioPanel"]
+layout_mode = 0
 offset_left = 792.0
 offset_top = 536.0
 offset_right = 946.0
@@ -144,6 +148,7 @@ theme_override_font_sizes/font_size = 46
 text = "START"
 
 [node name="Label5" type="Label" parent="InicioPanel"]
+layout_mode = 0
 offset_left = 32.0
 offset_top = 192.0
 offset_right = 584.0
@@ -161,6 +166,7 @@ scale = Vector2(5, 5)
 texture = SubResource("AtlasTexture_3r526")
 
 [node name="Label2" type="Label" parent="InicioPanel"]
+layout_mode = 0
 offset_left = 720.0
 offset_top = 128.0
 offset_right = 1075.0

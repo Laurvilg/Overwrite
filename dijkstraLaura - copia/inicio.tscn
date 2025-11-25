@@ -8,8 +8,8 @@
 [ext_resource type="Texture2D" uid="uid://d4ni14x8nl2n" path="res://inicio/buttons/musicaButton.tres" id="4_dlegv"]
 [ext_resource type="Script" uid="uid://d4jgkqfp5ly5q" path="res://inicio/scripts/musica_button.gd" id="5_2fqih"]
 [ext_resource type="Texture2D" uid="uid://usbotglorkdk" path="res://dijkstraLaura - copia/image/ordenador malo.png" id="5_dlegv"]
-[ext_resource type="Texture2D" uid="uid://cywopum7etive" path="res://inicio/buttons/buttonBlue.tres" id="6_2fqih"]
-[ext_resource type="Texture2D" uid="uid://cqlua8sjro0ag" path="res://inicio/buttons/buttonBlueC.tres" id="7_g2gsb"]
+[ext_resource type="Texture2D" path="res://inicio/buttons/buttonBlue.tres" id="6_2fqih"]
+[ext_resource type="Texture2D" path="res://inicio/buttons/buttonBlueC.tres" id="7_g2gsb"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_n13ev"]
 texture = ExtResource("1_wcf3k")
@@ -20,7 +20,7 @@ bg_color = Color(0.819444, 0.272986, 0.267183, 0.466667)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ws25q"]
 bg_color = Color(0.456566, 0.157875, 0.82878, 0.47451)
 
-[node name="Inicio" type="Node2D"]
+[node name="Inicio2" type="Node2D"]
 script = ExtResource("1_ogrqt")
 
 [node name="Panel" type="Panel" parent="."]
