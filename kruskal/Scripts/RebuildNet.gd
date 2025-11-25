@@ -6,7 +6,7 @@ extends Node2D
 @onready var grafo := $Grafo if has_node("Grafo") else null
 @onready var ui_label := $UI/Label_Status if has_node("UI/Label_Status") else null
 @onready var btn_reset := $UI/Button_Reset if has_node("UI/Button_Reset") else null
-@onready var ui = $UI
+@onready var reset = $UI
 @onready var inicio = $InicioPanel
 @onready var grafo1  = $Grafo
 
@@ -53,5 +53,5 @@ func _on_texture_button_pressed() -> void:
 	AudioManager.SFXPlayer.stream = preload("res://inicio/audio/button-305770.mp3")
 	AudioManager.SFXPlayer.play()
 	inicio.visible = false
-	ui.visible = true
+	reset.visible = true
 	grafo1.visible = true
