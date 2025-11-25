@@ -29,6 +29,7 @@ offset_bottom = 648.0
 theme_override_styles/panel = SubResource("StyleBoxTexture_n13ev")
 
 [node name="Label4" type="Label" parent="Panel"]
+layout_mode = 0
 offset_left = 32.0
 offset_top = 192.0
 offset_right = 600.0
@@ -41,6 +42,7 @@ Para lograrlo, piensa como Dijkstra, el algoritmo que encuentra siempre el camin
 autowrap_mode = 2
 
 [node name="Label3" type="Label" parent="Panel"]
+layout_mode = 0
 offset_left = 720.0
 offset_top = 48.0
 offset_right = 896.0
@@ -50,6 +52,7 @@ theme_override_font_sizes/font_size = 23
 text = "Camino mínimo"
 
 [node name="TextureRect2" type="TextureRect" parent="Panel"]
+layout_mode = 0
 offset_left = 768.0
 offset_top = 288.0
 offset_right = 1768.0
@@ -58,6 +61,7 @@ scale = Vector2(0.2, 0.2)
 texture = ExtResource("4_3cxyj")
 
 [node name="TextureRect" type="TextureRect" parent="Panel"]
+layout_mode = 0
 offset_left = 792.0
 offset_top = 304.0
 offset_right = 1304.0
@@ -66,6 +70,7 @@ scale = Vector2(0.3, 0.3)
 texture = ExtResource("5_dlegv")
 
 [node name="Label2" type="Label" parent="Panel"]
+layout_mode = 0
 offset_left = 704.0
 offset_top = 128.0
 offset_right = 1059.0
@@ -87,6 +92,7 @@ theme_override_font_sizes/font_size = 43
 text = "Misión: Optimiza la red 💡"
 
 [node name="Panel2" type="Panel" parent="Panel"]
+layout_mode = 0
 offset_left = 24.0
 offset_top = 240.0
 offset_right = 256.0
@@ -94,6 +100,7 @@ offset_bottom = 264.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_qraif")
 
 [node name="Panel3" type="Panel" parent="Panel"]
+layout_mode = 0
 offset_left = 240.0
 offset_top = 216.0
 offset_right = 480.0
@@ -101,6 +108,7 @@ offset_bottom = 240.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_ws25q")
 
 [node name="TextureButton" type="TextureButton" parent="Panel"]
+layout_mode = 0
 offset_left = 744.0
 offset_top = 512.0
 offset_right = 802.0

@@ -26,6 +26,15 @@ offset_right = 1152.0
 offset_bottom = 648.0
 theme_override_styles/panel = SubResource("StyleBoxTexture_bl3d1")
 
+[node name="Label3" type="Label" parent="Panel"]
+offset_left = 720.0
+offset_top = 48.0
+offset_right = 928.0
+offset_bottom = 71.0
+theme_override_fonts/font = ExtResource("2_o3w4w")
+theme_override_font_sizes/font_size = 23
+text = "Expansión mínima"
+
 [node name="Label" type="Label" parent="Panel"]
 layout_mode = 0
 offset_left = 32.0
@@ -37,6 +46,14 @@ theme_override_fonts/font = ExtResource("2_o3w4w")
 theme_override_font_sizes/font_size = 43
 text = "Misión: RebuildNet"
 
+[node name="TextureRect2" type="TextureRect" parent="Panel"]
+offset_left = 768.0
+offset_top = 272.0
+offset_right = 1768.0
+offset_bottom = 1272.0
+scale = Vector2(0.21, 0.21)
+texture = ExtResource("9_bljou")
+
 [node name="musicaButton" type="TextureButton" parent="Panel"]
 layout_mode = 0
 offset_left = 1088.0
@@ -47,26 +64,28 @@ scale = Vector2(3.2, 3.2)
 texture_normal = ExtResource("3_tdy6t")
 script = ExtResource("4_bljou")
 
-[node name="Label" type="Label" parent="."]
-offset_left = 720.0
-offset_top = 128.0
-offset_right = 1075.0
-offset_bottom = 295.0
-theme_override_colors/font_shadow_color = Color(0.133, 0, 0.57, 1)
-theme_override_fonts/font = ExtResource("5_0ac11")
-theme_override_font_sizes/font_size = 150
-text = "Kruskal"
+[node name="TextureButton" type="TextureButton" parent="Panel"]
+offset_left = 744.0
+offset_top = 512.0
+offset_right = 802.0
+offset_bottom = 534.0
+scale = Vector2(4.3, 4.3)
+texture_normal = ExtResource("6_cj8ey")
+texture_pressed = ExtResource("7_h28wl")
+texture_hover = ExtResource("7_h28wl")
 
-[node name="Label2" type="Label" parent="."]
-offset_left = 720.0
-offset_top = 48.0
-offset_right = 896.0
-offset_bottom = 71.0
+[node name="Label4" type="Label" parent="Panel"]
+offset_left = 792.0
+offset_top = 536.0
+offset_right = 946.0
+offset_bottom = 579.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0.354232, 0.0709727, 0.982598, 1)
 theme_override_fonts/font = ExtResource("2_o3w4w")
-theme_override_font_sizes/font_size = 23
-text = "Expansión mínima"
+theme_override_font_sizes/font_size = 46
+text = "START"
 
-[node name="Label3" type="Label" parent="."]
+[node name="Label5" type="Label" parent="Panel"]
 offset_left = 32.0
 offset_top = 192.0
 offset_right = 584.0
@@ -78,39 +97,20 @@ text = "Eres Bella, encargada de restaurar el orden en una red llena de conexion
 Piensa como Kruskal, selecciona arista por arista con cuidado y construye el Árbol de Expansión Mínima que mantendrá la red estable. ¡Demuestra que tú eres quien realmente controla el sistema!"
 autowrap_mode = 2
 
-[node name="TextureButton" type="TextureButton" parent="."]
-offset_left = 744.0
-offset_top = 512.0
-offset_right = 802.0
-offset_bottom = 534.0
-scale = Vector2(4.3, 4.3)
-texture_normal = ExtResource("6_cj8ey")
-texture_pressed = ExtResource("7_h28wl")
-texture_hover = ExtResource("7_h28wl")
-
-[node name="Label4" type="Label" parent="."]
-offset_left = 792.0
-offset_top = 536.0
-offset_right = 946.0
-offset_bottom = 579.0
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_shadow_color = Color(0.354232, 0.0709727, 0.982598, 1)
-theme_override_fonts/font = ExtResource("2_o3w4w")
-theme_override_font_sizes/font_size = 46
-text = "START"
-
-[node name="TextureRect2" type="TextureRect" parent="."]
-offset_left = 768.0
-offset_top = 272.0
-offset_right = 1768.0
-offset_bottom = 1272.0
-scale = Vector2(0.21, 0.21)
-texture = ExtResource("9_bljou")
-
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Sprite2D" type="Sprite2D" parent="Panel"]
 position = Vector2(872, 392)
 scale = Vector2(5, 5)
 texture = SubResource("AtlasTexture_0ac11")
 
+[node name="Label2" type="Label" parent="Panel"]
+offset_left = 720.0
+offset_top = 128.0
+offset_right = 1075.0
+offset_bottom = 295.0
+theme_override_colors/font_shadow_color = Color(0.133, 0, 0.57, 1)
+theme_override_fonts/font = ExtResource("5_0ac11")
+theme_override_font_sizes/font_size = 150
+text = "Kruskal"
+
 [connection signal="pressed" from="Panel/musicaButton" to="Panel/musicaButton" method="_on_pressed"]
-[connection signal="pressed" from="TextureButton" to="." method="_on_texture_button_pressed"]
+[connection signal="pressed" from="Panel/TextureButton" to="." method="_on_texture_button_pressed"]

@@ -39,12 +39,12 @@ var zona_activada :=      {1: false, 2: false, 3: false, 4: false, 5: false, 6: 
 
 # Qué minijuego/pantalla se abre al completar cada zona
 var escenas_por_zona := {
-	1: preload("res://dijkstraLaura - copia/dijkstra.tscn"),
-	2: preload("res://MiniJuegoCorb-DFS-BFS/MiniJuegoDFS.tscn"),
-	3: preload("res://Edmonds-Karp/FlowGraph.tscn"),
-	4: preload("res://minijuego/juego.tscn"),
+	1: preload("res://dijkstraLaura - copia/dijkstra.tscn"), #laura
+	2: preload("res://MiniJuegoCorb-DFS-BFS/MiniJuegoDFS.tscn"), #corbacho
+	3: preload("res://Edmonds-Karp/FlowGraph.tscn"), #juan
+	4: preload("res://kruskal/RebuildNet.tscn"), #valerie
 	5: preload("res://pantallasPreguntas/preg3.tscn"),
-	6: preload("res://pantallasPreguntas/preg4.tscn"),
+	6: preload("res://minijuego/juego.tscn"),
 }
 
 func _ready():

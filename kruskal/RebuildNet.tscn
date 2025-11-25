@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://2wxuxom227yp"]
+[gd_scene load_steps=17 format=3 uid="uid://2wxuxom227yp"]
 
 [ext_resource type="Script" uid="uid://hdv377ojl7xa" path="res://kruskal/Scripts/RebuildNet.gd" id="1_6nj6q"]
 [ext_resource type="Script" uid="uid://b6ydoa7wbbkg4" path="res://kruskal/Scripts/Grafo.gd" id="1_ye8f7"]
@@ -7,6 +7,20 @@
 [ext_resource type="PackedScene" uid="uid://bsai5yeq3b05c" path="res://kruskal/Scenes/Arista.tscn" id="3_oo3x6"]
 [ext_resource type="Texture2D" uid="uid://cqlua8sjro0ag" path="res://inicio/buttons/buttonBlueC.tres" id="3_q0wes"]
 [ext_resource type="PackedScene" uid="uid://jbu4q7mrlv0f" path="res://kruskal/Scenes/Nodo.tscn" id="4_s250g"]
+[ext_resource type="Texture2D" uid="uid://c7tregmc2s2cv" path="res://dijkstraLaura - copia/image/explicar.png" id="8_pryx3"]
+[ext_resource type="FontFile" uid="uid://t8w28xx3wyy5" path="res://assets/Fonts/ComicHelvetic_Heavy.otf" id="9_44ryb"]
+[ext_resource type="Texture2D" uid="uid://dstyka644yd5g" path="res://dijkstraLaura - copia/image/purple-gradient-circle-free-png.webp" id="10_w5avy"]
+[ext_resource type="Texture2D" uid="uid://d4ni14x8nl2n" path="res://inicio/buttons/musicaButton.tres" id="11_pin2u"]
+[ext_resource type="Script" uid="uid://d4jgkqfp5ly5q" path="res://inicio/scripts/musica_button.gd" id="12_4nf8e"]
+[ext_resource type="Texture2D" uid="uid://cotwe4eahl4su" path="res://assets/props/props2.png" id="13_l00dh"]
+[ext_resource type="FontFile" uid="uid://biasfq1fvbi0t" path="res://assets/Fonts/Silver.ttf" id="14_r5r8x"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_jjl2y"]
+texture = ExtResource("8_pryx3")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3r526"]
+atlas = ExtResource("13_l00dh")
+region = Rect2(244.819, 48.9037, 23.3509, 31.2699)
 
 [node name="RebuildNet" type="Node2D"]
 script = ExtResource("1_6nj6q")
@@ -30,6 +44,7 @@ mouse_filter = 2
 color = Color(0.472918, 0.300448, 0.090146, 0.32549)
 
 [node name="Grafo" type="Node2D" parent="."]
+visible = false
 script = ExtResource("1_ye8f7")
 AristaScene = ExtResource("3_oo3x6")
 NodoScene = ExtResource("4_s250g")
@@ -37,6 +52,7 @@ NodoScene = ExtResource("4_s250g")
 [node name="NodoContainer" type="Node2D" parent="Grafo"]
 
 [node name="UI" type="CanvasLayer" parent="."]
+visible = false
 
 [node name="Label_Status" type="Label" parent="UI"]
 offset_right = 1153.0
@@ -63,4 +79,97 @@ offset_bottom = 52.0
 theme_override_font_sizes/font_size = 35
 text = "RESET"
 
+[node name="InicioPanel" type="Panel" parent="."]
+offset_right = 1152.0
+offset_bottom = 648.0
+theme_override_styles/panel = SubResource("StyleBoxTexture_jjl2y")
+
+[node name="Label3" type="Label" parent="InicioPanel"]
+offset_left = 720.0
+offset_top = 48.0
+offset_right = 928.0
+offset_bottom = 71.0
+theme_override_fonts/font = ExtResource("9_44ryb")
+theme_override_font_sizes/font_size = 23
+text = "Expansión mínima"
+
+[node name="Label" type="Label" parent="InicioPanel"]
+layout_mode = 0
+offset_left = 32.0
+offset_top = 112.0
+offset_right = 578.0
+offset_bottom = 155.0
+theme_override_colors/font_shadow_color = Color(0.811765, 0, 0, 1)
+theme_override_fonts/font = ExtResource("9_44ryb")
+theme_override_font_sizes/font_size = 43
+text = "Misión: RebuildNet"
+
+[node name="TextureRect2" type="TextureRect" parent="InicioPanel"]
+offset_left = 768.0
+offset_top = 272.0
+offset_right = 1768.0
+offset_bottom = 1272.0
+scale = Vector2(0.21, 0.21)
+texture = ExtResource("10_w5avy")
+
+[node name="musicaButton" type="TextureButton" parent="InicioPanel"]
+layout_mode = 0
+offset_left = 1088.0
+offset_top = 8.0
+offset_right = 1105.0
+offset_bottom = 25.0
+scale = Vector2(3.2, 3.2)
+texture_normal = ExtResource("11_pin2u")
+script = ExtResource("12_4nf8e")
+
+[node name="TextureButton" type="TextureButton" parent="InicioPanel"]
+offset_left = 744.0
+offset_top = 512.0
+offset_right = 802.0
+offset_bottom = 534.0
+scale = Vector2(4.3, 4.3)
+texture_normal = ExtResource("2_p3toe")
+texture_pressed = ExtResource("3_q0wes")
+texture_hover = ExtResource("3_q0wes")
+
+[node name="Label4" type="Label" parent="InicioPanel"]
+offset_left = 792.0
+offset_top = 536.0
+offset_right = 946.0
+offset_bottom = 579.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0.354232, 0.0709727, 0.982598, 1)
+theme_override_fonts/font = ExtResource("9_44ryb")
+theme_override_font_sizes/font_size = 46
+text = "START"
+
+[node name="Label5" type="Label" parent="InicioPanel"]
+offset_left = 32.0
+offset_top = 192.0
+offset_right = 584.0
+offset_bottom = 584.0
+theme_override_fonts/font = ExtResource("9_44ryb")
+theme_override_font_sizes/font_size = 23
+text = "Eres Bella, encargada de restaurar el orden en una red llena de conexiones caóticas. Eva, tu alter ego, está mezclando enlaces para confundirte, pero tú sabes cómo trabajar: eligiendo siempre las conexiones más ligeras y evitando ciclos inútiles. 
+
+Piensa como Kruskal, selecciona arista por arista con cuidado y construye el Árbol de Expansión Mínima que mantendrá la red estable. ¡Demuestra que tú eres quien realmente controla el sistema!"
+autowrap_mode = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="InicioPanel"]
+position = Vector2(872, 392)
+scale = Vector2(5, 5)
+texture = SubResource("AtlasTexture_3r526")
+
+[node name="Label2" type="Label" parent="InicioPanel"]
+offset_left = 720.0
+offset_top = 128.0
+offset_right = 1075.0
+offset_bottom = 295.0
+theme_override_colors/font_shadow_color = Color(0.133, 0, 0.57, 1)
+theme_override_fonts/font = ExtResource("14_r5r8x")
+theme_override_font_sizes/font_size = 150
+text = "Kruskal"
+
 [connection signal="pressed" from="UI/Button_Reset" to="Grafo" method="_on_button_reset_pressed"]
+[connection signal="pressed" from="InicioPanel/musicaButton" to="InicioPanel/musicaButton" method="_on_pressed"]
+[connection signal="pressed" from="InicioPanel/TextureButton" to="." method="_on_texture_button_pressed"]

@@ -452,6 +452,7 @@ text = "1
 "
 
 [node name="Label10" type="Label" parent="Label10"]
+layout_mode = 0
 offset_left = -1152.0
 offset_right = -1140.0
 offset_bottom = 43.0
