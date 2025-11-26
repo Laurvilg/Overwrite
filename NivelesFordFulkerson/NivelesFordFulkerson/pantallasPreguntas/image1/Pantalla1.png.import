@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cjdko6poaibgg"
-path="res://.godot/imported/Pantalla4.png-9e7ec09804df777097c9139ffb6b6ed0.ctex"
+uid="uid://bxris4mgxgycn"
+path="res://.godot/imported/Pantalla1.png-9814661049ba22c754fac3ea007b639a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://pantallasPreguntas/image1/Pantalla4.png"
-dest_files=["res://.godot/imported/Pantalla4.png-9e7ec09804df777097c9139ffb6b6ed0.ctex"]
+source_file="res://NivelesFordFulkerson/NivelesFordFulkerson/pantallasPreguntas/image1/Pantalla1.png"
+dest_files=["res://.godot/imported/Pantalla1.png-9814661049ba22c754fac3ea007b639a.ctex"]
 
 [params]
 

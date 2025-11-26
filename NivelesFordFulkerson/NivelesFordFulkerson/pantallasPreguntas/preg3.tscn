@@ -1,7 +1,7 @@
 [gd_scene load_steps=16 format=3 uid="uid://ylo5n8iflja"]
 
-[ext_resource type="Script" uid="uid://bgqw4tqdbxome" path="res://pantallasPreguntas/script/preg_3.gd" id="1_nvu41"]
-[ext_resource type="Texture2D" uid="uid://blg1ihc3t30av" path="res://pantallasPreguntas/image1/Pantalla3.png" id="1_v4wj4"]
+[ext_resource type="Script" uid="uid://bgqw4tqdbxome" path="res://NivelesFordFulkerson/NivelesFordFulkerson/pantallasPreguntas/script/preg_3.gd" id="1_nvu41"]
+[ext_resource type="Texture2D" uid="uid://blg1ihc3t30av" path="res://NivelesFordFulkerson/NivelesFordFulkerson/pantallasPreguntas/image1/Pantalla3.png" id="1_v4wj4"]
 [ext_resource type="Texture2D" uid="uid://cywopum7etive" path="res://inicio/buttons/buttonBlue.tres" id="3_edmxl"]
 [ext_resource type="Texture2D" uid="uid://cqlua8sjro0ag" path="res://inicio/buttons/buttonBlueC.tres" id="4_8y6b2"]
 [ext_resource type="FontFile" uid="uid://t8w28xx3wyy5" path="res://assets/Fonts/ComicHelvetic_Heavy.otf" id="5_1c1ko"]
