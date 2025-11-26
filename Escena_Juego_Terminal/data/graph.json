@@ -1,0 +1,32 @@
+{
+  "nodes": ["s", "1", "2", "3", "4", "t"],
+  "edges": [
+	{ "u": "s", "v": "1", "capacity": 3 },
+	{ "u": "1", "v": "2", "capacity": 2 },
+	{ "u": "2", "v": "t", "capacity": 2 },
+	{ "u": "s", "v": "3", "capacity": 2 },
+	{ "u": "3", "v": "4", "capacity": 3 },
+	{ "u": "4", "v": "t", "capacity": 2 },
+	{ "u": "1", "v": "4", "capacity": 1 }
+  ],
+  "adjacency": {
+	"s": [
+	  { "v": "1", "capacity": 3 },
+	  { "v": "3", "capacity": 2 }
+	],
+	"1": [
+	  { "v": "2", "capacity": 2 },
+	  { "v": "4", "capacity": 1 }
+	],
+	"2": [
+	  { "v": "t", "capacity": 2 }
+	],
+	"3": [
+	  { "v": "4", "capacity": 3 }
+	],
+	"4": [
+	  { "v": "t", "capacity": 2 }
+	],
+	"t": []
+  }
+}
