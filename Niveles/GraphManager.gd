@@ -1,4 +1,5 @@
 extends Node
+
 class_name GraphManager
 
 @export var terminal_path: NodePath = NodePath("Terminal")

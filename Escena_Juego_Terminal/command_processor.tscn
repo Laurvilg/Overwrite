@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://cbc5fff22cvc5"]
-
-[ext_resource type="Script" uid="uid://bn530ru68ggfx" path="res://Niveles/CommandProcessor.gd" id="1_bp1r8"]
-
-[node name="CommandProcessor" type="Node"]
-script = ExtResource("1_bp1r8")
