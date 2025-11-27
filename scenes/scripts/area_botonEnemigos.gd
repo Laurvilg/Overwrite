@@ -42,8 +42,8 @@ var escenas_por_zona := {
 	1: preload("res://dijkstraLaura - copia/dijkstra.tscn"), #laura
 	2: preload("res://MiniJuegoCorb-DFS-BFS/MiniJuegoDFS.tscn"), #corbacho
 	3: preload("res://Edmonds-Karp/FlowGraph.tscn"), #juan
-	4: preload("res://NivelesFordFulkerson/NivelesFordFulkerson/pantallasPreguntas/preg2.tscn"), #valerie
-	5: preload("res://NivelesFordFulkerson/NivelesFordFulkerson/pantallasPreguntas/preg1.tscn"),
+	4: preload("res://kruskal/RebuildNet.tscn"), #valerie
+	5: preload("res://Niveles/Terminal.tscn"),
 	6: preload("res://minijuego/juego.tscn"),
 }
 

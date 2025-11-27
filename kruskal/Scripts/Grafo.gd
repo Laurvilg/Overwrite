@@ -1,5 +1,7 @@
 extends Node2D
 
+@onready var salir_panelK = $"../salirPanelK"
+
 @export var AristaScene: PackedScene
 @export var NodoScene: PackedScene
 
@@ -270,6 +272,7 @@ func intentar_conectar(origen: String, destino: String, peso_valor: int) -> bool
 			if victoria_jugador():
 				_update_status("🌐 ¡Red reconstruida! Costo: %d (mínimo: %d)" % [costo_total, mst_weight])
 				_on_victory()
+				salir_panelK.visible = true
 			else:
 				_update_status("⚠️ Red conectada pero NO mínima"
 					% [costo_total, calcular_mst_actual()["suma"]])
@@ -316,7 +319,13 @@ func limpiar_selecciones() -> void:
 	costo_total = 0
 	accepted_aristas.clear()
 	accepted_nodes.clear()
-
+	
+	dsu_parent.clear()
+	dsu_rank.clear()
+	for n in nodos:
+		dsu_parent[n.nombre] = n.nombre
+		dsu_rank[n.nombre] = 0
+		
 	# restaurar visual en TODAS las aristas
 	for ar in aristas:
 		if is_instance_valid(ar) and ar.has_method("reiniciar_visual"):

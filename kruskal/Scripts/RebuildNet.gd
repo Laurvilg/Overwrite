@@ -17,7 +17,8 @@ func _ready() -> void:
 	# si el grafo existe, actualizar status inicial
 	if is_instance_valid(grafo):
 		if ui_label:
-			grafo.call_deferred("_update_status", "Generando red...")
+			grafo.call_deferred("_update_status", "Prioridad: aristas de bajo peso.
+Advertencia: evitar ciclos en la red.")
 			if "status_label" in grafo:
 				grafo.status_label = ui_label
 
@@ -55,3 +56,11 @@ func _on_texture_button_pressed() -> void:
 	inicio.visible = false
 	reset.visible = true
 	grafo1.visible = true
+
+
+func _on_texture_button_pressed2() -> void:
+	$UI.visible = false
+	$Grafo.visible = false
+	$Fondo.visible = false
+	$InicioPanel.visible = false
+	$salirPanelK.visible = false

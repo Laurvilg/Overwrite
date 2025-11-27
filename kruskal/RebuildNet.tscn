@@ -1,11 +1,11 @@
-[gd_scene load_steps=17 format=3 uid="uid://2wxuxom227yp"]
+[gd_scene load_steps=20 format=3 uid="uid://2wxuxom227yp"]
 
 [ext_resource type="Script" uid="uid://hdv377ojl7xa" path="res://kruskal/Scripts/RebuildNet.gd" id="1_6nj6q"]
 [ext_resource type="Script" uid="uid://b6ydoa7wbbkg4" path="res://kruskal/Scripts/Grafo.gd" id="1_ye8f7"]
-[ext_resource type="Texture2D" uid="uid://cywopum7etive" path="res://inicio/buttons/buttonBlue.tres" id="2_p3toe"]
+[ext_resource type="Texture2D" path="res://inicio/buttons/buttonBlue.tres" id="2_p3toe"]
 [ext_resource type="Texture2D" uid="uid://d1nnxaafglgi7" path="res://inicio/image/fondo.png" id="2_s250g"]
 [ext_resource type="PackedScene" uid="uid://bsai5yeq3b05c" path="res://kruskal/Scenes/Arista.tscn" id="3_oo3x6"]
-[ext_resource type="Texture2D" uid="uid://cqlua8sjro0ag" path="res://inicio/buttons/buttonBlueC.tres" id="3_q0wes"]
+[ext_resource type="Texture2D" path="res://inicio/buttons/buttonBlueC.tres" id="3_q0wes"]
 [ext_resource type="PackedScene" uid="uid://jbu4q7mrlv0f" path="res://kruskal/Scenes/Nodo.tscn" id="4_s250g"]
 [ext_resource type="Texture2D" uid="uid://c7tregmc2s2cv" path="res://dijkstraLaura - copia/image/explicar.png" id="8_pryx3"]
 [ext_resource type="FontFile" uid="uid://t8w28xx3wyy5" path="res://assets/Fonts/ComicHelvetic_Heavy.otf" id="9_44ryb"]
@@ -14,6 +14,8 @@
 [ext_resource type="Script" uid="uid://d4jgkqfp5ly5q" path="res://inicio/scripts/musica_button.gd" id="12_4nf8e"]
 [ext_resource type="Texture2D" uid="uid://cotwe4eahl4su" path="res://assets/props/props2.png" id="13_l00dh"]
 [ext_resource type="FontFile" uid="uid://biasfq1fvbi0t" path="res://assets/Fonts/Silver.ttf" id="14_r5r8x"]
+[ext_resource type="Texture2D" uid="uid://cmog44xkn300q" path="res://inicio/buttons/buttonxd.tres" id="15_w5avy"]
+[ext_resource type="Texture2D" uid="uid://bcmbxpsbvia53" path="res://inicio/buttons/buttonS.tres" id="16_pin2u"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_jjl2y"]
 texture = ExtResource("8_pryx3")
@@ -21,6 +23,9 @@ texture = ExtResource("8_pryx3")
 [sub_resource type="AtlasTexture" id="AtlasTexture_3r526"]
 atlas = ExtResource("13_l00dh")
 region = Rect2(244.819, 48.9037, 23.3509, 31.2699)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4nf8e"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
 
 [node name="RebuildNet" type="Node2D"]
 script = ExtResource("1_6nj6q")
@@ -35,7 +40,6 @@ offset_bottom = 649.0
 texture = ExtResource("2_s250g")
 
 [node name="ColorRect" type="ColorRect" parent="Fondo"]
-layout_mode = 0
 offset_left = 69.0
 offset_top = 78.0
 offset_right = 1099.0
@@ -177,6 +181,37 @@ theme_override_fonts/font = ExtResource("14_r5r8x")
 theme_override_font_sizes/font_size = 150
 text = "Kruskal"
 
+[node name="salirPanelK" type="Panel" parent="."]
+visible = false
+offset_left = 936.0
+offset_top = 536.0
+offset_right = 1240.0
+offset_bottom = 680.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_4nf8e")
+
+[node name="TextureButton" type="TextureButton" parent="salirPanelK"]
+layout_mode = 0
+offset_left = -80.0
+offset_top = -16.0
+offset_right = -23.0
+offset_bottom = 6.0
+scale = Vector2(4, 4)
+texture_normal = ExtResource("15_w5avy")
+texture_pressed = ExtResource("16_pin2u")
+texture_hover = ExtResource("16_pin2u")
+
+[node name="Label4" type="Label" parent="salirPanelK"]
+layout_mode = 0
+offset_left = -56.0
+offset_top = 16.0
+offset_right = 154.0
+offset_bottom = 49.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("9_44ryb")
+theme_override_font_sizes/font_size = 30
+text = "CONTINUAR"
+
 [connection signal="pressed" from="UI/Button_Reset" to="Grafo" method="_on_button_reset_pressed"]
 [connection signal="pressed" from="InicioPanel/musicaButton" to="InicioPanel/musicaButton" method="_on_pressed"]
 [connection signal="pressed" from="InicioPanel/TextureButton" to="." method="_on_texture_button_pressed"]
+[connection signal="pressed" from="salirPanelK/TextureButton" to="." method="_on_texture_button_pressed2"]
