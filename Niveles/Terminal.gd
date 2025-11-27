@@ -6,6 +6,7 @@ signal terminal_command_entered(cmd)
 # Rutas a los nodos de la UI (RichTextLabel y LineEdit)
 @export var output_path: NodePath = NodePath("VBoxContainer/OutputScroll/Output")
 @export var input_path: NodePath = NodePath("VBoxContainer/Input")
+@onready var salir = $salirBut
 
 var _output_node: Node = null
 var _input_node: Node = null
@@ -63,3 +64,9 @@ func _on_input_submitted(new_text: String) -> void:
 	
 	# Limpiar input
 	_input_node.clear()
+
+
+func _on_salir_but_pressed() -> void:
+	AudioManager.SFXPlayer.stream = preload("res://inicio/audio/button-305770.mp3")
+	AudioManager.SFXPlayer.play()
+	self.visible = false

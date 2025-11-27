@@ -43,7 +43,7 @@ var escenas_por_zona := {
 	2: preload("res://MiniJuegoCorb-DFS-BFS/MiniJuegoDFS.tscn"), #corbacho
 	3: preload("res://Edmonds-Karp/FlowGraph.tscn"), #juan
 	4: preload("res://kruskal/RebuildNet.tscn"), #valerie
-	5: preload("res://Niveles/Terminal.tscn"),
+	5: preload("res://Niveles/Terminal.tscn"), #juan camilo
 	6: preload("res://minijuego/juego.tscn"),
 }
 
@@ -124,7 +124,7 @@ func _input_event(viewport, event, shape_idx):
 			else:
 				resultados_label.text = "No puedes activar el nodo " + str(shape_idx) + " todavía."
 				resultados_label.visible = true
-				await get_tree().create_timer(2.0).timeout
+				await get_tree().create_timer(1.0).timeout
 				actualizar_resultado_lineal()
 				
 		elif shape_idx == shape_idx_nodo_central:
@@ -133,7 +133,7 @@ func _input_event(viewport, event, shape_idx):
 			else:
 				resultados_label.text = "Aún no puedes activar el nodo central."
 				resultados_label.visible = true
-				await get_tree().create_timer(2.0).timeout
+				await get_tree().create_timer(1.0).timeout
 				actualizar_resultado_lineal()
 
 
@@ -270,8 +270,12 @@ func actualizar_resultado_lineal(nodo_intento: int = -1):
 	if nodo_intento != -1 and zonas_completadas.get(nodo_intento, false):
 		# Mensaje si intenta un nodo ya completado
 		resultados_label.text = "Ya el nodo " + str(nodo_intento) + " ya lo completaste!"
+		await get_tree().create_timer(1.0).timeout
+		actualizar_resultado_lineal()
 	elif siguiente > zonas_completadas.size():
-		resultados_label.text = "¡Todos los nodos están completados!"
+		resultados_label.text = "¡Dirígete al nodo central y activa la palanca para ganar!"
+		#await get_tree().create_timer(1.0).timeout
+		#actualizar_resultado_lineal()
 	else:
 		resultados_label.text = "Activa el nodo " + str(siguiente) + " para avanzar"
 	resultados_label.visible = true

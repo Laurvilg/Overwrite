@@ -2,10 +2,10 @@
 
 [ext_resource type="Script" uid="uid://my7mbk8y44o1" path="res://dijkstraLaura - copia/scripts/dijkstra.gd" id="1_nwf3n"]
 [ext_resource type="Texture2D" uid="uid://drwvedr4q2k2r" path="res://inicio/image/2.png" id="1_sm1f8"]
-[ext_resource type="Texture2D" path="res://inicio/buttons/buttonBlue.tres" id="2_24yc5"]
+[ext_resource type="Texture2D" uid="uid://cywopum7etive" path="res://inicio/buttons/buttonBlue.tres" id="2_24yc5"]
 [ext_resource type="Script" uid="uid://clgxhjpqhslik" path="res://dijkstraLaura - copia/scripts/grafo_visual.gd" id="3_8vwas"]
 [ext_resource type="Texture2D" uid="uid://dstyka644yd5g" path="res://dijkstraLaura - copia/image/purple-gradient-circle-free-png.webp" id="3_j66lj"]
-[ext_resource type="Texture2D" path="res://inicio/buttons/buttonBlueC.tres" id="3_l6wk2"]
+[ext_resource type="Texture2D" uid="uid://cqlua8sjro0ag" path="res://inicio/buttons/buttonBlueC.tres" id="3_l6wk2"]
 [ext_resource type="PackedScene" uid="uid://btwx61slv0f5l" path="res://dijkstraLaura - copia/LineDrawer.tscn" id="4_ix473"]
 [ext_resource type="Texture2D" uid="uid://caj5en62ctwgq" path="res://dijkstraLaura - copia/image/red-gradient-circle-free-png.webp" id="4_q5a7c"]
 [ext_resource type="FontFile" uid="uid://t8w28xx3wyy5" path="res://assets/Fonts/ComicHelvetic_Heavy.otf" id="4_qa8sy"]

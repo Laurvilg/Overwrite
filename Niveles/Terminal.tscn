@@ -1,8 +1,16 @@
-[gd_scene load_steps=4 format=3 uid="uid://barrsqg05rrvg"]
+[gd_scene load_steps=9 format=3 uid="uid://barrsqg05rrvg"]
 
 [ext_resource type="Script" uid="uid://drjptosjd608f" path="res://Niveles/Terminal.gd" id="1_chjid"]
 [ext_resource type="Script" uid="uid://bn530ru68ggfx" path="res://Niveles/CommandProcessor.gd" id="2_1adym"]
 [ext_resource type="Script" uid="uid://do0hrm1bsdbj2" path="res://Niveles/GraphManager.gd" id="3_1adym"]
+[ext_resource type="Texture2D" uid="uid://cmog44xkn300q" path="res://inicio/buttons/buttonxd.tres" id="4_wdd33"]
+[ext_resource type="Texture2D" uid="uid://bcmbxpsbvia53" path="res://inicio/buttons/buttonS.tres" id="5_4dukq"]
+[ext_resource type="FontFile" uid="uid://t8w28xx3wyy5" path="res://assets/Fonts/ComicHelvetic_Heavy.otf" id="6_rysgf"]
+
+[sub_resource type="Theme" id="Theme_fwrqh"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wdd33"]
+bg_color = Color(0.376471, 0.376471, 0.376471, 0.882353)
 
 [node name="Terminal" type="Control"]
 layout_mode = 3
@@ -13,7 +21,14 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 2
+theme = SubResource("Theme_fwrqh")
 script = ExtResource("1_chjid")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 0
+offset_right = 1152.0
+offset_bottom = 655.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_wdd33")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
@@ -45,3 +60,26 @@ script = ExtResource("2_1adym")
 
 [node name="GraphManager" type="Node" parent="CommandProcessor"]
 script = ExtResource("3_1adym")
+
+[node name="salirBut" type="TextureButton" parent="."]
+layout_mode = 0
+offset_left = 955.0
+offset_top = 559.0
+offset_right = 1012.0
+offset_bottom = 583.0
+scale = Vector2(3, 3)
+texture_normal = ExtResource("4_wdd33")
+texture_pressed = ExtResource("5_4dukq")
+texture_hover = ExtResource("5_4dukq")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 1011.0
+offset_top = 579.0
+offset_right = 1078.0
+offset_bottom = 602.0
+theme_override_fonts/font = ExtResource("6_rysgf")
+theme_override_font_sizes/font_size = 22
+text = "SALIR"
+
+[connection signal="pressed" from="salirBut" to="." method="_on_salir_but_pressed"]
